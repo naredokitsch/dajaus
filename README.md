@@ -17,7 +17,7 @@ El archivo init.cpp contiene las funciones utilizadas por los callbacks. Dentro 
 		left-right arrows -------- Rotate Z
 		up-down arrows -------- Rotate X
 
-El archivo some_functions.cpp llevará las diferentes de dibujo.
+El archivo some_functions.cpp llevará las diferentes funciones de dibujo.
 
 dibuja.cpp será el archivo con la función en la que se programará la secuencia de dibujo.
 
@@ -27,7 +27,7 @@ obj2array.sh es un programa en bash que toma los vértices de archivos OBJ y los
 
 		nombre_archivo.obj   ----->   nombre_archivo.cpp
 
-		donde file.cpp contiene:
+		donde nombre_archivo.cpp contiene:
 
 				float nombre_archivo [] = { cantidad_de_coordenadas*3, x , y , z , x , y , z , . . . , x , y , z , x , y , z} ;
 
