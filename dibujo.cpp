@@ -1,9 +1,9 @@
-
+#include "figura_class.cpp"
 #include "rick.cpp"
 #include "hellboy.cpp"
 #include "chica.cpp"
 #include "toilet.cpp"
-#include "some_functions.cpp"
+
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -18,17 +18,9 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 
 ////DIBUJA CHICA
-		glTranslatef(-150,-150,-200);
-		dibuja_puntos(chica);
+		glTranslatef(-150,-150,-200);	
+		chica.cloudPoints();
 
-
-//		dibuja_puntos(toilet);
-
-
-//		dibuja_puntos(rick);
-
-
-//		dibuja_puntos(hellboy);
 
   											
   glutSwapBuffers ( );

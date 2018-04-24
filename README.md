@@ -17,7 +17,7 @@ El archivo init.cpp contiene las funciones utilizadas por los callbacks. Dentro 
 		left-right arrows -------- Rotate Z
 		up-down arrows -------- Rotate X
 
-El archivo some_functions.cpp llevará las diferentes funciones de dibujo.
+El archivo figura.cpp contiene la clase figura.
 
 dibuja.cpp será el archivo con la función en la que se programará la secuencia de dibujo.
 
