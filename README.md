@@ -1,5 +1,7 @@
 UNA CASA
 
+- Juan Pablo Flores
+
 Este programa pretende diseñar una casa de acuerdo a las especificaciones del proyecto Proyecto_Final_2018_2.pdf y al plano escogido en el archivo plano_casa.jpeg.
 
 El archivo principal lleva el nombre de main.cpp. Contiene la función main, así como los callbacks necesarios para openGL. También comprende directivas incluyendo otros archivos con los que se trabajan.
