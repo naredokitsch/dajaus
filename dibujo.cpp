@@ -1,8 +1,6 @@
 #include "figura_class.cpp"
 
-#include "cubo.cpp"
-#include "toilet_.cpp"
-#include "hellboy.cpp"
+#include "chair.cpp"
 
 
 void display ( void )   // Creamos la funcion donde se dibuja
@@ -17,9 +15,9 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	glRotatef(angleZ, 0.0f, 0.0, 1.0);
 
 
-	figura cube(coo_hellboy, fac_hellboy);
+	figura cube( coord_chair, quads_chair, trng_chair);
 	//cube.cloudPoints();
-	cube.quads();
+	cube.mesh();
 
 
   											
