@@ -11,6 +11,9 @@ float angleZ = 0.0f;
 void InitGL ( void )     // Inicializamos parametros
 {
 
+
+
+
 	//glShadeModel(GL_SMOOTH);							// Habilitamos Smooth Shading
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);				// Negro de fondo
 	glClearDepth(1.0f);									// Configuramos Depth Buffer
@@ -32,7 +35,7 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 	glLoadIdentity();
 
 	// Tipo de Vista
-	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 200.0);
+	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 400.0);
 
 	glMatrixMode(GL_MODELVIEW);							// Seleccionamos Modelview Matrix
 }
