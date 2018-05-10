@@ -1,6 +1,7 @@
 #include "figura_class.cpp"
 
-#include "chair.cpp"
+//#include "chair.cpp"
+#include "umbrella.cpp"
 
 
 void display ( void )   // Creamos la funcion donde se dibuja
@@ -15,8 +16,11 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	glRotatef(angleZ, 0.0f, 0.0, 1.0);
 
 
-	figura cube( coord_chair, quads_chair, trng_chair);
+	figura cube( coord_umbrella, quads_umbrella, trng_umbrella);
+
 	//cube.cloudPoints();
+
+	glScalef(0.1,0.1,0.1);
 	cube.mesh();
 
 
