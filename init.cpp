@@ -11,15 +11,21 @@ float angleZ = 0.0f;
 void InitGL ( void )     // Inicializamos parametros
 {
 
+   glEnable(GL_TEXTURE_2D);
 
+   GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+   GLfloat mat_shininess[] = { 100.0 };
+   GLfloat light_position[] = { -1.0, 1.0, 1.0, 0.0 };
+   glClearColor (0.0, 0.0, 0.0, 0.0);
+   glShadeModel (GL_SMOOTH);
 
+   glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+   glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+   glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-	//glShadeModel(GL_SMOOTH);							// Habilitamos Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);				// Negro de fondo
-	glClearDepth(1.0f);									// Configuramos Depth Buffer
-	glEnable(GL_DEPTH_TEST);							// Habilitamos Depth Testing
-	glDepthFunc(GL_LEQUAL);								// Tipo de Depth Testing a realizar
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_LIGHT0);
+   glEnable(GL_DEPTH_TEST);
 }
 
 void reshape ( int width , int height )   // Creamos funcion Reshape

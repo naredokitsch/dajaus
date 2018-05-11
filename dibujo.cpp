@@ -1,7 +1,9 @@
 #include "figura_class.cpp"
 
-//#include "chair.cpp"
-#include "umbrella.cpp"
+#include "BigTable.cpp"
+//#include "umbrella.cpp"
+
+char archi [] = { 't','i','l','e','_','6','_','d','i','f','.','t','g','a','\0'};
 
 
 void display ( void )   // Creamos la funcion donde se dibuja
@@ -10,18 +12,26 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	//glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(transX,transY,transZ);
+	glTranslatef(transX ,transY,transZ);
 	glRotatef(angleY,0.0f,1.0f,0.0f);
 	glRotatef(angleX, 1.0f, 0.0f, 0.0f);
 	glRotatef(angleZ, 0.0f, 0.0, 1.0);
 
+	figura BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable, archi);
 
-	figura cube( coord_umbrella, quads_umbrella, trng_umbrella);
+	glPushMatrix();
+		glScalef(0.01,0.01,0.01);
+		glTranslatef(50.0049 , -600.6093,-100);
+		//BigTable.texturized();
+	glPopMatrix();
 
-	//cube.cloudPoints();
 
-	glScalef(0.1,0.1,0.1);
-	cube.mesh();
+	
+
+
+
+	//glScalef(0.1,0.1,0.1);
+	//glutSolidSphere(1,70,50);
 
 
   											
