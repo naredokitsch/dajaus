@@ -1,9 +1,6 @@
-#include "figura_class.cpp"
+#include "objects/figura_class.cpp"
+#include "objects/figura_objects.cpp"
 
-#include "BigTable.cpp"
-//#include "umbrella.cpp"
-
-char archi [] = { 't','i','l','e','_','6','_','d','i','f','.','t','g','a','\0'};
 
 
 void display ( void )   // Creamos la funcion donde se dibuja
@@ -17,15 +14,23 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	glRotatef(angleX, 1.0f, 0.0f, 0.0f);
 	glRotatef(angleZ, 0.0f, 0.0, 1.0);
 
-	figura BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable, archi);
+	glColor3f( 160.0/255.0 , 22.0/255.0 , 11.0/255.0 );
 
+
+	// MESA COMEDOR
 	glPushMatrix();
 		glScalef(0.01,0.01,0.01);
 		glTranslatef(50.0049 , -600.6093,-100);
-		//BigTable.texturized();
+		BigTable.texturized();
 	glPopMatrix();
 
 
+
+	//chair.solid();
+
+
+	
+	//chair.solid();
 	
 
 

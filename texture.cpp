@@ -1,13 +1,13 @@
 #include "texture.h"
 
-bool CTexture::LoadTGA(char *filename)			// Loads A TGA File Into Memory
+bool CTexture::LoadTGA(char *filename)								// Loads A TGA File Into Memory
 {
 	unsigned char	TGAheader[12]={0,0,2,0,0,0,0,0,0,0,0,0};	// Uncompressed TGA Header
-	unsigned char	TGAcompare[12];					// Used To Compare TGA Header
-	unsigned char	header[6];					// First 6 Useful Bytes From The Header
-	unsigned int	bytesPerPixel;					// Holds Number Of Bytes Per Pixel Used In The TGA File
-	unsigned int	imageSize;					// Used To Store The Image Size When Setting Aside Ram
-	unsigned int	temp;						// Temporary Variable
+	unsigned char	TGAcompare[12];									// Used To Compare TGA Header
+	unsigned char	header[6];											// First 6 Useful Bytes From The Header
+	unsigned int	bytesPerPixel;										// Holds Number Of Bytes Per Pixel Used In The TGA File
+	unsigned int	imageSize;											// Used To Store The Image Size When Setting Aside Ram
+	unsigned int	temp;													// Temporary Variable
 
 	FILE *file = fopen(filename, "rb");				// Open The TGA File
 
@@ -17,9 +17,12 @@ bool CTexture::LoadTGA(char *filename)			// Loads A TGA File Into Memory
 		fread(header,1,sizeof(header),file)!=sizeof(header))				// If So Read Next 6 Header Bytes
 	{
 
+
+
 		if (file == NULL)									// Did The File Even Exist? *Added Jim Strong*
 		{
 			imageData=NULL;
+			printf("El archivo %s no existe\n",filename);
 			return false;									// Return False
 		}
 		else
@@ -187,3 +190,5 @@ void CTexture::ReleaseImage()
 		delete[] imageData;
     	imageData=NULL;
 }
+
+

@@ -6,7 +6,7 @@
 //************************************************************//
 //************************************************************//
 #include "Main.h"
-#include "texture.h"
+//#include "texture.h"
 #include "init.cpp"
 #include "dibujo.cpp"
 
