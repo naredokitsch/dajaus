@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\personal\source\repos\proyectofinal\proyectofinal\include\gl\</FILEPATH>
+      <FILENAME>glut.h</FILENAME>
+      <LINE>146</LINE>
+      <COLUMN>28</COLUMN>
+    </SFA>
+    <DEFECTCODE>28251</DEFECTCODE>
+    <DESCRIPTION>Anotación incoherente para 'exit': esta instancia tiene sin anotaciones. Vea c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdlib.h(51). </DESCRIPTION>
+    <FUNCTION>exit</FUNCTION>
+    <DECORATED>exit</DECORATED>
+    <FUNCLINE>146</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\personal\dropbox\escuela\computacion grafica\jerarquia\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>126</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Incoherencia de signo: 'int' pasó como _Param_(3) cuando se requiere algún tipo unsigned en la llamada a 'printf'.</DESCRIPTION>
+    <FUNCTION>CTexture::LoadBMP</FUNCTION>
+    <DECORATED>?LoadBMP@CTexture@@QAE_NPAD@Z</DECORATED>
+    <FUNCLINE>75</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
