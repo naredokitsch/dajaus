@@ -284,6 +284,41 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 					glTranslatef(2.75, 0, 1.9);
 					figuras.prisma(3.5, 5.5, 0.1, 0); // Muro Inferior 
+
+					// Inicia Muros internos
+					glPushMatrix();
+						glTranslatef(2.75, 0, -1.9);
+						figuras.prisma(3.5, 0.1, 3.8, 0); // Muro Inferior
+
+						glTranslatef(0, 0, -5.5);
+						figuras.prisma(3.5, 0.1, 3.8, 0); // Muros Centro Vertical 1
+
+						glPushMatrix();
+							glTranslatef(-2.7, 0, 0.0);
+							figuras.prisma(3.5, 0.1, 1.9, 0); // Muros Centro Vertical 2
+						glPopMatrix();
+
+						glTranslatef(-2.0, 0, 0.0);
+						figuras.prisma(3.5, 4, 0.1, 0); // Muros Centro 2
+
+						glPushMatrix();
+							glTranslatef(0.5, 0, 1.9);
+							figuras.prisma(3.5, 3, 0.1, 0); // Muros Centro Horizontal 1
+						glPopMatrix();
+
+						glPushMatrix();
+							glTranslatef(0.5, 0, -1.9);
+							figuras.prisma(3.5, 3, 0.1, 0); // Muros Centro Horizontal 2
+						glPopMatrix();
+
+						glTranslatef(2, 0, -5.5);
+						figuras.prisma(3.5, 0.1, 3.8, 0); // Muro Inferior
+
+						glTranslatef(-2.5, 0, -1.9);
+						figuras.prisma(3.5, 6, 0.1, 0); // Muro Inferior
+
+
+					glPopMatrix();
 					
 				glPopMatrix(); //	Fin Recamaras
 
