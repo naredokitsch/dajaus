@@ -1,4 +1,11 @@
-#include "BigTable.cpp"
-//#include "sink.cpp"
-#include "chair.cpp"
-#include "toilet.cpp"
+
+
+// DINING ROOM
+
+// #include "BigTable.cpp"
+// #include "flowers.cpp"
+// #include "chair.cpp"
+// #include "toilet.cpp"
+
+#include "centerTable.cpp"
+

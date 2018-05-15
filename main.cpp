@@ -6,12 +6,15 @@
 //************************************************************//
 
 #include "geometria/geo.cpp"
+#include "texture.cpp"
 #include "muebleClass.cpp"
-#include "texturas/textures.cpp"
+#include "texturas/def_textures.cpp"
 
 
 float pos_camX = 0, pos_camY = 0, pos_camZ = -5; 
 int eye_camX = 0, eye_camY = 0.0, eye_camZ = 0;
+
+//CTexture cedro;
 
 
 
@@ -32,6 +35,13 @@ void InitGL ( GLvoid )     // Inicializamos parametros
    glEnable(GL_LIGHTING);
    glEnable(GL_LIGHT0);
    glEnable(GL_DEPTH_TEST);
+
+   //SE CREAN LAS TEXTURAS
+
+	//cedro.LoadTGA(cedro_);
+	//cedro.BuildGLTexture();
+	//cedro.ReleaseImage();
+
 }
 
 
@@ -47,20 +57,70 @@ void display ( void )   // Creamos la funcion donde se dibuja
 		glRotatef(eye_camY, 0.0, 1.0, 0.0);
 		glRotatef(eye_camZ, 0.0, 0.0, 1.0);
 
-			//DINING ROOM
+			/////////////////
+			// DINING ROOM //
+			/////////////////
 
-			mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable, cedro);
-			mueble chair( coord_chair, quads_chair, trng_chair, n_vertex_chair);
+/*			mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable );
+			mueble florero( coord_flowers, quads_flowers, trng_flowers, n_vertex_flowers );
+			mueble chair1( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+			mueble chair2( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+			mueble chair3( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+			mueble chair4( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+			mueble chair5( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+			mueble chair6( coord_chair, quads_chair, trng_chair, n_vertex_chair );
 			glPushMatrix();
-				chair.solid();
+				
+				glPushMatrix();									// MESA COMEDOR
+					glScalef(0.004,0.004,0.004);
+					glTranslatef(700.0049 , 0,-300);
+					glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+					BigTable.texturized();
+				glPopMatrix();
 
-				glScalef(0.004,0.004,0.004);
-				glTranslatef(500.0049 , 0,-300);
-				BigTable.texturized();
-			glPopMatrix();
+				glPushMatrix();
+					glScalef(0.02,0.02,0.02);
+					glTranslatef(140, 115,-60);
+					florero.solid();
+				glPopMatrix();
+
+				glPushMatrix();									// SILLAS COMEDOR
+
+					chair1.solid();
+
+					glTranslatef(0, 0, -2.4);	
+					chair2.solid();
+
+					glTranslatef(5.5, 0, 0);
+					glRotatef(180, 0, 1, 0 );
+					chair3.solid();
+
+					glTranslatef(0, 0, -2.4);
+					chair4.solid();
+
+					glTranslatef(2.7, 0, -2.8);
+					glRotatef(-90, 0, 1, 0 );
+					chair5.solid();
+
+					glTranslatef(8, 0, 0);
+					glRotatef(180, 0, 1, 0 );
+					chair6.solid();
+
+				glPopMatrix();
+
+				
+			glPopMatrix();*/
 
 
+			/////////////////
+			// LIVING ROOM //
+			/////////////////
 
+
+			mueble centerTable( coord_centerTable, quads_centerTable, trng_centerTable, n_vertex_centerTable);
+
+			//glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+			centerTable.mesh();
 
 
 
@@ -93,25 +153,25 @@ void animacion()
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
 	switch ( key ) {
-		case 'w':   //Movimientos de camara
-		case 'W':
+		case 's':   //Movimientos de camara
+		case 'S':
 			pos_camZ += 0.5f;
 			//eye_camZ -= 0.5f;
 			break;
 
-		case 's':
-		case 'S':
+		case 'w':
+		case 'W':
 			pos_camZ -= 0.5f;
 			//eye_camZ += 0.5f;
 			break;
 
-		case 'a':
-		case 'A':
+		case 'd':
+		case 'D':
 			pos_camX += 0.5f;
 			//eye_camX -= 0.5f;
 			break;
-		case 'd':
-		case 'D':
+		case 'a':
+		case 'A':
 			pos_camX -= 0.5f;
 			//eye_camX += 0.5f;
 			break;
