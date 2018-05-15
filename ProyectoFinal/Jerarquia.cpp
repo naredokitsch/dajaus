@@ -234,6 +234,21 @@ void display ( void )   // Creamos la funcion donde se dibuja
 					figuras.prisma(3.5, 0.1, 2.5, 0); //muro inferior3
 					glTranslatef(-3, 0, 1.25);
 					figuras.prisma(3.5, 6, 0.1, 0); //muro inferior4
+
+					glPushMatrix();
+						glTranslatef(-2.5, 0.5, 0);
+						figuras.prisma(1, 1, 0.11, 1);	// Ventana Horizontal banio
+						glTranslatef(-0.5, 0, -0.5);
+						figuras.prisma(1, 0.11, 1.0, 1);	// Ventana Vertical Banio
+					glPopMatrix();
+
+					glPushMatrix();
+						glTranslatef(-1.5,0,-3);
+						figuras.prisma(3.5,3,0.1,0);	// Muro Horizontal banio
+						glTranslatef(1.5, 0, 0.5);
+						figuras.prisma(3.5, 0.1, 1.0, 0);	// Muro Vertical Banio
+					glPopMatrix();
+
 					glTranslatef(-3, 0, -8);
 					figuras.prisma(3.5, 0.1, 16, 0); //muro izquierdo
 
