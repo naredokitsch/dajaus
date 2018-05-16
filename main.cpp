@@ -17,9 +17,8 @@ int eye_camX = 0, eye_camY = 0.0, eye_camZ = 0;
 //CTexture cedro;
 
 
+void InitGL ( GLvoid )  {   // Inicializamos parametros
 
-void InitGL ( GLvoid )     // Inicializamos parametros
-{
 	glEnable(GL_TEXTURE_2D);
 
    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -38,15 +37,84 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
    //SE CREAN LAS TEXTURAS
 
-	//cedro.LoadTGA(cedro_);
-	//cedro.BuildGLTexture();
-	//cedro.ReleaseImage();
+	/*cedro.LoadTGA(cedro_);
+	cedro.BuildGLTexture();
+	cedro.ReleaseImage();*/
+}
+
+/*void muebles_dining_room() {
+
+	mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable );
+	mueble florero( coord_flowers, quads_flowers, trng_flowers, n_vertex_flowers );
+	mueble chair1( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair2( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair3( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair4( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair5( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair6( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+
+
+	glPushMatrix();
+		glPushMatrix();									// MESA COMEDOR
+			glScalef(0.004,0.004,0.004);
+			glTranslatef(700.0049 , 0,-300);
+			glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+				BigTable.texturized();
+		glPopMatrix();
+
+		glPushMatrix();									//FLORERO COMEDOR
+			glScalef(0.02,0.02,0.02);
+			glTranslatef(140, 115,-60);
+				florero.solid();
+		glPopMatrix();
+
+		glPushMatrix();									// SILLAS COMEDOR
+				chair1.solid();
+			glTranslatef(0, 0, -2.4);	
+				chair2.solid();
+			glTranslatef(5.5, 0, 0);
+			glRotatef(180, 0, 1, 0 );
+				chair3.solid();
+			glTranslatef(0, 0, -2.4);
+				chair4.solid();
+			glTranslatef(2.7, 0, -2.8);
+			glRotatef(-90, 0, 1, 0 );
+				chair5.solid();
+			glTranslatef(8, 0, 0);
+			glRotatef(180, 0, 1, 0 );
+				chair6.solid();
+		glPopMatrix();
+	glPopMatrix();
+}*/
+
+/*void muebles_living_room() {
+
+	mueble centerTable( coord_centerTable, quads_centerTable, trng_centerTable, n_vertex_centerTable);
+	mueble armchair( coord_armchair, quads_armchair, trng_armchair, n_vertex_armchair);
+
+	//glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+	centerTable.cloudPoints();
+
+	glScalef(0.02,0.02,0.02);
+	armchair.cloudPoints();
+
+}*/
+
+void muebles_bathroom () {
+	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
+	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
+	mueble shower( coord_shower, quads_shower, trng_shower, n_vertex_shower );
+
+	//toilet.solid();
+	//sink.solid();
+	shower.solid();
+
 
 }
 
 
-void display ( void )   // Creamos la funcion donde se dibuja
-{
+void display ( void )  { // Creamos la funcion donde se dibuja
+
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glLoadIdentity();
@@ -57,78 +125,16 @@ void display ( void )   // Creamos la funcion donde se dibuja
 		glRotatef(eye_camY, 0.0, 1.0, 0.0);
 		glRotatef(eye_camZ, 0.0, 0.0, 1.0);
 
-			/////////////////
-			// DINING ROOM //
-			/////////////////
 
-/*			mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable );
-			mueble florero( coord_flowers, quads_flowers, trng_flowers, n_vertex_flowers );
-			mueble chair1( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			mueble chair2( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			mueble chair3( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			mueble chair4( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			mueble chair5( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			mueble chair6( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-			glPushMatrix();
-				
-				glPushMatrix();									// MESA COMEDOR
-					glScalef(0.004,0.004,0.004);
-					glTranslatef(700.0049 , 0,-300);
-					glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
-					BigTable.texturized();
-				glPopMatrix();
-
-				glPushMatrix();
-					glScalef(0.02,0.02,0.02);
-					glTranslatef(140, 115,-60);
-					florero.solid();
-				glPopMatrix();
-
-				glPushMatrix();									// SILLAS COMEDOR
-
-					chair1.solid();
-
-					glTranslatef(0, 0, -2.4);	
-					chair2.solid();
-
-					glTranslatef(5.5, 0, 0);
-					glRotatef(180, 0, 1, 0 );
-					chair3.solid();
-
-					glTranslatef(0, 0, -2.4);
-					chair4.solid();
-
-					glTranslatef(2.7, 0, -2.8);
-					glRotatef(-90, 0, 1, 0 );
-					chair5.solid();
-
-					glTranslatef(8, 0, 0);
-					glRotatef(180, 0, 1, 0 );
-					chair6.solid();
-
-				glPopMatrix();
-
-				
-			glPopMatrix();*/
-
-
-			/////////////////
-			// LIVING ROOM //
-			/////////////////
-
-
-			mueble centerTable( coord_centerTable, quads_centerTable, trng_centerTable, n_vertex_centerTable);
-
-			//glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
-			centerTable.mesh();
-
+	//muebles_dining_room();
+	muebles_bathroom();
 
 
 	glutSwapBuffers ( );
 }
 
-void reshape ( int width , int height )   // Creamos funcion Reshape
-{
+void reshape ( int width , int height )  { // Creamos funcion Reshape
+
   if (height==0)										// Prevenir division entre cero
 	{
 		height=1;
@@ -145,13 +151,13 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 	glLoadIdentity();
 }
 
-void animacion()
-{
+void animacion() {
+
 	glutPostRedisplay();
 }
 
-void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
-{
+void keyboard ( unsigned char key, int x, int y )  {// Create Keyboard Function
+
 	switch ( key ) {
 		case 's':   //Movimientos de camara
 		case 'S':
@@ -176,6 +182,17 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 			//eye_camX += 0.5f;
 			break;
 
+		case 'l':
+		case 'L':
+		pos_camY -= 0.5f;
+		//eye_camY -= 0.5f;
+		break;
+
+    	case 'o':
+		case 'O':
+		pos_camY += 0.5f;
+		break;
+
 		case 27:        // Cuando Esc es presionado...
 			exit ( 0 );   // Salimos del programa
 			break;        
@@ -185,8 +202,8 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 	glutPostRedisplay();
 }
 
-void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas especiales (arrow keys)
-{
+void arrow_keys ( int a_keys, int x, int y )  {// Funcion para manejo de teclas especiales (arrow keys)
+
   switch ( a_keys ) {
 	case GLUT_KEY_PAGE_UP:
 		pos_camY -= 0.5f;
@@ -220,8 +237,8 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
 }
 
 
-int main ( int argc, char** argv )   // Main Function
-{
+int main ( int argc, char** argv )   {// Main Function
+
 
   int screenH = glutGet(GLUT_SCREEN_HEIGHT);
 
