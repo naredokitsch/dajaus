@@ -101,13 +101,13 @@ void InitGL ( GLvoid )  {   // Inicializamos parametros
 }*/
 
 void muebles_bathroom () {
-	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
+/*	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
 	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
 	mueble shower( coord_shower, quads_shower, trng_shower, n_vertex_shower );
 
 	//toilet.solid();
 	//sink.solid();
-	shower.solid();
+	shower.solid();*/
 
 
 }
@@ -127,7 +127,14 @@ void display ( void )  { // Creamos la funcion donde se dibuja
 
 
 	//muebles_dining_room();
-	muebles_bathroom();
+	//muebles_bathroom();
+
+	mueble umbrella( coord_umbrella ,quads_umbrella, trng_umbrella, n_vertex_umbrella );
+	glScalef(0.1,0.1,0.1);
+	//glTranslatef(177.8848876953125 , 64.04671478271484 , -68.19194030761719 );
+	umbrella.solid();
+
+
 
 
 	glutSwapBuffers ( );
