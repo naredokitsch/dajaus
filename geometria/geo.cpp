@@ -7,9 +7,10 @@
 
 
 //SALA
-/*#include "centerTable.cpp"
-#include "armchair.cpp"
-#include "sofa.cpp"*/
+//#include "centerTable.cpp"
+//#include "armchair.cpp"
+//#include "sofa.cpp"
+#include "chair5.cpp"
 
 
 
@@ -19,10 +20,10 @@
 #include "shower.cpp"*/
 
 
-
 // MUEBLES DE RECAMARA
 //#include "bed1.cpp"
 //#include "bed2.cpp"
+//#include "officeChair.cpp" falta revisar
 
 
 
@@ -37,5 +38,5 @@
 //#include "bench.cpp"
 //#include "sunchair1.cpp"
 //#include "sunchair2.cpp"
-#include "umbrella.cpp"
+//#include "umbrella.cpp"
 

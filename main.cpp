@@ -129,10 +129,10 @@ void display ( void )  { // Creamos la funcion donde se dibuja
 	//muebles_dining_room();
 	//muebles_bathroom();
 
-	mueble umbrella( coord_umbrella ,quads_umbrella, trng_umbrella, n_vertex_umbrella );
+	mueble officeChair( coord_officeChair ,quads_officeChair, trng_officeChair, n_vertex_officeChair );
 	glScalef(0.1,0.1,0.1);
 	//glTranslatef(177.8848876953125 , 64.04671478271484 , -68.19194030761719 );
-	umbrella.solid();
+	officeChair.solid();
 
 
 
