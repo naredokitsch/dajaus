@@ -5,13 +5,14 @@
 //************************************************************//
 //************************************************************//
 
-#include "geometria/geo.cpp"
+//#include "geometria/MineCraft_Character.cpp"
 #include "texture.cpp"
-#include "muebleClass.cpp"
-#include "texturas/def_textures.cpp"
+//#include "muebleClass.cpp"
+//#include "texturas/def_textures.cpp"
 
 
-float pos_camX = 0, pos_camY = 0, pos_camZ = -5; 
+float pos_camX = 0, pos_camY = 0, pos_camZ = -5;
+float rot_iron = 0;
 int eye_camX = 0, eye_camY = 0.0, eye_camZ = 0;
 
 //CTexture cedro;
@@ -42,76 +43,52 @@ void InitGL ( GLvoid )  {   // Inicializamos parametros
 	cedro.ReleaseImage();*/
 }
 
-/*void muebles_dining_room() {
 
-	mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable );
-	mueble florero( coord_flowers, quads_flowers, trng_flowers, n_vertex_flowers );
-	mueble chair1( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-	mueble chair2( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-	mueble chair3( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-	mueble chair4( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-	mueble chair5( coord_chair, quads_chair, trng_chair, n_vertex_chair );
-	mueble chair6( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+void cube(float width, float height, float depth) {
 
+	glBegin(GL_QUADS); //bottom
+		glNormal3f(0,-1,0) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
+		glNormal3f(0,-1,0) ; glVertex3f( width/2.0 , -(height/2.0), depth/2.0);
+		glNormal3f(0,-1,0) ; glVertex3f( width/2.0 , -(height/2.0), -(depth/2.0));
+		glNormal3f(0,-1,0) ; glVertex3f( -(width/2.0) , -(height/2.0), -(depth/2.0));
+	glEnd();
 
-	glPushMatrix();
-		glPushMatrix();									// MESA COMEDOR
-			glScalef(0.004,0.004,0.004);
-			glTranslatef(700.0049 , 0,-300);
-			glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
-				BigTable.texturized();
-		glPopMatrix();
+	glBegin(GL_QUADS); //front
+		glNormal3f(0,0,1) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
+		glNormal3f(0,0,1) ; glVertex3f( width/2.0 , -(height/2.0), depth/2.0);
+		glNormal3f(0,0,1) ; glVertex3f( width/2.0 , height/2.0, depth/2.0);
+		glNormal3f(0,0,1) ; glVertex3f( -(width/2.0) , height/2.0, depth/2.0);
+	glEnd();
 
-		glPushMatrix();									//FLORERO COMEDOR
-			glScalef(0.02,0.02,0.02);
-			glTranslatef(140, 115,-60);
-				florero.solid();
-		glPopMatrix();
+	glBegin(GL_QUADS); //left
+		glNormal3f(-1,0,0) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
+		glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , -(height/2.0), -(depth/2.0));
+		glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , height/2.0, -(depth/2.0));
+		glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , height/2.0, depth/2.0);
+	glEnd();
 
-		glPushMatrix();									// SILLAS COMEDOR
-				chair1.solid();
-			glTranslatef(0, 0, -2.4);	
-				chair2.solid();
-			glTranslatef(5.5, 0, 0);
-			glRotatef(180, 0, 1, 0 );
-				chair3.solid();
-			glTranslatef(0, 0, -2.4);
-				chair4.solid();
-			glTranslatef(2.7, 0, -2.8);
-			glRotatef(-90, 0, 1, 0 );
-				chair5.solid();
-			glTranslatef(8, 0, 0);
-			glRotatef(180, 0, 1, 0 );
-				chair6.solid();
-		glPopMatrix();
-	glPopMatrix();
-}*/
+	glBegin(GL_QUADS); //right
+		glNormal3f(1,0,0) ; glVertex3f(width/2.0 , -(height/2.0), depth/2.0);
+		glNormal3f(1,0,0) ; glVertex3f(width/2.0 , -(height/2.0), -(depth/2.0));
+		glNormal3f(1,0,0) ; glVertex3f(width/2.0 , height/2.0, -(depth/2.0));
+		glNormal3f(1,0,0) ; glVertex3f(width/2.0 , height/2.0, depth/2.0);
+	glEnd();
 
-/*void muebles_living_room() {
+	glBegin(GL_QUADS); //back
+		glNormal3f(0,0,-1) ; glVertex3f( -(width/2.0) , -(height/2.0), -(depth/2.0));
+		glNormal3f(0,0,-1) ; glVertex3f( width/2.0 , -(height/2.0), -(depth/2.0));
+		glNormal3f(0,0,-1) ; glVertex3f(width/2.0 , height/2.0, -(depth/2.0));
+		glNormal3f(0,0,-1) ; glVertex3f( -(width/2.0) , height/2.0, -(depth/2.0));
+	glEnd();
 
-	mueble centerTable( coord_centerTable, quads_centerTable, trng_centerTable, n_vertex_centerTable);
-	mueble armchair( coord_armchair, quads_armchair, trng_armchair, n_vertex_armchair);
-
-	//glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
-	centerTable.cloudPoints();
-
-	glScalef(0.02,0.02,0.02);
-	armchair.cloudPoints();
-
-}*/
-
-void muebles_bathroom () {
-/*	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
-	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
-	mueble shower( coord_shower, quads_shower, trng_shower, n_vertex_shower );
-
-	//toilet.solid();
-	//sink.solid();
-	shower.solid();*/
-
+	glBegin(GL_QUADS); //top
+		glNormal3f(0,1,0) ; glVertex3f( -(width/2.0) , height/2.0, depth/2);
+		glNormal3f(0,1,0) ; glVertex3f( width/2.0 , height/2.0, depth/2);
+		glNormal3f(0,1,0) ; glVertex3f( width/2.0 , height/2.0, -(depth/2));
+		glNormal3f(0,1,0) ; glVertex3f( -(width/2.0) , height/2.0, -(depth/2));
+	glEnd();
 
 }
-
 
 void display ( void )  { // Creamos la funcion donde se dibuja
 
@@ -126,14 +103,16 @@ void display ( void )  { // Creamos la funcion donde se dibuja
 		glRotatef(eye_camZ, 0.0, 0.0, 1.0);
 
 
-	//muebles_dining_room();
-	//muebles_bathroom();
+		glPushMatrix();//body
+			glTranslatef(0,6,0);
+			cube(8,12,4);//CUERPO
+			glTranslatef(0,6,0);
+			glRotatef(rot_iron, 0,1,0);//ROTACION DE CUELLO
+			glTranslatef(0,4,0);
+			cube(8,8,8);//CABEZA
+			glTranslatef(4,-6,0);
 
-	mueble officeChair( coord_officeChair ,quads_officeChair, trng_officeChair, n_vertex_officeChair );
-	glScalef(0.1,0.1,0.1);
-	//glTranslatef(177.8848876953125 , 64.04671478271484 , -68.19194030761719 );
-	officeChair.solid();
-
+		glPopMatrix();
 
 
 
@@ -198,6 +177,11 @@ void keyboard ( unsigned char key, int x, int y )  {// Create Keyboard Function
     	case 'o':
 		case 'O':
 		pos_camY += 0.5f;
+		break;
+
+		case 'c':
+		case 'C':
+		rot_iron += 0.5f;
 		break;
 
 		case 27:        // Cuando Esc es presionado...
