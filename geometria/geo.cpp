@@ -10,7 +10,7 @@
 //#include "centerTable.cpp"
 //#include "armchair.cpp"
 //#include "sofa.cpp"
-#include "chair5.cpp"
+//#include "chair5.cpp"
 
 
 
@@ -39,4 +39,8 @@
 //#include "sunchair1.cpp"
 //#include "sunchair2.cpp"
 //#include "umbrella.cpp"
+
+//IRON MAN
+#include "ironman.cpp"
+#include "fan.cpp"
 

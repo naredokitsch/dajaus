@@ -5,37 +5,69 @@
 //************************************************************//
 //************************************************************//
 
-//#include "geometria/MineCraft_Character.cpp"
 #include "texture.cpp"
-//#include "muebleClass.cpp"
-//#include "texturas/def_textures.cpp"
-
+#include "texturas/def_textures.cpp"
+#include "geometria/geo.cpp"
+#include "muebleClass.cpp"
 
 float pos_camX = 0, pos_camY = 0, pos_camZ = -5;
-float rot_iron = 0;
+
+float swing_iron = 0;
+float pos_iron [] = {0,0};
+float dir_iron = 0;
+
 int eye_camX = 0, eye_camY = 0.0, eye_camZ = 0;
+bool til45 = true;
 
-char ironman_body_ [] = { 't','e','x','t','u','r','a','s','\\','b','o','d','y','.','t','g','a','\0' } ;
-char ironman_head_ [] = { 't','e','x','t','u','r','a','s','\\','h','e','a','d','.','t','g','a','\0' } ;
+float posX =0, posY = 2.5, posZ =-3.5, rotRodIzq = 0;
+float giroMonito = 0;
 
-float text_coord_body [] = {	0.25,4.0/6.0,0.75,4.0/6.0,0.75,0.5,0.25,0.5 ,
-										0.25,4.0/6.0,0.75,4.0/6.0,0.75,1,0.25,1 ,
-										0.25, 0.5, 0, 0.5, 0, 1.0/6.0, 0.25, 1.0/6.0,
-										0.75, 0.5, 1, 0.5, 1, 1.0/6.0, 0.75, 1.0/6.0,
-										0.75, 0.5, 0.25, 0.5, 0.25, 1.0/6.0, 0.75, 1.0/6.0, 
-										0.75, 0, 0.25, 0, 0.25, 1.0/6.0, 0.75, 1.0/6.0
-									};
+#define MAX_FRAMES 500
+int i_max_steps = 90;
+int i_curr_steps = 0;
 
-float text_coord_head [] = {	0.25,4.0/6.0,0.75,4.0/6.0,0.75,0.5,0.25,0.5 ,
-										0.25,4.0/6.0,0.75,4.0/6.0,0.75,1,0.25,1 ,
-										0.25, 0.5, 0, 0.5, 0, 1.0/6.0, 0.25, 1.0/6.0,
-										0.75, 0.5, 1, 0.5, 1, 1.0/6.0, 0.75, 1.0/6.0,
-										0.75, 0.5, 0.25, 0.5, 0.25, 1.0/6.0, 0.75, 1.0/6.0, 
-										0.75, 0, 0.25, 0, 0.25, 1.0/6.0, 0.75, 1.0/6.0
-									};
+typedef struct _frame
+{
+	//Variables para GUARDAR Key Frames
+	float posX;		//Variable para PosicionX
+	float posY;		//Variable para PosicionY
+	float posZ;		//Variable para PosicionZ
+	float incX;		//Variable para IncrementoX
+	float incY;		//Variable para IncrementoY
+	float incZ;		//Variable para IncrementoZ
+	float rotRodIzq;
+	float rotInc;
+	float giroMonito;
+	float giroMonitoInc;
+	float swing_iron;
+	
+}FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex=0;			//introducir datos
+bool play=false;
+int playIndex=0;
+
 
 CTexture ironman_body_texture;
 CTexture ironman_head_texture;
+
+void saveFrame ( void )
+{
+	
+
+	printf("swing_iron %f\n", swing_iron);			
+
+	/*KeyFrame[FrameIndex].posX=posX;
+	KeyFrame[FrameIndex].posY=posY;
+	KeyFrame[FrameIndex].posZ=posZ;
+
+	KeyFrame[FrameIndex].rotRodIzq=rotRodIzq;
+	KeyFrame[FrameIndex].giroMonito=giroMonito;
+			
+	FrameIndex++;*/
+
+}
 
 
 void InitGL ( GLvoid )  {   // Inicializamos parametros
@@ -69,8 +101,6 @@ void InitGL ( GLvoid )  {   // Inicializamos parametros
 
 
 void cube(float width, float height, float depth, float* text_coord, GLuint text_coord_index) {
-
-
 	glBindTexture(GL_TEXTURE_2D, text_coord_index);
 	glBegin(GL_QUADS); //bottom
 		glTexCoord2f(text_coord[0],text_coord[1]) ; glNormal3f(0,-1,0) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
@@ -84,7 +114,7 @@ void cube(float width, float height, float depth, float* text_coord, GLuint text
 		glTexCoord2f(text_coord[8],text_coord[9]) ; glNormal3f(0,0,1) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
 		glTexCoord2f(text_coord[10],text_coord[11]) ; glNormal3f(0,0,1) ; glVertex3f( width/2.0 , -(height/2.0), depth/2.0);
 		glTexCoord2f(text_coord[12],text_coord[13]) ; glNormal3f(0,0,1) ; glVertex3f( width/2.0 , height/2.0, depth/2.0);
-		glTexCoord2f(text_coord[14],text_coord[15]) ; glVertex3f( -(width/2.0) , height/2.0, depth/2.0);
+		glTexCoord2f(text_coord[14],text_coord[15]) ; glNormal3f(0,0,1) ;glVertex3f( -(width/2.0) , height/2.0, depth/2.0);
 	glEnd();
 
 	glBegin(GL_QUADS); //left
@@ -117,6 +147,82 @@ void cube(float width, float height, float depth, float* text_coord, GLuint text
 
 }
 
+
+void dibuja_ironman () {
+
+
+		if (til45 == true) {
+			swing_iron += 0.25;
+			if(swing_iron == 45) {
+				saveFrame();
+				til45 = false;
+			}
+		} 
+		
+		if (til45 == false) {
+			swing_iron -= 0.25;
+			if (swing_iron == -45) {
+				saveFrame();
+				til45 = true;
+			}
+		}
+
+		//PARTE SUPERIOR DEL CUERPO
+		glPushMatrix();//body
+			//glPointSize(10); 
+
+			glTranslatef(0,6,0); 
+			cube(8,12,4, text_coord_body, ironman_body_texture.GLindex);//CUERPO
+			glTranslatef(0,4,0);				//ALTURA HOMBROS
+			
+			glPushMatrix();					
+				glTranslatef(0,2,0);
+				glRotatef(swing_iron, 0,1,0);//ROTACION DE CUELLO
+				glTranslatef(0,4,0);
+				cube(8,8,8, text_coord_head, ironman_head_texture.GLindex);					//CABEZA
+			glPopMatrix();
+			
+			
+			glTranslatef(4,0,0);				//HOMBRO DERECHO
+
+			glPushMatrix();
+				glRotatef(swing_iron, 1,0,0);
+				glTranslatef(2,-4,0);
+				cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex); //BRAZO DERECHO
+			glPopMatrix();
+
+			glTranslatef(-8,0,0);			//HOMBRO IZQUIERDO
+			//glBegin(GL_POINTS); glVertex3f(0,0,0); glEnd();
+
+			glPushMatrix();
+				glRotatef(swing_iron, -1,0,0);
+				glTranslatef(-2,-4,0);
+				cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	//BRAZO IZQUIERDO
+			glPopMatrix();
+		glPopMatrix();
+		
+		//PARTE INFERIOR DEL CUERPO
+		glPushMatrix();
+
+			glTranslatef(-2,0,0);
+
+			glPushMatrix();
+				glRotatef(swing_iron, 1,0,0);
+				glTranslatef(0,-6,0);
+				cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	// PIERNA IZQUIERDA
+			glPopMatrix();
+
+			glTranslatef(4,0,0);
+
+			glPushMatrix();
+				glRotatef(swing_iron, -1,0,0);
+				glTranslatef(0,-6,0);
+				cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	//PIERNA DERECHA
+			glPopMatrix();
+		
+		glPopMatrix();
+}
+
 void display ( void )  { // Creamos la funcion donde se dibuja
 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -128,60 +234,12 @@ void display ( void )  { // Creamos la funcion donde se dibuja
 		glRotatef(eye_camY, 0.0, 1.0, 0.0);
 		glRotatef(eye_camZ, 0.0, 0.0, 1.0);
 
+		//dibuja_ironman();
 
-		glPushMatrix();//body
-			glPointSize(10); 
+		//mueble fan(coord_fan,quads_fan, trng_fan, n_vertex_fan,t_vertex_fan);
+		//fan.solid();
 
-			glTranslatef(0,6,0);
-			cube(8,12,4, text_coord_body, ironman_body_texture.GLindex);//CUERPO
-			glTranslatef(0,4,0);				//ALTURA HOMBROS
-			/*
-			glPushMatrix();					
-				glTranslatef(0,2,0);
-				glRotatef(rot_iron, 0,1,0);//ROTACION DE CUELLO
-				glTranslatef(0,4,0);
-				cube(8,8,8);					//CABEZA
-			glPopMatrix();
-			*/
-			/*
-			glTranslatef(4,0,0);				//HOMBRO DERECHO
 
-			glPushMatrix();
-				glRotatef(rot_iron, 1,0,0);
-				glTranslatef(2,-4,0);
-				cube(4,12,4);
-			glPopMatrix();
-
-			glTranslatef(-8,0,0);
-			//glBegin(GL_POINTS); glVertex3f(0,0,0); glEnd();
-
-			glPushMatrix();
-				glRotatef(rot_iron, 1,0,0);
-				glTranslatef(-2,-4,0);
-				cube(4,12,4);
-			glPopMatrix();*/
-		glPopMatrix();
-		/*
-		glPushMatrix();
-
-			glTranslatef(-2,0,0);
-
-			glPushMatrix();
-				glRotatef(rot_iron, 1,0,0);
-				glTranslatef(0,-6,0);
-				cube(4,12,4);
-			glPopMatrix();
-
-			glTranslatef(4,0,0);
-
-			glPushMatrix();
-				glRotatef(rot_iron, 1,0,0);
-				glTranslatef(0,-6,0);
-				cube(4,12,4);
-			glPopMatrix();
-
-		glPopMatrix();
-		*/
 
 	glutSwapBuffers ( );
 }
@@ -248,7 +306,7 @@ void keyboard ( unsigned char key, int x, int y )  {// Create Keyboard Function
 
 		case 'c':
 		case 'C':
-		rot_iron += 0.5f;
+		swing_iron += 0.5f;
 		break;
 
 		case 27:        // Cuando Esc es presionado...
@@ -294,13 +352,50 @@ void arrow_keys ( int a_keys, int x, int y )  {// Funcion para manejo de teclas 
   glutPostRedisplay();
 }
 
+void menuKeyFrame( int id)
+{
+	/*switch (id)
+	{
+		case 0:	//Save KeyFrame
+			if(FrameIndex<MAX_FRAMES)
+			{
+				saveFrame();
+			}
+			break;
+
+		case 1:	//Play animation
+			if(play==false && FrameIndex >1)
+			{
+
+				resetElements();
+				//First Interpolation
+				interpolation();
+
+				play=true;
+				playIndex=0;
+				i_curr_steps = 0;
+			}
+			else
+			{
+				play=false;
+			}
+			break;
+
+
+	}*/
+}
+
+void menu( int id)
+{
+	
+}
 
 int main ( int argc, char** argv )   {// Main Function
 
 
   int screenH = glutGet(GLUT_SCREEN_HEIGHT);
 
-
+  int submenu;
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
   glutInitWindowSize  (screenH , screenH);	// Tamaño de la Ventana
@@ -313,6 +408,15 @@ int main ( int argc, char** argv )   {// Main Function
   glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
   glutSpecialFunc     ( arrow_keys );	//Otras
   glutIdleFunc		  ( animacion );
+
+  submenu = glutCreateMenu	  ( menuKeyFrame );
+  glutAddMenuEntry	  ("Guardar KeyFrame", 0);
+  glutAddMenuEntry	  ("Reproducir Animacion", 1);
+  glutCreateMenu	  ( menu );
+  glutAddSubMenu	  ("Animacion IroMan", submenu);
+ 
+  glutAttachMenu	  (GLUT_RIGHT_BUTTON);
+
   glutMainLoop        ( );          // 
 
   return 0;
