@@ -14,11 +14,6 @@
 #include "geometria/geo.cpp"
 #include "muebleClass.cpp"
 
-
-int w = 500, h = 500;
-int frame=0,time,timebase=0;
-int deltaTime = 0;
-
 CFiguras sky;
 CFiguras figuras;
 
@@ -39,11 +34,44 @@ float swing_iron = 0;
 
 float fan_rot ;
 
-// Temp component manipulation
-float height = 1.1;
-float length = 1.1;
-float depth = 1.1;
+//////MOVIMIENTOS DE FALCON
+float falcon_X ;
+float falcon_Y ;
+float falcon_Z ;
 
+float falcon_rot_X ;
+float falcon_rot_Y ;
+float falcon_rot_Z ;
+//////////////////////////
+
+///VARIABLES DE FRAMES
+typedef struct _frame {
+	float falcon_X;
+	float falcon_X_INC;
+	float falcon_Y;
+	float falcon_Y_INC;
+	float falcon_Z;
+	float falcon_Z_INC;
+	float falcon_rot_X;
+	float falcon_rot_X_INC;
+	float falcon_rot_Y;
+	float falcon_rot_Y_INC;
+	float falcon_rot_Z;
+	float falcon_rot_Z_INC;
+} FRAME ;
+
+int i_max_steps = 50;
+int i_curr_steps = 0;
+
+
+int FrameIndex = 19 ;			//introducir datos
+bool play = false ;
+int playIndex = 0 ;
+
+FRAME KeyFrame[ 19 + 1];
+/////////////////////
+
+//#include "tmp_.txt"
 
 CCamera objCamera;	//Create objet Camera
 
@@ -57,6 +85,61 @@ GLfloat Position2[]= { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 CTexture ironman_body_texture;
 CTexture ironman_head_texture;
 
+void saveFrame ( void )
+{
+	
+	KeyFrame[FrameIndex].falcon_X = falcon_X;
+
+	printf("KeyFrame[%i].falcon_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_X);
+
+	KeyFrame[FrameIndex].falcon_Y = falcon_Y;
+
+	printf("KeyFrame[%i].falcon_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Y);
+
+	KeyFrame[FrameIndex].falcon_Z = falcon_Z;
+
+	printf("KeyFrame[%i].falcon_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Z);
+
+	KeyFrame[FrameIndex].falcon_rot_X = falcon_rot_X;
+
+	printf("KeyFrame[%i].falcon_rot_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_X);
+
+	KeyFrame[FrameIndex].falcon_rot_Y = falcon_rot_Y;
+
+	printf("KeyFrame[%i].falcon_rot_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Y);
+
+	KeyFrame[FrameIndex].falcon_rot_Z = falcon_rot_Z;
+
+	printf("KeyFrame[%i].falcon_rot_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Z);
+
+	//printf("Frame %i Guardado!!!!!\n\n\n\n\n\n\n", FrameIndex);
+			
+	FrameIndex++;
+}
+
+
+void resetElements( void ) {
+
+	//printf("Se han reseteado los elementos\n");
+	falcon_X = KeyFrame[0].falcon_X;
+	falcon_Y = KeyFrame[0].falcon_Y;
+	falcon_Z = KeyFrame[0].falcon_Z;
+
+	falcon_rot_X = KeyFrame[0].falcon_rot_X;
+	falcon_rot_Y = KeyFrame[0].falcon_rot_Y;
+	falcon_rot_Z = KeyFrame[0].falcon_rot_Z;
+}
+
+void interpolation ( void ) {
+
+	KeyFrame[playIndex].falcon_X_INC = (KeyFrame[playIndex + 1].falcon_X - KeyFrame[playIndex].falcon_X) / i_max_steps;	
+	KeyFrame[playIndex].falcon_Y_INC = (KeyFrame[playIndex + 1].falcon_Y - KeyFrame[playIndex].falcon_Y) / i_max_steps;	
+	KeyFrame[playIndex].falcon_Z_INC = (KeyFrame[playIndex + 1].falcon_Z - KeyFrame[playIndex].falcon_Z) / i_max_steps;	
+
+	KeyFrame[playIndex].falcon_rot_X_INC = (KeyFrame[playIndex + 1].falcon_rot_X - KeyFrame[playIndex].falcon_rot_X) / i_max_steps;	
+	KeyFrame[playIndex].falcon_rot_Y_INC = (KeyFrame[playIndex + 1].falcon_rot_Y - KeyFrame[playIndex].falcon_rot_Y) / i_max_steps;	
+	KeyFrame[playIndex].falcon_rot_Z_INC = (KeyFrame[playIndex + 1].falcon_rot_Z - KeyFrame[playIndex].falcon_rot_Z) / i_max_steps;
+}
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -85,15 +168,129 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	ironman_head_texture.LoadTGA(ironman_head_);
 	ironman_head_texture.BuildGLTexture();
 	ironman_head_texture.ReleaseImage();
-	
-
-	// Importamos Texturas
-
-
-
-	//END NEW//////////////////////////////
 
 	objCamera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
+
+	KeyFrame[0].falcon_X = 0.000000 ;
+	KeyFrame[0].falcon_Y = 0.000000 ;
+	KeyFrame[0].falcon_Z = 0.000000 ;
+	KeyFrame[0].falcon_rot_X = 0.000000 ;
+	KeyFrame[0].falcon_rot_Y = 0.000000 ;
+	KeyFrame[0].falcon_rot_Z = 0.000000 ;
+	KeyFrame[1].falcon_X = 0.000000 ;
+	KeyFrame[1].falcon_Y = 0.000000 ;
+	KeyFrame[1].falcon_Z = -13700.000000 ;
+	KeyFrame[1].falcon_rot_X = 3.000000 ;
+	KeyFrame[1].falcon_rot_Y = -104.000000 ;
+	KeyFrame[1].falcon_rot_Z = -58.000000 ;
+	KeyFrame[2].falcon_X = 16600.000000 ;
+	KeyFrame[2].falcon_Y = -700.000000 ;
+	KeyFrame[2].falcon_Z = -1400.000000 ;
+	KeyFrame[2].falcon_rot_X = -1.000000 ;
+	KeyFrame[2].falcon_rot_Y = -179.000000 ;
+	KeyFrame[2].falcon_rot_Z = -92.000000 ;
+	KeyFrame[3].falcon_X = 14700.000000 ;
+	KeyFrame[3].falcon_Y = -1500.000000 ;
+	KeyFrame[3].falcon_Z = 20200.000000 ;
+	KeyFrame[3].falcon_rot_X = -1.000001 ;
+	KeyFrame[3].falcon_rot_Y = -179.000061 ;
+	KeyFrame[3].falcon_rot_Z = -55.000008 ;
+	KeyFrame[4].falcon_X = 14500.000000 ;
+	KeyFrame[4].falcon_Y = -1800.000000 ;
+	KeyFrame[4].falcon_Z = 24800.000000 ;
+	KeyFrame[4].falcon_rot_X = -1.000001 ;
+	KeyFrame[4].falcon_rot_Y = -255.000061 ;
+	KeyFrame[4].falcon_rot_Z = -6.000065 ;
+	KeyFrame[5].falcon_X = 7200.000000 ;
+	KeyFrame[5].falcon_Y = 2600.000000 ;
+	KeyFrame[5].falcon_Z = 26700.000000 ;
+	KeyFrame[5].falcon_rot_X = -89.000000 ;
+	KeyFrame[5].falcon_rot_Y = -167.000275 ;
+	KeyFrame[5].falcon_rot_Z = 52.999901 ;
+	KeyFrame[6].falcon_X = 7200.000000 ;
+	KeyFrame[6].falcon_Y = 18100.000000 ;
+	KeyFrame[6].falcon_Z = 26700.000000 ;
+	KeyFrame[6].falcon_rot_X = -89.000000 ;
+	KeyFrame[6].falcon_rot_Y = -167.000275 ;
+	KeyFrame[6].falcon_rot_Z = 52.999901 ;
+	KeyFrame[7].falcon_X = -4100.000000 ;
+	KeyFrame[7].falcon_Y = 26000.000000 ;
+	KeyFrame[7].falcon_Z = 32400.000000 ;
+	KeyFrame[7].falcon_rot_X = 100.999992 ;
+	KeyFrame[7].falcon_rot_Y = -176.000549 ;
+	KeyFrame[7].falcon_rot_Z = 70.999893 ;
+	KeyFrame[8].falcon_X = -4100.000000 ;
+	KeyFrame[8].falcon_Y = 26000.000000 ;
+	KeyFrame[8].falcon_Z = 32400.000000 ;
+	KeyFrame[8].falcon_rot_X = 77.999992 ;
+	KeyFrame[8].falcon_rot_Y = 173.999451 ;
+	KeyFrame[8].falcon_rot_Z = 70.999893 ;
+	KeyFrame[9].falcon_X = -4100.000000 ;
+	KeyFrame[9].falcon_Y = 17800.000000 ;
+	KeyFrame[9].falcon_Z = 32400.000000 ;
+	KeyFrame[9].falcon_rot_X = 77.999992 ;
+	KeyFrame[9].falcon_rot_Y = 173.999451 ;
+	KeyFrame[9].falcon_rot_Z = 122.999893 ;
+	KeyFrame[10].falcon_X = -4100.000000 ;
+	KeyFrame[10].falcon_Y = 2800.000000 ;
+	KeyFrame[10].falcon_Z = 32400.000000 ;
+	KeyFrame[10].falcon_rot_X = 77.999992 ;
+	KeyFrame[10].falcon_rot_Y = 173.999451 ;
+	KeyFrame[10].falcon_rot_Z = 19.999893 ;
+	KeyFrame[11].falcon_X = -4100.000000 ;
+	KeyFrame[11].falcon_Y = -2200.000000 ;
+	KeyFrame[11].falcon_Z = 32400.000000 ;
+	KeyFrame[11].falcon_rot_X = 208.000000 ;
+	KeyFrame[11].falcon_rot_Y = 497.999451 ;
+	KeyFrame[11].falcon_rot_Z = 19.999893 ;
+	KeyFrame[12].falcon_X = -13300.000000 ;
+	KeyFrame[12].falcon_Y = -2200.000000 ;
+	KeyFrame[12].falcon_Z = 22700.000000 ;
+	KeyFrame[12].falcon_rot_X = 208.000000 ;
+	KeyFrame[12].falcon_rot_Y = 535.999451 ;
+	KeyFrame[12].falcon_rot_Z = -39.000107 ;
+	KeyFrame[13].falcon_X = -13300.000000 ;
+	KeyFrame[13].falcon_Y = -2200.000000 ;
+	KeyFrame[13].falcon_Z = -5400.000000 ;
+	KeyFrame[13].falcon_rot_X = 208.000000 ;
+	KeyFrame[13].falcon_rot_Y = 535.999451 ;
+	KeyFrame[13].falcon_rot_Z = -3.000107 ;
+	KeyFrame[14].falcon_X = -13300.000000 ;
+	KeyFrame[14].falcon_Y = -2200.000000 ;
+	KeyFrame[14].falcon_Z = -16200.000000 ;
+	KeyFrame[14].falcon_rot_X = 222.000000 ;
+	KeyFrame[14].falcon_rot_Y = 595.999451 ;
+	KeyFrame[14].falcon_rot_Z = -66.000107 ;
+	KeyFrame[15].falcon_X = 400.000000 ;
+	KeyFrame[15].falcon_Y = -2300.000000 ;
+	KeyFrame[15].falcon_Z = -20100.000000 ;
+	KeyFrame[15].falcon_rot_X = 200.000183 ;
+	KeyFrame[15].falcon_rot_Y = 682.000488 ;
+	KeyFrame[15].falcon_rot_Z = 182.000046 ;
+	KeyFrame[16].falcon_X = 7500.000000 ;
+	KeyFrame[16].falcon_Y = 4100.000000 ;
+	KeyFrame[16].falcon_Z = -20500.000000 ;
+	KeyFrame[16].falcon_rot_X = 200.000046 ;
+	KeyFrame[16].falcon_rot_Y = 711.002075 ;
+	KeyFrame[16].falcon_rot_Z = 185.000275 ;
+	KeyFrame[17].falcon_X = 7500.000000 ;
+	KeyFrame[17].falcon_Y = 4100.000000 ;
+	KeyFrame[17].falcon_Z = 5700.000000 ;
+	KeyFrame[17].falcon_rot_X = 200.000046 ;
+	KeyFrame[17].falcon_rot_Y = 777.002075 ;
+	KeyFrame[17].falcon_rot_Z = 88.000275 ;
+	KeyFrame[18].falcon_X = 0.000000 ;
+	KeyFrame[18].falcon_Y = 10000.000000 ;
+	KeyFrame[18].falcon_Z = 0.000000 ;
+	KeyFrame[18].falcon_rot_X = 0.000000 ;
+	KeyFrame[18].falcon_rot_Y = 0.000000 ;
+	KeyFrame[18].falcon_rot_Z = 0.000000 ;
+	KeyFrame[19].falcon_X = 0.000000 ;
+	KeyFrame[19].falcon_Y = 0.000000 ;
+	KeyFrame[19].falcon_Z = 0.000000 ;
+	KeyFrame[19].falcon_rot_X = 0.000000 ;
+	KeyFrame[19].falcon_rot_Y = 0.000000 ;
+	KeyFrame[19].falcon_rot_Z = 0.000000 ;
 
 }
 
@@ -169,7 +366,6 @@ void cube(float width, float height, float depth, float* text_coord, GLuint text
 	glEnd();
 
 }
-
 
 void dibuja_ironman () {
 
@@ -337,6 +533,39 @@ void dibuja_ironman () {
 }
 
 
+void millenary_falcon() {
+	glPushMatrix();
+		glScalef(0.001,0.001,0.001);
+		glTranslatef(falcon_X , 3000.9930 + falcon_Y , -4984.5935 + falcon_Z);
+		glRotatef(falcon_rot_X, 1 , 0, 0);
+		glRotatef(falcon_rot_Y, 0 , 1, 0);
+		glRotatef(falcon_rot_Z, 0 , 0, 1);
+		mueble falcon(coord_falcon, quads_falcon,trng_falcon, n_vertex_falcon);
+		falcon.solid();
+	glPopMatrix();	
+}
+
+void falcon_fly() {
+
+	if( play == false && FrameIndex > 0 ) {
+		printf("\nAnimacion Iniciada\n");
+		resetElements();
+		//First Interpolation
+		printf("Primera Interpolation\n");
+		interpolation();
+
+		play = true ;
+		playIndex = 0 ;
+		i_curr_steps = 0 ;
+
+	} /*else {
+
+		play=false;
+	}*/
+
+	//printf("\nsalimos de falcon_fly\n");
+}
+
 void display ( void )   // Creamos la funcion donde se dibuja
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -353,11 +582,17 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	
 		glEnable(GL_TEXTURE_2D);
 
+
 		dibuja_ironman();
 		
 		glDisable(GL_TEXTURE_2D);
 
 		ventiladores();
+
+		falcon_fly();
+
+		millenary_falcon();
+
 
 		glPushMatrix();		
 			/*glPushMatrix(); //Creamos cielo
@@ -551,6 +786,53 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 void animacion()
 {
+	if(play)
+	{		
+		//printf("play esta prendido\n");
+
+		//printf("\ni_curr_steps = %f\n",i_curr_steps );
+		//printf("i_max_steps = %f\n", i_max_steps);
+
+		if(	i_curr_steps >= i_max_steps) //end of animation between frames?
+		{	
+			playIndex++ ;
+
+			printf("playIndex = %i\n", playIndex);
+			printf("FrameIndex = %i\n",FrameIndex);
+
+			if( playIndex > FrameIndex - 1)	//end of total animation?
+			{
+				//printf("termina anim\n");
+				playIndex = 0;
+				play = false;
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps = 0; //Reset counter
+				//Interpolation
+				interpolation();
+
+			}
+		}
+		else
+		{
+			//printf("Draw animation\n");
+			//Draw animation
+			falcon_X += KeyFrame[playIndex].falcon_X_INC;
+			falcon_Y += KeyFrame[playIndex].falcon_Y_INC;
+			falcon_Z += KeyFrame[playIndex].falcon_Z_INC;
+
+			falcon_rot_X += KeyFrame[playIndex].falcon_rot_X_INC;
+			falcon_rot_Y += KeyFrame[playIndex].falcon_rot_Y_INC;
+			falcon_rot_Z += KeyFrame[playIndex].falcon_rot_Z_INC;
+
+			i_curr_steps++;
+			//printf("i_curr_steps = %i\n", i_curr_steps);
+		}
+		
+	} else {
+		//printf("\n\nplay esta apagado\n\n");
+	}
 
 	glutPostRedisplay();
 }
@@ -579,6 +861,60 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
 	switch ( key ) {
 
+
+		////////temporales
+		case 'x':   //Movimientos de camara
+			falcon_X = falcon_X + 100;
+			break;
+
+		case 'X':   //Movimientos de camara
+			falcon_X = falcon_X - 100;
+			break;
+
+		case 'y':   //Movimientos de camara
+			falcon_Y = falcon_Y + 100;
+			break;
+
+		case 'Y':   //Movimientos de camara
+			falcon_Y = falcon_Y - 100;
+			break;
+
+		case 'z':   //Movimientos de camara
+			falcon_Z = falcon_Z - 100;
+			break;
+
+		case 'Z':   //Movimientos de camara
+			falcon_Z = falcon_Z + 100;
+			break;
+
+		case 'b':   //Movimientos de camara
+			falcon_rot_X = falcon_rot_X + 1;
+			break;
+
+		case 'B':   //Movimientos de camara
+			falcon_rot_X = falcon_rot_X - 1;
+			break;
+
+		case 'n':   //Movimientos de camara
+			falcon_rot_Y = falcon_rot_Y + 1;
+			break;
+
+		case 'N':   //Movimientos de camara
+			falcon_rot_Y = falcon_rot_Y - 1;
+			break;
+
+		case 'm':   //Movimientos de camara
+			falcon_rot_Z = falcon_rot_Z + 1;
+			break;
+
+		case 'M':   //Movimientos de camara
+			falcon_rot_Z = falcon_rot_Z - 1;
+			break;
+
+		//////////////////////
+
+
+
 		case 'w':   //Movimientos de camara
 		case 'W':
 			objCamera.Move_Camera( CAMERASPEED+0.2 );
@@ -600,28 +936,28 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 			break;
 
 		case 'o':
-			length = length + 0.l;
-			printf("(%f,%f,%f)", length,height,depth);
+			//length = length + 0.l;
+			//printf("(%f,%f,%f)", length,height,depth);
 			break;
 		case 'O':
-			length = length - 0.l;
-			printf("(%f,%f,%f)", length, height, depth);
+			//length = length - 0.l;
+			//printf("(%f,%f,%f)", length, height, depth);
 			break;
 		case 'l':
-			height = height + 0.l;
-			printf("(%f,%f,%f)", length, height, depth);
+			//height = height + 0.l;
+			//printf("(%f,%f,%f)", length, height, depth);
 			break;
 		case 'L':
-			height = height - 0.l;
-			printf("(%f,%f,%f)", length, height, depth);
+			//height = height - 0.l;
+			//printf("(%f,%f,%f)", length, height, depth);
 			break;
 		case 'k':
-			depth = depth + 0.l; 
-			printf("(%f,%f,%f)", length, height, depth);
+			//depth = depth + 0.l; 
+			//printf("(%f,%f,%f)", length, height, depth);
 			break;
 		case 'K':
-			depth = depth - 0.l;
-			printf("(%f,%f,%f)", length, height, depth);
+			//depth = depth - 0.l;
+			//printf("(%f,%f,%f)", length, height, depth);
 			break;
 		case 'u':
 		objCamera.UpDown_Camera(CAMERASPEED);
@@ -674,12 +1010,57 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
   glutPostRedisplay();
 }
 
+
+
+void menuKeyFrame( int id)
+{
+	switch (id)
+	{
+		case 0:	//Save KeyFrame
+			//if(FrameIndex<MAX_FRAMES)
+			//{
+				saveFrame();
+			//}
+			break;
+
+		case 1:	//Play animation
+			if( play == false && FrameIndex > 0 )
+			{
+				printf("\nAnimacion Iniciada\n");
+				resetElements();
+				//First Interpolation
+				printf("Primera Interpolation\n");
+				interpolation();
+
+				play = true ;
+				playIndex = 0 ;
+				i_curr_steps = 0 ;
+			}
+			else
+			{
+				play=false;
+			}
+			break;
+
+
+	}
+}
+
+
+void menu( int id)
+{
+	
+}
+
+
 int main ( int argc, char** argv )   // Main Function
 {
 
+	int submenu;
+
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  glutInitWindowSize  (2000, 2000);	// Tamaño de la Ventana
+  glutInitWindowSize  (600, 600);	// Tamaño de la Ventana
   glutInitWindowPosition (0, 0);	//Posicion de la Ventana
   glutCreateWindow    ("Jerarquia"); // Nombre de la Ventana
   //glutFullScreen     ( );         // Full Screen
@@ -690,6 +1071,14 @@ int main ( int argc, char** argv )   // Main Function
   glutSpecialFunc     ( arrow_keys );	//Otras
   glutIdleFunc		  ( animacion );
 
+   submenu = glutCreateMenu	  ( menuKeyFrame );
+  printf("submenu = %i\n", submenu);
+  glutAddMenuEntry	  ("Guardar KeyFrame", 0);
+  glutAddMenuEntry	  ("Reproducir Animacion", 1);
+  glutCreateMenu	  ( menu );
+  glutAddSubMenu	  ("Animacion Monito", submenu);
+ 
+  glutAttachMenu	  (GLUT_RIGHT_BUTTON);
 
   glutMainLoop        ( );          // 
 

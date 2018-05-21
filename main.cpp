@@ -234,10 +234,13 @@ void display ( void )  { // Creamos la funcion donde se dibuja
 		glRotatef(eye_camY, 0.0, 1.0, 0.0);
 		glRotatef(eye_camZ, 0.0, 0.0, 1.0);
 
-		//dibuja_ironman();
-
-		//mueble fan(coord_fan,quads_fan, trng_fan, n_vertex_fan,t_vertex_fan);
-		//fan.solid();
+	glPushMatrix();
+		glScalef(0.005,0.005,0.005);
+		glTranslatef(0 , 37.9930 , 2984.5935);
+		
+		mueble falcon(coord_falcon, quads_falcon,trng_falcon, n_vertex_falcon);
+		falcon.solid();
+	glPopMatrix();	
 
 
 
@@ -256,7 +259,7 @@ void reshape ( int width , int height )  { // Creamos funcion Reshape
 	glMatrixMode(GL_PROJECTION);						// Seleccionamos Projection Matrix
 	glLoadIdentity();
 
-	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 50.0);		// Tipo de Vista
+	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 5000.0);		// Tipo de Vista
 
 	glMatrixMode(GL_MODELVIEW);							// Seleccionamos Modelview Matrix
 	glLoadIdentity();
