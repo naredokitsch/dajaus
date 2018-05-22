@@ -35,6 +35,8 @@ CTexture text1;
 CTexture text2;
 CTexture text3;	//Flecha
 CTexture textPasto; //Pasto
+CTexture textPisoInterno; //Piso Interno
+CTexture textPisoEstacionamiento; //Piso estacionamiento
 
 CTexture tree;
 
@@ -123,6 +125,10 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	glEnable(GL_AUTO_NORMAL);
 	glEnable(GL_NORMALIZE);
+
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 	
 
 	// Importamos Texturas
@@ -132,6 +138,8 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	char textura_3[] = { "city/arrow.tga" };
 	char textura_4[] = { "tree01.tga" };
 	char textura_5[] = { "texturas/Grass_tile_A_diffuse.tga" };
+	char textura_6[] = { "texturas/Floor_parking.tga" };
+	char textura_7[] = { "texturas/internal_floor.tga" };
 
     text1.LoadBMP(textura_1);
 	text1.BuildGLTexture();
@@ -152,8 +160,15 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	textPasto.LoadTGA(textura_5);
 	textPasto.BuildGLTexture();
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	textPasto.ReleaseImage();
+
+	textPisoInterno.LoadTGA(textura_6);
+	textPisoInterno.BuildGLTexture();
+	textPisoInterno.ReleaseImage();
+
+	textPisoEstacionamiento.LoadTGA(textura_7);
+	textPisoEstacionamiento.BuildGLTexture();
+	textPisoEstacionamiento.ReleaseImage();
 
 	//END NEW//////////////////////////////
 
@@ -189,7 +204,7 @@ void display ( void )   // Creamos la funcion donde se dibuja
 			// Creamos la plataforma con el pasto
 			glPushMatrix();
 				glTranslatef(0, 0, 0);
-				figuras.prisma(0.1,100,100,textPasto.GLindex);
+				figuras.suelo(0.1,100,100,textPasto.GLindex);
 			glPopMatrix();
 			glEnable(GL_LIGHTING);
 
@@ -198,11 +213,11 @@ void display ( void )   // Creamos la funcion donde se dibuja
 				glPushMatrix(); // Cocina, Sala Comedor
 					glPushMatrix();
 						glTranslatef(-2.3, -1.6, 7);
-						figuras.prisma(0.001,17.5,14,0);//Suelo 
+						figuras.prisma(0.001,17.5,14, textPisoEstacionamiento.GLindex);//Suelo 
 					glPopMatrix();
 					glPushMatrix();
 						glTranslatef(-8, -1.6, 15.2);
-						figuras.prisma(0.001, 6, 2.7, 0);//Suelo 2
+						figuras.prisma(0.001, 6, 2.7, textPisoEstacionamiento.GLindex);//Suelo 2
 					glPopMatrix();
 					figuras.prisma(3.5, 13, 0.1, 0); // Muro superior
 					glPushMatrix(); // Ventana Superior Izquierda
@@ -281,10 +296,10 @@ void display ( void )   // Creamos la funcion donde se dibuja
 						figuras.prisma(1, 0.11, 1, 1); //  Ventana Chica 2 Derecha
 
 					glPopMatrix();
-					glTranslatef(-5, 0, -10);
-					figuras.prisma(3.5, -10, 0.1, 0); // Muro Superior
+					//glTranslatef(-5, 0, -10);
+					//figuras.prisma(3.5, -10, 0.1, 0); // Muro Superior
 
-					glTranslatef(-5, 0, 5);
+					glTranslatef(-10, 0, 5);
 					figuras.prisma(3.5, 0.1, 10, 0); // Muro Izquierda 1
 					glTranslatef(0.7, 0, 5);
 					figuras.prisma(3.5, 1.5, 0.1, 0); // Muro Izquierda 2
