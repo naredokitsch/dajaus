@@ -40,8 +40,8 @@
 //#include "sunchair2.cpp"
 //#include "umbrella.cpp"
 
-//IRON MAN
-//#include "ironman.cpp"
-//#include "fan.cpp"
-//#include "falcon.cpp"
+//ANIMACIONES
+#include "ironman.cpp"
+#include "fan.cpp"
+#include "falcon.cpp"
 #include "tv.cpp"

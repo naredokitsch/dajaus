@@ -13,65 +13,10 @@
 #include "texturas/def_textures.cpp"
 #include "geometria/geo.cpp"
 #include "muebleClass.cpp"
+#include "anima_vars.cpp"
 
 CFiguras sky;
 CFiguras figuras;
-
-////// VARIABLES DE IRON MAN /////
-bool til45 = true;
-bool r1 = true;
-bool r2 = false;
-bool r3 = false;
-bool r4 = false;
-bool r5 = false;
-bool r6 = false;
-bool r7 = false;
-bool r8 = false;
-float pos_iron [] = {0,0};
-float giro = 0;
-float swing_iron = 0;
-/////////////////////////////////
-
-float fan_rot ;
-
-//////MOVIMIENTOS DE FALCON
-float falcon_X ;
-float falcon_Y ;
-float falcon_Z ;
-
-float falcon_rot_X ;
-float falcon_rot_Y ;
-float falcon_rot_Z ;
-//////////////////////////
-
-///VARIABLES DE FRAMES
-typedef struct _frame {
-	float falcon_X;
-	float falcon_X_INC;
-	float falcon_Y;
-	float falcon_Y_INC;
-	float falcon_Z;
-	float falcon_Z_INC;
-	float falcon_rot_X;
-	float falcon_rot_X_INC;
-	float falcon_rot_Y;
-	float falcon_rot_Y_INC;
-	float falcon_rot_Z;
-	float falcon_rot_Z_INC;
-} FRAME ;
-
-int i_max_steps = 50;
-int i_curr_steps = 0;
-
-
-int FrameIndex = 19 ;			//introducir datos
-bool play = false ;
-int playIndex = 0 ;
-
-FRAME KeyFrame[ 19 + 1];
-/////////////////////
-
-//#include "tmp_.txt"
 
 CCamera objCamera;	//Create objet Camera
 
@@ -85,60 +30,48 @@ GLfloat Position2[]= { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 CTexture ironman_body_texture;
 CTexture ironman_head_texture;
 
-void saveFrame ( void )
-{
-	
-	KeyFrame[FrameIndex].falcon_X = falcon_X;
+void getFramesValues();
 
-	printf("KeyFrame[%i].falcon_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_X);
-
-	KeyFrame[FrameIndex].falcon_Y = falcon_Y;
-
-	printf("KeyFrame[%i].falcon_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Y);
-
-	KeyFrame[FrameIndex].falcon_Z = falcon_Z;
-
-	printf("KeyFrame[%i].falcon_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Z);
-
-	KeyFrame[FrameIndex].falcon_rot_X = falcon_rot_X;
-
-	printf("KeyFrame[%i].falcon_rot_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_X);
-
-	KeyFrame[FrameIndex].falcon_rot_Y = falcon_rot_Y;
-
-	printf("KeyFrame[%i].falcon_rot_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Y);
-
-	KeyFrame[FrameIndex].falcon_rot_Z = falcon_rot_Z;
-
-	printf("KeyFrame[%i].falcon_rot_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Z);
-
-	//printf("Frame %i Guardado!!!!!\n\n\n\n\n\n\n", FrameIndex);
-			
-	FrameIndex++;
-}
-
-
-void resetElements( void ) {
+void falcon_reset( void ) {
 
 	//printf("Se han reseteado los elementos\n");
-	falcon_X = KeyFrame[0].falcon_X;
-	falcon_Y = KeyFrame[0].falcon_Y;
-	falcon_Z = KeyFrame[0].falcon_Z;
+	falcon_X = falcon_KeyFrame[0].falcon_X;
+	falcon_Y = falcon_KeyFrame[0].falcon_Y;
+	falcon_Z = falcon_KeyFrame[0].falcon_Z;
 
-	falcon_rot_X = KeyFrame[0].falcon_rot_X;
-	falcon_rot_Y = KeyFrame[0].falcon_rot_Y;
-	falcon_rot_Z = KeyFrame[0].falcon_rot_Z;
+	falcon_rot_X = falcon_KeyFrame[0].falcon_rot_X;
+	falcon_rot_Y = falcon_KeyFrame[0].falcon_rot_Y;
+	falcon_rot_Z = falcon_KeyFrame[0].falcon_rot_Z;
 }
 
-void interpolation ( void ) {
+void pong_reset( void ) {
 
-	KeyFrame[playIndex].falcon_X_INC = (KeyFrame[playIndex + 1].falcon_X - KeyFrame[playIndex].falcon_X) / i_max_steps;	
-	KeyFrame[playIndex].falcon_Y_INC = (KeyFrame[playIndex + 1].falcon_Y - KeyFrame[playIndex].falcon_Y) / i_max_steps;	
-	KeyFrame[playIndex].falcon_Z_INC = (KeyFrame[playIndex + 1].falcon_Z - KeyFrame[playIndex].falcon_Z) / i_max_steps;	
+	//printf("Se han reseteado los elementos\n");
+	leftbar_Y = pong_KeyFrame[0].leftbar_Y;
+	rightbar_Y = pong_KeyFrame[0].rightbar_Y;
 
-	KeyFrame[playIndex].falcon_rot_X_INC = (KeyFrame[playIndex + 1].falcon_rot_X - KeyFrame[playIndex].falcon_rot_X) / i_max_steps;	
-	KeyFrame[playIndex].falcon_rot_Y_INC = (KeyFrame[playIndex + 1].falcon_rot_Y - KeyFrame[playIndex].falcon_rot_Y) / i_max_steps;	
-	KeyFrame[playIndex].falcon_rot_Z_INC = (KeyFrame[playIndex + 1].falcon_rot_Z - KeyFrame[playIndex].falcon_rot_Z) / i_max_steps;
+	ball_X = pong_KeyFrame[0].ball_X;
+	ball_Y = pong_KeyFrame[0].ball_Y;
+}
+
+void falcon_interpolation ( void ) {
+
+	falcon_KeyFrame[falcon_playIndex].falcon_X_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_X - falcon_KeyFrame[falcon_playIndex].falcon_X) / falcon_max_steps;	
+	falcon_KeyFrame[falcon_playIndex].falcon_Y_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_Y - falcon_KeyFrame[falcon_playIndex].falcon_Y) / falcon_max_steps;	
+	falcon_KeyFrame[falcon_playIndex].falcon_Z_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_Z - falcon_KeyFrame[falcon_playIndex].falcon_Z) / falcon_max_steps;	
+
+	falcon_KeyFrame[falcon_playIndex].falcon_rot_X_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_rot_X - falcon_KeyFrame[falcon_playIndex].falcon_rot_X) / falcon_max_steps;	
+	falcon_KeyFrame[falcon_playIndex].falcon_rot_Y_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_rot_Y - falcon_KeyFrame[falcon_playIndex].falcon_rot_Y) / falcon_max_steps;	
+	falcon_KeyFrame[falcon_playIndex].falcon_rot_Z_INC = (falcon_KeyFrame[falcon_playIndex + 1].falcon_rot_Z - falcon_KeyFrame[falcon_playIndex].falcon_rot_Z) / falcon_max_steps;
+}
+
+void pong_interpolation ( void ) {
+
+	pong_KeyFrame[pong_playIndex].leftbar_Y_INC = (pong_KeyFrame[pong_playIndex + 1].leftbar_Y - pong_KeyFrame[pong_playIndex].leftbar_Y) / pong_max_steps;
+	pong_KeyFrame[pong_playIndex].rightbar_Y_INC = (pong_KeyFrame[pong_playIndex + 1].rightbar_Y - pong_KeyFrame[pong_playIndex].rightbar_Y) / pong_max_steps;
+	pong_KeyFrame[pong_playIndex].ball_X_INC = (pong_KeyFrame[pong_playIndex + 1].ball_X - pong_KeyFrame[pong_playIndex].ball_X) / pong_max_steps;	
+	pong_KeyFrame[pong_playIndex].ball_Y_INC = (pong_KeyFrame[pong_playIndex + 1].ball_Y - pong_KeyFrame[pong_playIndex].ball_Y) / pong_max_steps;	
+
 }
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
@@ -171,126 +104,9 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	objCamera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
 
-	KeyFrame[0].falcon_X = 0.000000 ;
-	KeyFrame[0].falcon_Y = 0.000000 ;
-	KeyFrame[0].falcon_Z = 0.000000 ;
-	KeyFrame[0].falcon_rot_X = 0.000000 ;
-	KeyFrame[0].falcon_rot_Y = 0.000000 ;
-	KeyFrame[0].falcon_rot_Z = 0.000000 ;
-	KeyFrame[1].falcon_X = 0.000000 ;
-	KeyFrame[1].falcon_Y = 0.000000 ;
-	KeyFrame[1].falcon_Z = -13700.000000 ;
-	KeyFrame[1].falcon_rot_X = 3.000000 ;
-	KeyFrame[1].falcon_rot_Y = -104.000000 ;
-	KeyFrame[1].falcon_rot_Z = -58.000000 ;
-	KeyFrame[2].falcon_X = 16600.000000 ;
-	KeyFrame[2].falcon_Y = -700.000000 ;
-	KeyFrame[2].falcon_Z = -1400.000000 ;
-	KeyFrame[2].falcon_rot_X = -1.000000 ;
-	KeyFrame[2].falcon_rot_Y = -179.000000 ;
-	KeyFrame[2].falcon_rot_Z = -92.000000 ;
-	KeyFrame[3].falcon_X = 14700.000000 ;
-	KeyFrame[3].falcon_Y = -1500.000000 ;
-	KeyFrame[3].falcon_Z = 20200.000000 ;
-	KeyFrame[3].falcon_rot_X = -1.000001 ;
-	KeyFrame[3].falcon_rot_Y = -179.000061 ;
-	KeyFrame[3].falcon_rot_Z = -55.000008 ;
-	KeyFrame[4].falcon_X = 14500.000000 ;
-	KeyFrame[4].falcon_Y = -1800.000000 ;
-	KeyFrame[4].falcon_Z = 24800.000000 ;
-	KeyFrame[4].falcon_rot_X = -1.000001 ;
-	KeyFrame[4].falcon_rot_Y = -255.000061 ;
-	KeyFrame[4].falcon_rot_Z = -6.000065 ;
-	KeyFrame[5].falcon_X = 7200.000000 ;
-	KeyFrame[5].falcon_Y = 2600.000000 ;
-	KeyFrame[5].falcon_Z = 26700.000000 ;
-	KeyFrame[5].falcon_rot_X = -89.000000 ;
-	KeyFrame[5].falcon_rot_Y = -167.000275 ;
-	KeyFrame[5].falcon_rot_Z = 52.999901 ;
-	KeyFrame[6].falcon_X = 7200.000000 ;
-	KeyFrame[6].falcon_Y = 18100.000000 ;
-	KeyFrame[6].falcon_Z = 26700.000000 ;
-	KeyFrame[6].falcon_rot_X = -89.000000 ;
-	KeyFrame[6].falcon_rot_Y = -167.000275 ;
-	KeyFrame[6].falcon_rot_Z = 52.999901 ;
-	KeyFrame[7].falcon_X = -4100.000000 ;
-	KeyFrame[7].falcon_Y = 26000.000000 ;
-	KeyFrame[7].falcon_Z = 32400.000000 ;
-	KeyFrame[7].falcon_rot_X = 100.999992 ;
-	KeyFrame[7].falcon_rot_Y = -176.000549 ;
-	KeyFrame[7].falcon_rot_Z = 70.999893 ;
-	KeyFrame[8].falcon_X = -4100.000000 ;
-	KeyFrame[8].falcon_Y = 26000.000000 ;
-	KeyFrame[8].falcon_Z = 32400.000000 ;
-	KeyFrame[8].falcon_rot_X = 77.999992 ;
-	KeyFrame[8].falcon_rot_Y = 173.999451 ;
-	KeyFrame[8].falcon_rot_Z = 70.999893 ;
-	KeyFrame[9].falcon_X = -4100.000000 ;
-	KeyFrame[9].falcon_Y = 17800.000000 ;
-	KeyFrame[9].falcon_Z = 32400.000000 ;
-	KeyFrame[9].falcon_rot_X = 77.999992 ;
-	KeyFrame[9].falcon_rot_Y = 173.999451 ;
-	KeyFrame[9].falcon_rot_Z = 122.999893 ;
-	KeyFrame[10].falcon_X = -4100.000000 ;
-	KeyFrame[10].falcon_Y = 2800.000000 ;
-	KeyFrame[10].falcon_Z = 32400.000000 ;
-	KeyFrame[10].falcon_rot_X = 77.999992 ;
-	KeyFrame[10].falcon_rot_Y = 173.999451 ;
-	KeyFrame[10].falcon_rot_Z = 19.999893 ;
-	KeyFrame[11].falcon_X = -4100.000000 ;
-	KeyFrame[11].falcon_Y = -2200.000000 ;
-	KeyFrame[11].falcon_Z = 32400.000000 ;
-	KeyFrame[11].falcon_rot_X = 208.000000 ;
-	KeyFrame[11].falcon_rot_Y = 497.999451 ;
-	KeyFrame[11].falcon_rot_Z = 19.999893 ;
-	KeyFrame[12].falcon_X = -13300.000000 ;
-	KeyFrame[12].falcon_Y = -2200.000000 ;
-	KeyFrame[12].falcon_Z = 22700.000000 ;
-	KeyFrame[12].falcon_rot_X = 208.000000 ;
-	KeyFrame[12].falcon_rot_Y = 535.999451 ;
-	KeyFrame[12].falcon_rot_Z = -39.000107 ;
-	KeyFrame[13].falcon_X = -13300.000000 ;
-	KeyFrame[13].falcon_Y = -2200.000000 ;
-	KeyFrame[13].falcon_Z = -5400.000000 ;
-	KeyFrame[13].falcon_rot_X = 208.000000 ;
-	KeyFrame[13].falcon_rot_Y = 535.999451 ;
-	KeyFrame[13].falcon_rot_Z = -3.000107 ;
-	KeyFrame[14].falcon_X = -13300.000000 ;
-	KeyFrame[14].falcon_Y = -2200.000000 ;
-	KeyFrame[14].falcon_Z = -16200.000000 ;
-	KeyFrame[14].falcon_rot_X = 222.000000 ;
-	KeyFrame[14].falcon_rot_Y = 595.999451 ;
-	KeyFrame[14].falcon_rot_Z = -66.000107 ;
-	KeyFrame[15].falcon_X = 400.000000 ;
-	KeyFrame[15].falcon_Y = -2300.000000 ;
-	KeyFrame[15].falcon_Z = -20100.000000 ;
-	KeyFrame[15].falcon_rot_X = 200.000183 ;
-	KeyFrame[15].falcon_rot_Y = 682.000488 ;
-	KeyFrame[15].falcon_rot_Z = 182.000046 ;
-	KeyFrame[16].falcon_X = 7500.000000 ;
-	KeyFrame[16].falcon_Y = 4100.000000 ;
-	KeyFrame[16].falcon_Z = -20500.000000 ;
-	KeyFrame[16].falcon_rot_X = 200.000046 ;
-	KeyFrame[16].falcon_rot_Y = 711.002075 ;
-	KeyFrame[16].falcon_rot_Z = 185.000275 ;
-	KeyFrame[17].falcon_X = 7500.000000 ;
-	KeyFrame[17].falcon_Y = 4100.000000 ;
-	KeyFrame[17].falcon_Z = 5700.000000 ;
-	KeyFrame[17].falcon_rot_X = 200.000046 ;
-	KeyFrame[17].falcon_rot_Y = 777.002075 ;
-	KeyFrame[17].falcon_rot_Z = 88.000275 ;
-	KeyFrame[18].falcon_X = 0.000000 ;
-	KeyFrame[18].falcon_Y = 10000.000000 ;
-	KeyFrame[18].falcon_Z = 0.000000 ;
-	KeyFrame[18].falcon_rot_X = 0.000000 ;
-	KeyFrame[18].falcon_rot_Y = 0.000000 ;
-	KeyFrame[18].falcon_rot_Z = 0.000000 ;
-	KeyFrame[19].falcon_X = 0.000000 ;
-	KeyFrame[19].falcon_Y = 0.000000 ;
-	KeyFrame[19].falcon_Z = 0.000000 ;
-	KeyFrame[19].falcon_rot_X = 0.000000 ;
-	KeyFrame[19].falcon_rot_Y = 0.000000 ;
-	KeyFrame[19].falcon_rot_Z = 0.000000 ;
+	getFramesValues();
+
+	
 
 }
 
@@ -533,7 +349,83 @@ void dibuja_ironman () {
 }
 
 
+void television() {
+
+
+	if( pong_play == false && pong_FrameIndex > 0 ) {
+		pong_reset();
+		//First Interpolation
+		pong_interpolation();
+
+		pong_play = true ;
+		pong_playIndex = 0 ;
+		pong_curr_steps = 0 ;
+	}
+
+	glPushMatrix();
+
+		glScalef(0.2,0.2,0.2);
+		glTranslatef(10,0.7,4);
+		glRotatef(-90, 1, 0, 0);
+
+		
+		mueble tv(coord_tv, quads_tv, trng_tv, n_vertex_tv);
+		glColor3f(0,0,0);
+		tv.solid();
+
+		glColor3f(0,1,0);
+
+		glPushMatrix();
+			glTranslatef(-9,0, leftbar_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 1.0f, 1.0f, 1.0f);
+				glVertex3f(6.104019 , -0.383025 , 0.932411);
+				glVertex3f(6.104019 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		
+		glPushMatrix();	// BARRA DERECHA
+			glTranslatef(-3,0, rightbar_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 0.0f, 0.0f, 1.0f);
+				glVertex3f(6.104019 , -0.383025 , 0.932411);
+				glVertex3f(6.104019 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		glPushMatrix();	// BARRA DERECHA
+			glTranslatef(ball_X,0, ball_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 0.0f, 0.0f, 1.0f);
+				glVertex3f(6.1 , -0.383025 , 0.932411);
+				glVertex3f(6.1 , -0.383025 , 0.932411 + 0.2);
+				glVertex3f(5.9 , -0.383025 , 0.932411 + 0.2);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		glColor3f(1,1,1);
+
+	glPopMatrix();
+}
+
 void millenary_falcon() {
+
+	if( falcon_play == false && falcon_FrameIndex > 0 ) {
+	falcon_reset();
+	//First Interpolation
+	falcon_interpolation();
+
+	falcon_play = true ;
+	falcon_playIndex = 0 ;
+	falcon_curr_steps = 0 ;
+	}
+
 	glPushMatrix();
 		glScalef(0.001,0.001,0.001);
 		glTranslatef(falcon_X , 3000.9930 + falcon_Y , -4984.5935 + falcon_Z);
@@ -545,26 +437,7 @@ void millenary_falcon() {
 	glPopMatrix();	
 }
 
-void falcon_fly() {
 
-	if( play == false && FrameIndex > 0 ) {
-		printf("\nAnimacion Iniciada\n");
-		resetElements();
-		//First Interpolation
-		printf("Primera Interpolation\n");
-		interpolation();
-
-		play = true ;
-		playIndex = 0 ;
-		i_curr_steps = 0 ;
-
-	} /*else {
-
-		play=false;
-	}*/
-
-	//printf("\nsalimos de falcon_fly\n");
-}
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -589,9 +462,9 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 		ventiladores();
 
-		falcon_fly();
-
 		millenary_falcon();
+
+		television();
 
 
 		glPushMatrix();		
@@ -786,52 +659,53 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 void animacion()
 {
-	if(play)
+	if(falcon_play)
 	{		
-		//printf("play esta prendido\n");
 
-		//printf("\ni_curr_steps = %f\n",i_curr_steps );
-		//printf("i_max_steps = %f\n", i_max_steps);
-
-		if(	i_curr_steps >= i_max_steps) //end of animation between frames?
-		{	
-			playIndex++ ;
-
-			printf("playIndex = %i\n", playIndex);
-			printf("FrameIndex = %i\n",FrameIndex);
-
-			if( playIndex > FrameIndex - 1)	//end of total animation?
-			{
-				//printf("termina anim\n");
-				playIndex = 0;
-				play = false;
+		if(	falcon_curr_steps >= falcon_max_steps) { //end of animation between frames? 	
+			falcon_playIndex++ ;
+			if( falcon_playIndex > falcon_FrameIndex - 1) { //end of total animation?
+				falcon_playIndex = 0;
+				falcon_play = false;
 			}
-			else //Next frame interpolations
-			{
-				i_curr_steps = 0; //Reset counter
-				//Interpolation
-				interpolation();
-
+			else { //Next frame falcon_interpolations
+				falcon_curr_steps = 0; //Reset counter
+				falcon_interpolation();
 			}
 		}
-		else
-		{
-			//printf("Draw animation\n");
-			//Draw animation
-			falcon_X += KeyFrame[playIndex].falcon_X_INC;
-			falcon_Y += KeyFrame[playIndex].falcon_Y_INC;
-			falcon_Z += KeyFrame[playIndex].falcon_Z_INC;
-
-			falcon_rot_X += KeyFrame[playIndex].falcon_rot_X_INC;
-			falcon_rot_Y += KeyFrame[playIndex].falcon_rot_Y_INC;
-			falcon_rot_Z += KeyFrame[playIndex].falcon_rot_Z_INC;
-
-			i_curr_steps++;
-			//printf("i_curr_steps = %i\n", i_curr_steps);
+		else { //Draw animation
+			falcon_X += falcon_KeyFrame[falcon_playIndex].falcon_X_INC;
+			falcon_Y += falcon_KeyFrame[falcon_playIndex].falcon_Y_INC;
+			falcon_Z += falcon_KeyFrame[falcon_playIndex].falcon_Z_INC;
+			falcon_rot_X += falcon_KeyFrame[falcon_playIndex].falcon_rot_X_INC;
+			falcon_rot_Y += falcon_KeyFrame[falcon_playIndex].falcon_rot_Y_INC;
+			falcon_rot_Z += falcon_KeyFrame[falcon_playIndex].falcon_rot_Z_INC;
+			falcon_curr_steps++;
 		}
-		
-	} else {
-		//printf("\n\nplay esta apagado\n\n");
+	}
+
+	if(pong_play)
+	{		
+
+		if(	pong_curr_steps >= pong_max_steps) { //end of animation between frames? 	
+			pong_playIndex++ ;
+			if( pong_playIndex > pong_FrameIndex - 1) { //end of total animation?
+				pong_playIndex = 0;
+				pong_play = false;
+			}
+			else { //Next frame pong_interpolations
+				pong_curr_steps = 0; //Reset counter
+				pong_interpolation();
+			}
+		}
+		else { //Draw animation
+			leftbar_Y += pong_KeyFrame[pong_playIndex].leftbar_Y_INC;
+			rightbar_Y += pong_KeyFrame[pong_playIndex].rightbar_Y_INC;
+			ball_X += pong_KeyFrame[pong_playIndex].ball_X_INC;
+			ball_Y += pong_KeyFrame[pong_playIndex].ball_Y_INC;
+
+			pong_curr_steps++;
+		}
 	}
 
 	glutPostRedisplay();
@@ -860,60 +734,6 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
 	switch ( key ) {
-
-
-		////////temporales
-		case 'x':   //Movimientos de camara
-			falcon_X = falcon_X + 100;
-			break;
-
-		case 'X':   //Movimientos de camara
-			falcon_X = falcon_X - 100;
-			break;
-
-		case 'y':   //Movimientos de camara
-			falcon_Y = falcon_Y + 100;
-			break;
-
-		case 'Y':   //Movimientos de camara
-			falcon_Y = falcon_Y - 100;
-			break;
-
-		case 'z':   //Movimientos de camara
-			falcon_Z = falcon_Z - 100;
-			break;
-
-		case 'Z':   //Movimientos de camara
-			falcon_Z = falcon_Z + 100;
-			break;
-
-		case 'b':   //Movimientos de camara
-			falcon_rot_X = falcon_rot_X + 1;
-			break;
-
-		case 'B':   //Movimientos de camara
-			falcon_rot_X = falcon_rot_X - 1;
-			break;
-
-		case 'n':   //Movimientos de camara
-			falcon_rot_Y = falcon_rot_Y + 1;
-			break;
-
-		case 'N':   //Movimientos de camara
-			falcon_rot_Y = falcon_rot_Y - 1;
-			break;
-
-		case 'm':   //Movimientos de camara
-			falcon_rot_Z = falcon_rot_Z + 1;
-			break;
-
-		case 'M':   //Movimientos de camara
-			falcon_rot_Z = falcon_rot_Z - 1;
-			break;
-
-		//////////////////////
-
-
 
 		case 'w':   //Movimientos de camara
 		case 'W':
@@ -1011,58 +831,16 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
 }
 
 
-
-void menuKeyFrame( int id)
-{
-	switch (id)
-	{
-		case 0:	//Save KeyFrame
-			//if(FrameIndex<MAX_FRAMES)
-			//{
-				saveFrame();
-			//}
-			break;
-
-		case 1:	//Play animation
-			if( play == false && FrameIndex > 0 )
-			{
-				printf("\nAnimacion Iniciada\n");
-				resetElements();
-				//First Interpolation
-				printf("Primera Interpolation\n");
-				interpolation();
-
-				play = true ;
-				playIndex = 0 ;
-				i_curr_steps = 0 ;
-			}
-			else
-			{
-				play=false;
-			}
-			break;
-
-
-	}
-}
-
-
-void menu( int id)
-{
-	
-}
-
-
 int main ( int argc, char** argv )   // Main Function
 {
 
 	int submenu;
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
-  glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  glutInitWindowSize  (600, 600);	// Tamaño de la Ventana
+  glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Disfalcon_play Mode (Clores RGB y alpha | Buffer Doble )
+  glutInitWindowSize  (700, 700);	// Tamaño de la Ventana
   glutInitWindowPosition (0, 0);	//Posicion de la Ventana
-  glutCreateWindow    ("Jerarquia"); // Nombre de la Ventana
+  glutCreateWindow    ("DaJaus"); // Nombre de la Ventana
   //glutFullScreen     ( );         // Full Screen
   InitGL ();						// Parametros iniciales de la aplicacion
   glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
@@ -1071,16 +849,174 @@ int main ( int argc, char** argv )   // Main Function
   glutSpecialFunc     ( arrow_keys );	//Otras
   glutIdleFunc		  ( animacion );
 
-   submenu = glutCreateMenu	  ( menuKeyFrame );
-  printf("submenu = %i\n", submenu);
-  glutAddMenuEntry	  ("Guardar KeyFrame", 0);
-  glutAddMenuEntry	  ("Reproducir Animacion", 1);
-  glutCreateMenu	  ( menu );
-  glutAddSubMenu	  ("Animacion Monito", submenu);
- 
-  glutAttachMenu	  (GLUT_RIGHT_BUTTON);
-
   glutMainLoop        ( );          // 
 
   return 0;
+}
+
+
+void getFramesValues() {
+
+
+	//Se declaran los valores para los frames del vuelo del halcOn milenario
+	falcon_KeyFrame[0].falcon_X = 0.000000 ;
+	falcon_KeyFrame[0].falcon_Y = 0.000000 ;
+	falcon_KeyFrame[0].falcon_Z = 0.000000 ;
+	falcon_KeyFrame[0].falcon_rot_X = 0.000000 ;
+	falcon_KeyFrame[0].falcon_rot_Y = 0.000000 ;
+	falcon_KeyFrame[0].falcon_rot_Z = 0.000000 ;
+	falcon_KeyFrame[1].falcon_X = 0.000000 ;
+	falcon_KeyFrame[1].falcon_Y = 0.000000 ;
+	falcon_KeyFrame[1].falcon_Z = -13700.000000 ;
+	falcon_KeyFrame[1].falcon_rot_X = 3.000000 ;
+	falcon_KeyFrame[1].falcon_rot_Y = -104.000000 ;
+	falcon_KeyFrame[1].falcon_rot_Z = -58.000000 ;
+	falcon_KeyFrame[2].falcon_X = 16600.000000 ;
+	falcon_KeyFrame[2].falcon_Y = -700.000000 ;
+	falcon_KeyFrame[2].falcon_Z = -1400.000000 ;
+	falcon_KeyFrame[2].falcon_rot_X = -1.000000 ;
+	falcon_KeyFrame[2].falcon_rot_Y = -179.000000 ;
+	falcon_KeyFrame[2].falcon_rot_Z = -92.000000 ;
+	falcon_KeyFrame[3].falcon_X = 14700.000000 ;
+	falcon_KeyFrame[3].falcon_Y = -1500.000000 ;
+	falcon_KeyFrame[3].falcon_Z = 20200.000000 ;
+	falcon_KeyFrame[3].falcon_rot_X = -1.000001 ;
+	falcon_KeyFrame[3].falcon_rot_Y = -179.000061 ;
+	falcon_KeyFrame[3].falcon_rot_Z = -55.000008 ;
+	falcon_KeyFrame[4].falcon_X = 14500.000000 ;
+	falcon_KeyFrame[4].falcon_Y = -1800.000000 ;
+	falcon_KeyFrame[4].falcon_Z = 24800.000000 ;
+	falcon_KeyFrame[4].falcon_rot_X = -1.000001 ;
+	falcon_KeyFrame[4].falcon_rot_Y = -255.000061 ;
+	falcon_KeyFrame[4].falcon_rot_Z = -6.000065 ;
+	falcon_KeyFrame[5].falcon_X = 7200.000000 ;
+	falcon_KeyFrame[5].falcon_Y = 2600.000000 ;
+	falcon_KeyFrame[5].falcon_Z = 26700.000000 ;
+	falcon_KeyFrame[5].falcon_rot_X = -89.000000 ;
+	falcon_KeyFrame[5].falcon_rot_Y = -167.000275 ;
+	falcon_KeyFrame[5].falcon_rot_Z = 52.999901 ;
+	falcon_KeyFrame[6].falcon_X = 7200.000000 ;
+	falcon_KeyFrame[6].falcon_Y = 18100.000000 ;
+	falcon_KeyFrame[6].falcon_Z = 26700.000000 ;
+	falcon_KeyFrame[6].falcon_rot_X = -89.000000 ;
+	falcon_KeyFrame[6].falcon_rot_Y = -167.000275 ;
+	falcon_KeyFrame[6].falcon_rot_Z = 52.999901 ;
+	falcon_KeyFrame[7].falcon_X = -4100.000000 ;
+	falcon_KeyFrame[7].falcon_Y = 26000.000000 ;
+	falcon_KeyFrame[7].falcon_Z = 32400.000000 ;
+	falcon_KeyFrame[7].falcon_rot_X = 100.999992 ;
+	falcon_KeyFrame[7].falcon_rot_Y = -176.000549 ;
+	falcon_KeyFrame[7].falcon_rot_Z = 70.999893 ;
+	falcon_KeyFrame[8].falcon_X = -4100.000000 ;
+	falcon_KeyFrame[8].falcon_Y = 26000.000000 ;
+	falcon_KeyFrame[8].falcon_Z = 32400.000000 ;
+	falcon_KeyFrame[8].falcon_rot_X = 77.999992 ;
+	falcon_KeyFrame[8].falcon_rot_Y = 173.999451 ;
+	falcon_KeyFrame[8].falcon_rot_Z = 70.999893 ;
+	falcon_KeyFrame[9].falcon_X = -4100.000000 ;
+	falcon_KeyFrame[9].falcon_Y = 17800.000000 ;
+	falcon_KeyFrame[9].falcon_Z = 32400.000000 ;
+	falcon_KeyFrame[9].falcon_rot_X = 77.999992 ;
+	falcon_KeyFrame[9].falcon_rot_Y = 173.999451 ;
+	falcon_KeyFrame[9].falcon_rot_Z = 122.999893 ;
+	falcon_KeyFrame[10].falcon_X = -4100.000000 ;
+	falcon_KeyFrame[10].falcon_Y = 2800.000000 ;
+	falcon_KeyFrame[10].falcon_Z = 32400.000000 ;
+	falcon_KeyFrame[10].falcon_rot_X = 77.999992 ;
+	falcon_KeyFrame[10].falcon_rot_Y = 173.999451 ;
+	falcon_KeyFrame[10].falcon_rot_Z = 19.999893 ;
+	falcon_KeyFrame[11].falcon_X = -4100.000000 ;
+	falcon_KeyFrame[11].falcon_Y = -2200.000000 ;
+	falcon_KeyFrame[11].falcon_Z = 32400.000000 ;
+	falcon_KeyFrame[11].falcon_rot_X = 208.000000 ;
+	falcon_KeyFrame[11].falcon_rot_Y = 497.999451 ;
+	falcon_KeyFrame[11].falcon_rot_Z = 19.999893 ;
+	falcon_KeyFrame[12].falcon_X = -13300.000000 ;
+	falcon_KeyFrame[12].falcon_Y = -2200.000000 ;
+	falcon_KeyFrame[12].falcon_Z = 22700.000000 ;
+	falcon_KeyFrame[12].falcon_rot_X = 208.000000 ;
+	falcon_KeyFrame[12].falcon_rot_Y = 535.999451 ;
+	falcon_KeyFrame[12].falcon_rot_Z = -39.000107 ;
+	falcon_KeyFrame[13].falcon_X = -13300.000000 ;
+	falcon_KeyFrame[13].falcon_Y = -2200.000000 ;
+	falcon_KeyFrame[13].falcon_Z = -5400.000000 ;
+	falcon_KeyFrame[13].falcon_rot_X = 208.000000 ;
+	falcon_KeyFrame[13].falcon_rot_Y = 535.999451 ;
+	falcon_KeyFrame[13].falcon_rot_Z = -3.000107 ;
+	falcon_KeyFrame[14].falcon_X = -13300.000000 ;
+	falcon_KeyFrame[14].falcon_Y = -2200.000000 ;
+	falcon_KeyFrame[14].falcon_Z = -16200.000000 ;
+	falcon_KeyFrame[14].falcon_rot_X = 222.000000 ;
+	falcon_KeyFrame[14].falcon_rot_Y = 595.999451 ;
+	falcon_KeyFrame[14].falcon_rot_Z = -66.000107 ;
+	falcon_KeyFrame[15].falcon_X = 400.000000 ;
+	falcon_KeyFrame[15].falcon_Y = -2300.000000 ;
+	falcon_KeyFrame[15].falcon_Z = -20100.000000 ;
+	falcon_KeyFrame[15].falcon_rot_X = 200.000183 ;
+	falcon_KeyFrame[15].falcon_rot_Y = 682.000488 ;
+	falcon_KeyFrame[15].falcon_rot_Z = 182.000046 ;
+	falcon_KeyFrame[16].falcon_X = 7500.000000 ;
+	falcon_KeyFrame[16].falcon_Y = 4100.000000 ;
+	falcon_KeyFrame[16].falcon_Z = -20500.000000 ;
+	falcon_KeyFrame[16].falcon_rot_X = 200.000046 ;
+	falcon_KeyFrame[16].falcon_rot_Y = 711.002075 ;
+	falcon_KeyFrame[16].falcon_rot_Z = 185.000275 ;
+	falcon_KeyFrame[17].falcon_X = 7500.000000 ;
+	falcon_KeyFrame[17].falcon_Y = 4100.000000 ;
+	falcon_KeyFrame[17].falcon_Z = 5700.000000 ;
+	falcon_KeyFrame[17].falcon_rot_X = 200.000046 ;
+	falcon_KeyFrame[17].falcon_rot_Y = 777.002075 ;
+	falcon_KeyFrame[17].falcon_rot_Z = 88.000275 ;
+	falcon_KeyFrame[18].falcon_X = 0.000000 ;
+	falcon_KeyFrame[18].falcon_Y = 10000.000000 ;
+	falcon_KeyFrame[18].falcon_Z = 0.000000 ;
+	falcon_KeyFrame[18].falcon_rot_X = 0.000000 ;
+	falcon_KeyFrame[18].falcon_rot_Y = 0.000000 ;
+	falcon_KeyFrame[18].falcon_rot_Z = 0.000000 ;
+	falcon_KeyFrame[19].falcon_X = 0.000000 ;
+	falcon_KeyFrame[19].falcon_Y = 0.000000 ;
+	falcon_KeyFrame[19].falcon_Z = 0.000000 ;
+	falcon_KeyFrame[19].falcon_rot_X = 0.000000 ;
+	falcon_KeyFrame[19].falcon_rot_Y = 0.000000 ;
+	falcon_KeyFrame[19].falcon_rot_Z = 0.000000 ;
+
+
+
+	//Se declaran los valores para el juego de pong
+	pong_KeyFrame[0].leftbar_Y = 0.200000 ;
+	pong_KeyFrame[0].rightbar_Y = 5.199999 ;
+	pong_KeyFrame[0].ball_X = -3.200001 ;
+	pong_KeyFrame[0].ball_Y = 5.599999 ;
+	pong_KeyFrame[1].leftbar_Y = 3.600001 ;
+	pong_KeyFrame[1].rightbar_Y = 1.800000 ;
+	pong_KeyFrame[1].ball_X = -8.799996 ;
+	pong_KeyFrame[1].ball_Y = 4.200000 ;
+	pong_KeyFrame[2].leftbar_Y = 0.800001 ;
+	pong_KeyFrame[2].rightbar_Y = 0.800000 ;
+	pong_KeyFrame[2].ball_X = -3.200001 ;
+	pong_KeyFrame[2].ball_Y = 1.600005 ;
+	pong_KeyFrame[3].leftbar_Y = 2.200002 ;
+	pong_KeyFrame[3].rightbar_Y = 0.800001 ;
+	pong_KeyFrame[3].ball_X = -8.799996 ;
+	pong_KeyFrame[3].ball_Y = 2.400013 ;
+	pong_KeyFrame[4].leftbar_Y = 2.200002 ;
+	pong_KeyFrame[4].rightbar_Y = 3.400001 ;
+	pong_KeyFrame[4].ball_X = -3.200001 ;
+	pong_KeyFrame[4].ball_Y = 3.600024 ;
+	pong_KeyFrame[5].leftbar_Y = 5.400002 ;
+	pong_KeyFrame[5].rightbar_Y = 3.400003 ;
+	pong_KeyFrame[5].ball_X = -8.799996 ;
+	pong_KeyFrame[5].ball_Y = 6.000030 ;
+	pong_KeyFrame[6].leftbar_Y = 5.400002 ;
+	pong_KeyFrame[6].rightbar_Y = 0.800002 ;
+	pong_KeyFrame[6].ball_X = -3.200001 ;
+	pong_KeyFrame[6].ball_Y = 1.000048 ;
+	pong_KeyFrame[7].leftbar_Y = 2.800003 ;
+	pong_KeyFrame[7].rightbar_Y = 0.800001 ;
+	pong_KeyFrame[7].ball_X = -8.799996 ;
+	pong_KeyFrame[7].ball_Y = 3.000069 ;
+	pong_KeyFrame[8].leftbar_Y = 0.200000 ;
+	pong_KeyFrame[8].rightbar_Y = 5.199999 ;
+	pong_KeyFrame[8].ball_X = -3.200001 ;
+	pong_KeyFrame[8].ball_Y = 5.599999 ;
 }

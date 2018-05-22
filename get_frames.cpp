@@ -72,6 +72,7 @@ GLfloat Position[]= { 0.0f, 7.0f, -5.0f, 0.0f };			// Light Position
 GLfloat Position2[]= { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 
 
+
 void saveFrame ( void )
 {
 	
@@ -137,7 +138,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	glEnable(GL_AUTO_NORMAL);
 	glEnable(GL_NORMALIZE);
-
+	//glLightfv(GL_LIGHT0, GL_POSITION, Position);
 
 	// SE INICIAN VARIABLES DE KEYFRAMES
 
@@ -165,6 +166,59 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 }
 
 
+void television() {
+
+	glPushMatrix();
+
+		glScalef(0.2,0.2,0.2);
+		glTranslatef(10,0.7,4);
+		glRotatef(-90, 1, 0, 0);
+
+		
+		mueble tv(coord_tv, quads_tv, trng_tv, n_vertex_tv);
+		glColor3f(0,0,0);
+		tv.solid();
+
+		glColor3f(0,1,0);
+
+		glPushMatrix();
+			glTranslatef(-9,0, leftbar_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 1.0f, 1.0f, 1.0f);
+				glVertex3f(6.104019 , -0.383025 , 0.932411);
+				glVertex3f(6.104019 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		
+		glPushMatrix();	// BARRA DERECHA
+			glTranslatef(-3,0, rightbar_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 0.0f, 0.0f, 1.0f);
+				glVertex3f(6.104019 , -0.383025 , 0.932411);
+				glVertex3f(6.104019 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 1.932411);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		glPushMatrix();	// BARRA DERECHA
+			glTranslatef(ball_X,0, ball_Y);
+			glBegin(GL_QUADS); //left bar
+				glNormal3f( 0.0f, 0.0f, 1.0f);
+				glVertex3f(6.1 , -0.383025 , 0.932411);
+				glVertex3f(6.1 , -0.383025 , 0.932411 + 0.2);
+				glVertex3f(5.9 , -0.383025 , 0.932411 + 0.2);
+				glVertex3f(5.9 , -0.383025 , 0.932411);
+			glEnd();
+		glPopMatrix();
+
+		glColor3f(1,1,1);
+
+	glPopMatrix();
+}
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -181,19 +235,10 @@ void display ( void )   // Creamos la funcion donde se dibuja
 					objCamera.mUp.x,   objCamera.mUp.y,   objCamera.mUp.z);
 	
 		glEnable(GL_TEXTURE_2D);
-
-		glPushMatrix();
-
-			glScalef(0.5,0.5,0.5);
-			glRotatef(-90, 1, 0, 0);
-			glTranslatef(0,0,-5);
-			mueble tv(coord_tv, quads_tv, trng_tv, n_vertex_tv);
-			tv.solid();
-
-		glPopMatrix();
 		
 		glDisable(GL_TEXTURE_2D);
 
+		television();
 
 		glPushMatrix();		
 			/*glPushMatrix(); //Creamos cielo
@@ -452,35 +497,35 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 
 		////////temporales
 		case 'x':   //Movimientos de camara
-			leftbar_Y = leftbar_Y + 100;
+			leftbar_Y = leftbar_Y + 0.2;
 			break;
 
 		case 'X':   //Movimientos de camara
-			leftbar_Y = leftbar_Y - 100;
+			leftbar_Y = leftbar_Y - 0.2;
 			break;
 
 		case 'y':   //Movimientos de camara
-			rightbar_Y = rightbar_Y + 100;
+			rightbar_Y = rightbar_Y + 0.2;
 			break;
 
 		case 'Y':   //Movimientos de camara
-			rightbar_Y = rightbar_Y - 100;
+			rightbar_Y = rightbar_Y - 0.2;
 			break;
 
 		case 'z':   //Movimientos de camara
-			ball_X = ball_X - 100;
+			ball_X = ball_X - 0.2;
 			break;
 
 		case 'Z':   //Movimientos de camara
-			ball_X = ball_X + 100;
+			ball_X = ball_X + 0.2;
 			break;
 
 		case 'b':   //Movimientos de camara
-			ball_Y = ball_Y + 1;
+			ball_Y = ball_Y + 0.2;
 			break;
 
 		case 'B':   //Movimientos de camara
-			ball_X = ball_X - 1;
+			ball_Y = ball_Y - 0.2;
 			break;
 
 		//////////////////////
