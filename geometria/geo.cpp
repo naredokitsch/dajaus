@@ -15,13 +15,13 @@
 
 
 // MUEBLES DE BANIO
-#include "toilet.cpp"
+/*#include "toilet.cpp"
 #include "sink.cpp"
-#include "shower.cpp"
+#include "shower.cpp"*/
 
 
 // MUEBLES DE RECAMARA
-//#include "bed1.cpp"
+#include "bed1.cpp"
 //#include "bed2.cpp"
 //#include "officeChair.cpp" falta revisar
 

@@ -510,7 +510,7 @@ void dibuja_ironman () {
 }
 */
 
-void bagno1 (){
+/*void bagno1 (){
 
 	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
 	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
@@ -567,7 +567,9 @@ void bagno2 (){
 		glPopMatrix();
 
 	glPopMatrix();
-}
+}*/
+
+voi
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -590,9 +592,9 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 		//diningroom();
 
-		bagno1();
+		//bagno1();
 
-		bagno2();
+		//bagno2();
 		
 		glDisable(GL_TEXTURE_2D);
 
