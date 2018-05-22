@@ -1,9 +1,9 @@
 
 
 // DINING ROOM
-/*#include "BigTable.cpp"
-#include "flowers.cpp"
-#include "chair.cpp"*/
+#include "BigTable.cpp"
+//#include "flowers.cpp"
+#include "chair.cpp"
 
 
 //SALA

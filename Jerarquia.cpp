@@ -105,9 +105,6 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	objCamera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
 
 	getFramesValues();
-
-	
-
 }
 
 void ventiladores () {
@@ -828,6 +825,20 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
 		break;
   }
   glutPostRedisplay();
+}
+
+void diningroom () {
+
+	mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable);
+	mueble chair( coord_chair, quads_chair, trng_chair, n_vertex_chair);
+	glPushMatrix();
+	//chair.solid();
+
+	//glScalef(0.004,0.004,0.004);
+	glTranslatef(500.0049 , 0,-300);
+	BigTable.solid();
+	glPopMatrix();
+
 }
 
 
