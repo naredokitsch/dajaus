@@ -22,7 +22,7 @@
 
 // MUEBLES DE RECAMARA
 #include "bed1.cpp"
-//#include "bed2.cpp"
+#include "bed2.cpp"
 //#include "officeChair.cpp" falta revisar
 
 

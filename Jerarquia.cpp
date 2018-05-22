@@ -569,7 +569,14 @@ void bagno2 (){
 	glPopMatrix();
 }*/
 
-voi
+void bethroom4 () {
+
+	mueble bed1( coord_bed2, quads_bed2, trng_bed2, n_vertex_bed2 );
+	glPushMatrix();
+		glTranslatef(-18.6384 , -5.8096 , -20.2653);
+		bed1.solid();
+	glPopMatrix();
+}
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -595,6 +602,8 @@ void display ( void )   // Creamos la funcion donde se dibuja
 		//bagno1();
 
 		//bagno2();
+
+
 		
 		glDisable(GL_TEXTURE_2D);
 
