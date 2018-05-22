@@ -26,14 +26,109 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="cmodel\CModel.h" />
+    <ClInclude Include="cmodel\CObject.h" />
+    <ClInclude Include="cmodel\GFILoader.h" />
+    <ClInclude Include="cmodel\HandleStream.h" />
+    <ClInclude Include="cmodel\imageload.h" />
+    <ClInclude Include="cmodel\linkedlist.h" />
+    <ClInclude Include="cmodel\_3dsloader.h" />
     <ClInclude Include="figuras.h" />
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="maths\maths.h" />
+    <ClInclude Include="maths\matrix4x4.h" />
+    <ClInclude Include="maths\vector3d.h" />
+    <ClInclude Include="maths\vector4d.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="01.bmp" />
+    <Image Include="casa\01.tga" />
+    <Image Include="casa\almohada.tga" />
+    <Image Include="casa\blue-sky-texture.tga" />
+    <Image Include="casa\cajon1.tga" />
+    <Image Include="casa\cajon2.tga" />
+    <Image Include="casa\cajon3.tga" />
+    <Image Include="casa\cajon4.tga" />
+    <Image Include="casa\clairo.tga" />
+    <Image Include="casa\cobija.tga" />
+    <Image Include="casa\coladera.tga" />
+    <Image Include="casa\concierto.tga" />
+    <Image Include="casa\conejo.tga" />
+    <Image Include="casa\cosasmueble.tga" />
+    <Image Include="casa\dibujo1.tga" />
+    <Image Include="casa\dibujo2.tga" />
+    <Image Include="casa\estrella.tga" />
+    <Image Include="casa\evangelion.tga" />
+    <Image Include="casa\fachada.tga" />
+    <Image Include="casa\feebles.tga" />
+    <Image Include="casa\jim.tga" />
+    <Image Include="casa\juegos.tga" />
+    <Image Include="casa\juegotele.tga" />
+    <Image Include="casa\madera.tga" />
+    <Image Include="casa\mueblenegrocosas.tga" />
+    <Image Include="casa\mueblenegrocosas2.tga" />
+    <Image Include="casa\negro.tga" />
+    <Image Include="casa\noise.gif" />
+    <Image Include="casa\pared.tga" />
+    <Image Include="casa\pelea.tga" />
+    <Image Include="casa\piso.tga" />
+    <Image Include="casa\piso2.tga" />
+    <Image Include="casa\pisoA.tga" />
+    <Image Include="casa\poster1.tga" />
+    <Image Include="casa\poster2.tga" />
+    <Image Include="casa\poster3.tga" />
+    <Image Include="casa\poster4.tga" />
+    <Image Include="casa\puerta.tga" />
+    <Image Include="casa\puertaD.tga" />
+    <Image Include="casa\puertaD2.tga" />
+    <Image Include="casa\puertaF.tga" />
+    <Image Include="casa\puertaF2.tga" />
+    <Image Include="casa\puertaropero.tga" />
+    <Image Include="casa\QuickEagerCrocodileskink-size_restricted.gif" />
+    <Image Include="casa\revistas.tga" />
+    <Image Include="casa\Ropero.tga" />
+    <Image Include="casa\Ropero1.tga" />
+    <Image Include="casa\shenlong.tga" />
+    <Image Include="casa\shini.tga" />
+    <Image Include="casa\smash.tga" />
+    <Image Include="casa\starman.tga" />
+    <Image Include="casa\Static.gif" />
+    <Image Include="casa\techo.tga" />
+    <Image Include="casa\tele.tga" />
+    <Image Include="casa\Texture.tga" />
+    <Image Include="casa\transparente.tga" />
+    <Image Include="casa\ventana.tga" />
+    <Image Include="casa\ventanaV.tga" />
+    <Image Include="casa\zelda1.tga" />
+    <Image Include="casa\zelda2.tga" />
     <Image Include="logopumas.bmp" />
     <Image Include="texturas\Grass_tile_A_diffuse.tga" />
     <Image Include="Tree01.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="casa\Alien.3ds" />
+    <None Include="casa\Argise_The_Green_Alien_3DS.zip" />
+    <None Include="casa\carro.3DS" />
+    <None Include="casa\cartooneyes_3DS.zip" />
+    <None Include="casa\chair.3ds" />
+    <None Include="casa\couch.3ds" />
+    <None Include="casa\crt.3DS" />
+    <None Include="casa\duck.3DS" />
+    <None Include="casa\Gamecube.3ds" />
+    <None Include="casa\Lightbulb.3ds" />
+    <None Include="casa\ojos.3DS" />
+    <None Include="casa\roche_bobois_chair_3ds.zip" />
+    <None Include="casa\Sofa.3ds" />
+    <None Include="casa\Sofa1.3ds" />
+    <None Include="casa\sofa2.3ds" />
+    <None Include="casa\starman.mp3.sfk" />
+    <None Include="casa\Wii.3ds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="casa\starman.mp3" />
+    <Media Include="casa\starman.wav" />
+    <Media Include="casa\starmanwav.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -86,7 +181,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>${SolutionDir}/include;$(IncludePath)</IncludePath>
+    <LibraryPath>${SolutionDir}\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>${SolutionDir}/include;$(IncludePath)</IncludePath>
+    <LibraryPath>${SolutionDir}\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -98,6 +200,8 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CModel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,6 +227,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CModel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
