@@ -17,21 +17,6 @@
 CFiguras sky;
 CFiguras figuras;
 
-////// VARIABLES DE IRON MAN /////
-bool til45 = true;
-bool r1 = true;
-bool r2 = false;
-bool r3 = false;
-bool r4 = false;
-bool r5 = false;
-bool r6 = false;
-bool r7 = false;
-bool r8 = false;
-float pos_iron [] = {0,0};
-float giro = 0;
-float swing_iron = 0;
-/////////////////////////////////
-
 float fan_rot ;
 
 // Temp component manipulation
@@ -40,14 +25,13 @@ float length = 1.1;
 float depth = 1.1;
 
 
-//////MOVIMIENTOS DE FALCON
-float falcon_X ;
-float falcon_Y ;
-float falcon_Z ;
+//////MOVIMIENTOS PONG
+float leftbar_Y;
+float rightbar_Y;
+float ball_X;
+float ball_Y;
 
-float falcon_rot_X ;
-float falcon_rot_Y ;
-float falcon_rot_Z ;
+
 //////////////////////////
 
 ///VARIABLES DE FRAMES
@@ -57,19 +41,18 @@ int i_curr_steps = 0;
 /////////////////////
 
 typedef struct _frame {
-	float falcon_X;
-	float falcon_X_INC;
-	float falcon_Y;
-	float falcon_Y_INC;
-	float falcon_Z;
-	float falcon_Z_INC;
 
-	float falcon_rot_X;
-	float falcon_rot_X_INC;	
-	float falcon_rot_Y;
-	float falcon_rot_Y_INC;
-	float falcon_rot_Z;
-	float falcon_rot_Z_INC;
+	float leftbar_Y;
+	float leftbar_Y_INC;
+
+	float rightbar_Y;
+	float rightbar_Y_INC;
+
+	float ball_X;
+	float ball_X_INC;
+	float ball_Y;
+	float ball_Y_INC;
+
 } FRAME ;
 
 
@@ -88,38 +71,28 @@ GLfloat Specular[] = { 1.0, 1.0, 1.0, 1.0 };				// Specular Light Values
 GLfloat Position[]= { 0.0f, 7.0f, -5.0f, 0.0f };			// Light Position
 GLfloat Position2[]= { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 
-CTexture ironman_body_texture;
-CTexture ironman_head_texture;
 
 void saveFrame ( void )
 {
 	
-	KeyFrame[FrameIndex].falcon_X = falcon_X;
+	KeyFrame[FrameIndex].leftbar_Y = leftbar_Y;
 
-	printf("KeyFrame[%i].falcon_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_X);
+	printf("KeyFrame[%i].leftbar_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].leftbar_Y);
 
-	KeyFrame[FrameIndex].falcon_Y = falcon_Y;
+	KeyFrame[FrameIndex].rightbar_Y = rightbar_Y;
 
-	printf("KeyFrame[%i].falcon_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Y);
+	printf("KeyFrame[%i].rightbar_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].rightbar_Y);
 
-	KeyFrame[FrameIndex].falcon_Z = falcon_Z;
 
-	printf("KeyFrame[%i].falcon_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_Z);
 
-	KeyFrame[FrameIndex].falcon_rot_X = falcon_rot_X;
+	KeyFrame[FrameIndex].ball_X = ball_X;
 
-	printf("KeyFrame[%i].falcon_rot_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_X);
+	printf("KeyFrame[%i].ball_X = %f ;\n",FrameIndex,KeyFrame[FrameIndex].ball_X);
 
-	KeyFrame[FrameIndex].falcon_rot_Y = falcon_rot_Y;
+	KeyFrame[FrameIndex].ball_Y = ball_Y;
 
-	printf("KeyFrame[%i].falcon_rot_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Y);
+	printf("KeyFrame[%i].ball_Y = %f ;\n",FrameIndex,KeyFrame[FrameIndex].ball_Y);
 
-	KeyFrame[FrameIndex].falcon_rot_Z = falcon_rot_Z;
-
-	printf("KeyFrame[%i].falcon_rot_Z = %f ;\n",FrameIndex,KeyFrame[FrameIndex].falcon_rot_Z);
-
-	//printf("Frame %i Guardado!!!!!\n\n\n\n\n\n\n", FrameIndex);
-			
 	FrameIndex++;
 }
 
@@ -127,24 +100,22 @@ void saveFrame ( void )
 void resetElements( void ) {
 
 	//printf("Se han reseteado los elementos\n");
-	falcon_X = KeyFrame[0].falcon_X;
-	falcon_Y = KeyFrame[0].falcon_Y;
-	falcon_Z = KeyFrame[0].falcon_Z;
+	leftbar_Y = KeyFrame[0].leftbar_Y;
+	rightbar_Y = KeyFrame[0].rightbar_Y;
 
-	falcon_rot_X = KeyFrame[0].falcon_rot_X;
-	falcon_rot_Y = KeyFrame[0].falcon_rot_Y;
-	falcon_rot_Z = KeyFrame[0].falcon_rot_Z;
+	ball_X = KeyFrame[0].ball_X;
+	ball_Y = KeyFrame[0].ball_Y;
+
 }
 
 void interpolation ( void ) {
 
-	KeyFrame[playIndex].falcon_X_INC = (KeyFrame[playIndex + 1].falcon_X - KeyFrame[playIndex].falcon_X) / i_max_steps;	
-	KeyFrame[playIndex].falcon_Y_INC = (KeyFrame[playIndex + 1].falcon_Y - KeyFrame[playIndex].falcon_Y) / i_max_steps;	
-	KeyFrame[playIndex].falcon_Z_INC = (KeyFrame[playIndex + 1].falcon_Z - KeyFrame[playIndex].falcon_Z) / i_max_steps;	
+	KeyFrame[playIndex].leftbar_Y_INC = (KeyFrame[playIndex + 1].leftbar_Y - KeyFrame[playIndex].leftbar_Y) / i_max_steps;	
+	KeyFrame[playIndex].rightbar_Y_INC = (KeyFrame[playIndex + 1].rightbar_Y - KeyFrame[playIndex].rightbar_Y) / i_max_steps;	
+	
+	KeyFrame[playIndex].ball_X_INC = (KeyFrame[playIndex + 1].ball_X - KeyFrame[playIndex].ball_X) / i_max_steps;	
+	KeyFrame[playIndex].ball_Y_INC = (KeyFrame[playIndex + 1].ball_Y - KeyFrame[playIndex].ball_Y) / i_max_steps;	
 
-	KeyFrame[playIndex].falcon_rot_X_INC = (KeyFrame[playIndex + 1].falcon_rot_X - KeyFrame[playIndex].falcon_rot_X) / i_max_steps;	
-	KeyFrame[playIndex].falcon_rot_Y_INC = (KeyFrame[playIndex + 1].falcon_rot_Y - KeyFrame[playIndex].falcon_rot_Y) / i_max_steps;	
-	KeyFrame[playIndex].falcon_rot_Z_INC = (KeyFrame[playIndex + 1].falcon_rot_Z - KeyFrame[playIndex].falcon_rot_Z) / i_max_steps;
 }
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
@@ -167,35 +138,25 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	glEnable(GL_AUTO_NORMAL);
 	glEnable(GL_NORMALIZE);
 
-	ironman_body_texture.LoadTGA(ironman_body_);
-	ironman_body_texture.BuildGLTexture();
-	ironman_body_texture.ReleaseImage();
-
-	ironman_head_texture.LoadTGA(ironman_head_);
-	ironman_head_texture.BuildGLTexture();
-	ironman_head_texture.ReleaseImage();
-	
 
 	// SE INICIAN VARIABLES DE KEYFRAMES
 
 	for(int i=0; i<MAX_FRAMES; i++) {
 	
-		KeyFrame[i].falcon_X = 0;
-		KeyFrame[i].falcon_X_INC = 0;
-		KeyFrame[i].falcon_Y = 0;
-		KeyFrame[i].falcon_Y_INC = 0;
-		KeyFrame[i].falcon_Z = 0;
-		KeyFrame[i].falcon_Z_INC = 0;
+	KeyFrame[i].leftbar_Y = 0;
+	KeyFrame[i].leftbar_Y_INC = 0;
 
-		KeyFrame[i].falcon_rot_X = 0;
-		KeyFrame[i].falcon_rot_X_INC = 0;
-		KeyFrame[i].falcon_rot_Y = 0;
-		KeyFrame[i].falcon_rot_Y_INC = 0;
-		KeyFrame[i].falcon_rot_Z = 0;
-		KeyFrame[i].falcon_rot_Z_INC = 0;
+	KeyFrame[i].rightbar_Y = 0;
+	KeyFrame[i].rightbar_Y_INC = 0;
+
+	KeyFrame[i].ball_X = 0;
+	KeyFrame[i].ball_X_INC = 0;
+	KeyFrame[i].ball_Y = 0;
+	KeyFrame[i].ball_Y_INC = 0;
+
 	}
 
-	printf("typedef struct _frame {\n\tfloat falcon_X;\n\tfloat falcon_X_INC;\n\tfloat falcon_Y;\n\tfloat falcon_Y_INC;\n\tfloat falcon_Z;\n\tfloat falcon_Z_INC;\n\tfloat falcon_rot_X;\n\tfloat falcon_rot_X_INC;\n\tfloat falcon_rot_Y;\n\tfloat falcon_rot_Y_INC;\n\tfloat falcon_rot_Z;\n\tfloat falcon_rot_Z_INC;\n} FRAME ;\n\n\n");
+	//printf("typedef struct _frame {\n\tfloat falcon_X;\n\tfloat falcon_X_INC;\n\tfloat falcon_Y;\n\tfloat falcon_Y_INC;\n\tfloat falcon_Z;\n\tfloat falcon_Z_INC;\n\tfloat falcon_rot_X;\n\tfloat falcon_rot_X_INC;\n\tfloat falcon_rot_Y;\n\tfloat falcon_rot_Y_INC;\n\tfloat falcon_rot_Z;\n\tfloat falcon_rot_Z_INC;\n} FRAME ;\n\n\n");
 
 	//END NEW//////////////////////////////
 
@@ -203,256 +164,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 }
 
-void ventiladores () {
 
-	fan_rot += 15;
-
-	glPushMatrix();
-		glScalef(3.5,3.5,3.5);
-		glTranslatef(0,0.825,0);
-
-		glPushMatrix();
-			glTranslatef(-0.5, 0, 2);
-			glRotatef(fan_rot, 0,1,0);
-			mueble fan1(coord_fan,quads_fan,trng_fan,n_vertex_fan);
-			fan1.solid();
-		glPopMatrix();
-
-
-		glPushMatrix();
-			glTranslatef(2, 0, 2);
-			glRotatef(fan_rot, 0,1,0);
-			mueble fan2(coord_fan,quads_fan,trng_fan,n_vertex_fan);
-			fan2.solid();
-		glPopMatrix();
-	glPopMatrix();
-}
-
-
-void cube(float width, float height, float depth, float* text_coord, GLuint text_coord_index) {
-	glBindTexture(GL_TEXTURE_2D, text_coord_index);
-	glBegin(GL_QUADS); //bottom
-		glTexCoord2f(text_coord[0],text_coord[1]) ; glNormal3f(0,-1,0) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[2],text_coord[3]) ; glNormal3f(0,-1,0) ; glVertex3f( width/2.0 , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[4],text_coord[5]) ; glNormal3f(0,-1,0) ; glVertex3f( width/2.0 , -(height/2.0), -(depth/2.0));
-		glTexCoord2f(text_coord[6],text_coord[7]) ; glNormal3f(0,-1,0) ; glVertex3f( -(width/2.0) , -(height/2.0), -(depth/2.0));
-	glEnd();
-
-	
-	glBegin(GL_QUADS); //front
-		glTexCoord2f(text_coord[8],text_coord[9]) ; glNormal3f(0,0,1) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[10],text_coord[11]) ; glNormal3f(0,0,1) ; glVertex3f( width/2.0 , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[12],text_coord[13]) ; glNormal3f(0,0,1) ; glVertex3f( width/2.0 , height/2.0, depth/2.0);
-		glTexCoord2f(text_coord[14],text_coord[15]) ; glNormal3f(0,0,1) ;glVertex3f( -(width/2.0) , height/2.0, depth/2.0);
-	glEnd();
-
-	glBegin(GL_QUADS); //left
-		glTexCoord2f(text_coord[16],text_coord[17]) ; glNormal3f(-1,0,0) ; glVertex3f( -(width/2.0) , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[18],text_coord[19]) ; glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , -(height/2.0), -(depth/2.0));
-		glTexCoord2f(text_coord[20],text_coord[21]) ; glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , height/2.0, -(depth/2.0));
-		glTexCoord2f(text_coord[22],text_coord[23]) ; glNormal3f(-1,0,0) ; glVertex3f(-(width/2.0) , height/2.0, depth/2.0);
-	glEnd();
-
-	glBegin(GL_QUADS); //right
-		glTexCoord2f(text_coord[24],text_coord[25]) ; glNormal3f(1,0,0) ; glVertex3f(width/2.0 , -(height/2.0), depth/2.0);
-		glTexCoord2f(text_coord[26],text_coord[27]) ; glNormal3f(1,0,0) ; glVertex3f(width/2.0 , -(height/2.0), -(depth/2.0));
-		glTexCoord2f(text_coord[28],text_coord[29]) ; glNormal3f(1,0,0) ; glVertex3f(width/2.0 , height/2.0, -(depth/2.0));
-		glTexCoord2f(text_coord[30],text_coord[31]) ; glNormal3f(1,0,0) ; glVertex3f(width/2.0 , height/2.0, depth/2.0);
-	glEnd();
-
-	glBegin(GL_QUADS); //back
-		glTexCoord2f(text_coord[32],text_coord[33]) ; glNormal3f(0,0,-1) ; glVertex3f( -(width/2.0) , -(height/2.0), -(depth/2.0));
-		glTexCoord2f(text_coord[34],text_coord[35]) ; glNormal3f(0,0,-1) ; glVertex3f( width/2.0 , -(height/2.0), -(depth/2.0));
-		glTexCoord2f(text_coord[36],text_coord[37]) ; glNormal3f(0,0,-1) ; glVertex3f(width/2.0 , height/2.0, -(depth/2.0));
-		glTexCoord2f(text_coord[38],text_coord[39]) ; glNormal3f(0,0,-1) ; glVertex3f( -(width/2.0) , height/2.0, -(depth/2.0));
-	glEnd();
-
-	glBegin(GL_QUADS); //top
-		glTexCoord2f(text_coord[40],text_coord[41]) ; glNormal3f(0,1,0) ; glVertex3f( -(width/2.0) , height/2.0, depth/2);
-		glTexCoord2f(text_coord[42],text_coord[43]) ; glNormal3f(0,1,0) ; glVertex3f( width/2.0 , height/2.0, depth/2);
-		glTexCoord2f(text_coord[44],text_coord[45]) ; glNormal3f(0,1,0) ; glVertex3f( width/2.0 , height/2.0, -(depth/2));
-		glTexCoord2f(text_coord[46],text_coord[48]) ; glNormal3f(0,1,0) ; glVertex3f( -(width/2.0) , height/2.0, -(depth/2));
-	glEnd();
-
-}
-
-void dibuja_ironman () {
-
-		/// LOGICA DE BRACEO Y MOVIMIENTO DE CUELLO
-		if (til45 == true) {
-			swing_iron += 5;
-			if(swing_iron == 45) {
-				//saveFrame();
-				til45 = false;
-			}
-		} 
-		
-		if (til45 == false) {
-			swing_iron -= 5;
-			if (swing_iron == -45) {
-				//saveFrame();
-				til45 = true;
-			}
-		}
-		///////////////////////////////////////////
-
-
-		if (r1 == true) {
-			pos_iron[1] += 1;
-			if (pos_iron[1] == 160) {
-				giro = 90;
-				r2 = true;
-				r1 = false;
-			}
-		}
-
-		if (r2 == true) {
-			pos_iron[0] += 1;
-			if (pos_iron[0] == 80) {
-				giro = 0;
-				r3 = true;
-				r2 = false;
-			}
-		}
-
-		if (r3 == true) {
-			pos_iron[1] += 1;
-			if (pos_iron[1] == 550) {
-				giro = 180;
-				r3 = false;
-				r4 = true;
-			}
-		}
-
-		if (r4 == true) {
-			pos_iron[1] -= 1;
-			if (pos_iron[1] == 65) {
-				giro = -90;
-				r4 = false;
-				r5 = true;
-			}
-		}
-
-		if (r5 == true) {
-			pos_iron[0] -= 1;
-			if (pos_iron[0] == -170) {
-				giro = 180;
-				r5 = false;
-				r6 = true;
-			}
-		}
-
-		if (r6 == true) {
-			pos_iron[1] -= 1;
-			if (pos_iron[1] == -120) {
-				giro = 90;
-				r6 = false;
-				r7 = true;
-			}
-		}
-
-		if (r7 == true) {
-			pos_iron[0] += 1;
-			if (pos_iron[0] == 0) {
-				giro = 0;
-				r7 = false;
-				r8 = true;
-			}
-		}
-
-		if (r8 == true) {
-			pos_iron[1] += 1;
-			if (pos_iron[1] == 0) {
-				//giro = -90;
-				r1 = true;
-				r8 = false;
-			}
-		}
-
-
-
-		glPushMatrix();
-
-			//////// POSICION Y ESCALA INICIALES /////////
-			glTranslatef(1.8,1.2,15);
-			glRotatef(180,0,1,0);
-			glScalef(0.06, 0.06, 0.06);
-			//////////////////////////////////////////////
-
-			glTranslatef(pos_iron[0],0,pos_iron[1]);
-
-			//if (giro != 0)
-				glRotatef(giro, 0, 1, 0);
-
-			//PARTE SUPERIOR DEL CUERPO
-			glPushMatrix();//body
-				//glPointSize(10); 
-
-				glTranslatef(0,6,0); 
-				cube(8,12,4, text_coord_body, ironman_body_texture.GLindex);//CUERPO
-				glTranslatef(0,4,0);				//ALTURA HOMBROS
-				
-				glPushMatrix();					
-					glTranslatef(0,2,0);
-					glRotatef(swing_iron, 0,1,0);//ROTACION DE CUELLO
-					glTranslatef(0,4,0);
-					cube(8,8,8, text_coord_head, ironman_head_texture.GLindex);					//CABEZA
-				glPopMatrix();
-				
-				
-				glTranslatef(4,0,0);				//HOMBRO DERECHO
-
-				glPushMatrix();
-					glRotatef(swing_iron, 1,0,0);
-					glTranslatef(2,-4,0);
-					cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex); //BRAZO DERECHO
-				glPopMatrix();
-
-				glTranslatef(-8,0,0);			//HOMBRO IZQUIERDO
-				//glBegin(GL_POINTS); glVertex3f(0,0,0); glEnd();
-
-				glPushMatrix();
-					glRotatef(swing_iron, -1,0,0);
-					glTranslatef(-2,-4,0);
-					cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	//BRAZO IZQUIERDO
-				glPopMatrix();
-			glPopMatrix();
-			
-			//PARTE INFERIOR DEL CUERPO
-			glPushMatrix();
-
-				glTranslatef(-2,0,0);
-
-				glPushMatrix();
-					glRotatef(swing_iron, 1,0,0);
-					glTranslatef(0,-6,0);
-					cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	// PIERNA IZQUIERDA
-				glPopMatrix();
-
-				glTranslatef(4,0,0);
-
-				glPushMatrix();
-					glRotatef(swing_iron, -1,0,0);
-					glTranslatef(0,-6,0);
-					cube(4,12,4, text_coord_arm_leg, ironman_body_texture.GLindex);	//PIERNA DERECHA
-				glPopMatrix();
-			
-			glPopMatrix();
-		glPopMatrix();
-}
-
-
-void millenary_falcon() {
-	glPushMatrix();
-		glScalef(0.001,0.001,0.001);
-		glTranslatef(falcon_X , 3000.9930 + falcon_Y , -4984.5935 + falcon_Z);
-		glRotatef(falcon_rot_X, 1 , 0, 0);
-		glRotatef(falcon_rot_Y, 0 , 1, 0);
-		glRotatef(falcon_rot_Z, 0 , 0, 1);
-		mueble falcon(coord_falcon, quads_falcon,trng_falcon, n_vertex_falcon);
-		falcon.solid();
-	glPopMatrix();	
-}
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -470,13 +182,17 @@ void display ( void )   // Creamos la funcion donde se dibuja
 	
 		glEnable(GL_TEXTURE_2D);
 
-		//dibuja_ironman();
+		glPushMatrix();
+
+			glScalef(0.5,0.5,0.5);
+			glRotatef(-90, 1, 0, 0);
+			glTranslatef(0,0,-5);
+			mueble tv(coord_tv, quads_tv, trng_tv, n_vertex_tv);
+			tv.solid();
+
+		glPopMatrix();
 		
 		glDisable(GL_TEXTURE_2D);
-
-		//ventiladores();
-
-		millenary_falcon();
 
 
 		glPushMatrix();		
@@ -695,13 +411,11 @@ void animacion()
 		else
 		{
 			//Draw animation
-			falcon_X += KeyFrame[playIndex].falcon_X_INC;
-			falcon_Y += KeyFrame[playIndex].falcon_Y_INC;
-			falcon_Z += KeyFrame[playIndex].falcon_Z_INC;
-
-			falcon_rot_X += KeyFrame[playIndex].falcon_rot_X_INC;
-			falcon_rot_Y += KeyFrame[playIndex].falcon_rot_Y_INC;
-			falcon_rot_Z += KeyFrame[playIndex].falcon_rot_Z_INC;
+			leftbar_Y += KeyFrame[playIndex].leftbar_Y_INC;
+			rightbar_Y += KeyFrame[playIndex].rightbar_Y_INC;
+			
+			ball_X += KeyFrame[playIndex].ball_X_INC;
+			ball_Y += KeyFrame[playIndex].ball_Y_INC;
 
 			i_curr_steps++;
 		}
@@ -738,51 +452,35 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 
 		////////temporales
 		case 'x':   //Movimientos de camara
-			falcon_X = falcon_X + 100;
+			leftbar_Y = leftbar_Y + 100;
 			break;
 
 		case 'X':   //Movimientos de camara
-			falcon_X = falcon_X - 100;
+			leftbar_Y = leftbar_Y - 100;
 			break;
 
 		case 'y':   //Movimientos de camara
-			falcon_Y = falcon_Y + 100;
+			rightbar_Y = rightbar_Y + 100;
 			break;
 
 		case 'Y':   //Movimientos de camara
-			falcon_Y = falcon_Y - 100;
+			rightbar_Y = rightbar_Y - 100;
 			break;
 
 		case 'z':   //Movimientos de camara
-			falcon_Z = falcon_Z - 100;
+			ball_X = ball_X - 100;
 			break;
 
 		case 'Z':   //Movimientos de camara
-			falcon_Z = falcon_Z + 100;
+			ball_X = ball_X + 100;
 			break;
 
 		case 'b':   //Movimientos de camara
-			falcon_rot_X = falcon_rot_X + 1;
+			ball_Y = ball_Y + 1;
 			break;
 
 		case 'B':   //Movimientos de camara
-			falcon_rot_X = falcon_rot_X - 1;
-			break;
-
-		case 'n':   //Movimientos de camara
-			falcon_rot_Y = falcon_rot_Y + 1;
-			break;
-
-		case 'N':   //Movimientos de camara
-			falcon_rot_Y = falcon_rot_Y - 1;
-			break;
-
-		case 'm':   //Movimientos de camara
-			falcon_rot_Z = falcon_rot_Z + 1;
-			break;
-
-		case 'M':   //Movimientos de camara
-			falcon_rot_Z = falcon_rot_Z - 1;
+			ball_X = ball_X - 1;
 			break;
 
 		//////////////////////
@@ -931,7 +629,7 @@ int main ( int argc, char** argv )   // Main Function
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  glutInitWindowSize  (2000, 2000);	// Tamaño de la Ventana
+  glutInitWindowSize  (1000, 1000);	// Tamaño de la Ventana
   glutInitWindowPosition (0, 0);	//Posicion de la Ventana
   glutCreateWindow    ("Jerarquia"); // Nombre de la Ventana
   //glutFullScreen     ( );         // Full Screen
