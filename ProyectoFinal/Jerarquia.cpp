@@ -71,21 +71,12 @@ GLfloat g_lookupdown = 0.0f;    // Look Position In The Z-Axis (NEW)
 int font = (int)GLUT_BITMAP_HELVETICA_18;
 
 
-//GLfloat Diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };				// Diffuse Light Values
-GLfloat Diffuse[] = { 0.5f, 0.5f, 0.5f, 1.0f };				// Diffuse Light Values
+GLfloat Diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };				// Diffuse Light Values
+//GLfloat Diffuse[] = { 0.5f, 0.5f, 0.5f, 1.0f };				// Diffuse Light Values
 GLfloat Specular[] = { 1.0, 1.0, 1.0, 1.0 };				// Specular Light Values
 GLfloat Position[] = { 0.0f, 7.0f, -5.0f, 0.0f };			// Light Position
 GLfloat Position2[] = { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 
-GLfloat m_dif1[] = { 0.0f, 0.2f, 1.0f, 1.0f };				// Diffuse Light Values
-GLfloat m_spec1[] = { 0.0, 0.0, 0.0, 1.0 };				// Specular Light Values
-GLfloat m_amb1[] = { 0.0, 0.0, 0.0, 1.0 };				// Ambiental Light Values
-GLfloat m_s1[] = { 18 };
-
-GLfloat m_dif2[] = { 0.8f, 0.2f, 0.0f, 1.0f };				// Diffuse Light Values
-GLfloat m_spec2[] = { 0.0, 0.0, 0.0, 1.0 };				// Specular Light Values
-GLfloat m_amb2[] = { 0.0, 0.0, 0.0, 1.0 };				// Ambiental Light Values
-GLfloat m_s2[] = { 22 };
 
 CTexture text1;
 CTexture text2;
@@ -294,103 +285,6 @@ void libros(void) {
 }
 //END CASA////////////////////////////////////
 
-
-//void tele() {
-//	glTranslatef(-7, -15.2, -38);
-//	mueble.prisma(.5, 17, 7.5, textMarco.GLindex);
-//	glTranslatef(0, 1, -1);
-//	mueble.prisma(2, 3, 3, textMarco.GLindex);
-//	glTranslatef(0, 9, 1);
-//	mueble.prisma(17.5, 30, 1.5, textMarco.GLindex);
-//	glTranslatef(0, 0, .5);
-//	mueble.prisma(15.5, 28, 1.1, textClairo.GLindex);
-//
-//}
-
-
-
-//void muebletele(){
-//
-//	glPushMatrix();
-//	glTranslatef(-15,-27.8,-38);
-//	mueble.prisma(23, 1, 10, textMaderaBuro.GLindex);
-//	glTranslatef(16.5, 0, 0);
-//	mueble.prisma(23, 1, 10, textMaderaBuro.GLindex);
-//	glTranslatef(-8.25,12, 0);
-//	mueble.prisma(1, 20, 10, textMaderaBuro.GLindex);
-//	glTranslatef(0, -11, 0);
-//	mueble.prisma(1, 16.5, 10, textMaderaBuro.GLindex);
-//	glPopMatrix();
-//}
-//
-//void mueblerevistas(){
-//
-//	glPushMatrix();
-//	glTranslatef(10, -27.8, -38);
-//	mueble.prisma(23, 1, 10, textMaderaBuro.GLindex);
-//	glTranslatef(13, 0, 0);
-//	mueble.prisma(23, 1, 10, textMaderaBuro.GLindex);
-//	glTranslatef(-6.5, 12, 0);
-//	mueble.prisma(1, 15, 10, textMaderaBuro.GLindex);
-//	glTranslatef(0, -21, 0);
-//	mueble.prisma(1, 12.5, 10, textMaderaBuro.GLindex);
-//	glPopMatrix();
-//}
-//
-//void ropero() {
-//	glPushMatrix();
-//	glEnable(GL_ALPHA_TEST); //para la transparencia
-//	glAlphaFunc(GL_GREATER, .1f);
-//	glTranslatef(-33, 12, 73.8);
-//	glRotated(270, 1, 0, 0);
-//	cubo.prismaJ(13, 32, 16, textCosasRopero.GLindex, textTransparente.GLindex);
-//	glDisable(GL_ALPHA_TEST);
-//		glPopMatrix();
-//
-//
-//	glPushMatrix();
-//	glTranslatef(-50, -12, 70);
-//	mueble.prisma(33, 1, 19, textRopero.GLindex);
-//	glTranslatef(1.2, -3, -9);
-//	mueble.prisma(39, 2.5, 1, textRopero.GLindex);
-//	glTranslatef(33, 3, 9);
-//	mueble.prisma(33, 1, 19, textRopero.GLindex);
-//	glTranslatef(-1.2, -3, -9);
-//	mueble.prisma(39, 2.5, 1, textRopero.GLindex);
-//	glTranslatef(0, 0, 17.5);
-//	mueble.prisma(39, 2.5, 1, textRopero.GLindex);
-//	glTranslatef(-32, 0, 0);
-//	mueble.prisma(39, 2.5, 1, textRopero.GLindex);
-//	glTranslatef(16, 3, .5);
-//	mueble.prisma(33, 33, 1, textRopero.GLindex);
-//	glTranslatef(0, 16.2, -9);
-//	mueble.prisma(1, 34.9,20, textRopero.GLindex);//arriba
-//	glTranslatef(0, -32.4, 0);
-//	mueble.prisma(1, 33, 18, textRopero.GLindex);//abajo
-//
-//	glTranslatef(-7, 16, -9);
-//	mueble.prisma(33, 16.5, 1, textRopero.GLindex);//frente
-//	//cajones	
-//		glTranslatef(0, -4, 0);
-//		glPushMatrix();
-//		glRotated(180,0,1,0);
-//		glTranslatef(0, 8, abrircajones); //abrir cajones
-//		mueble.prismaJ(6, 14, 10, textRopero.GLindex, textCajon2.GLindex);//cajon2
-//		glTranslatef(0, 7.5, 0);
-//		mueble.prismaJ(6, 14, 10, textRopero.GLindex, textCajon1.GLindex);//cajon1
-//		glTranslatef(0, -22, 0);
-//		mueble.prismaJ(6, 14, 10, textRopero.GLindex, textCajon4.GLindex);//cajon4
-//		glTranslatef(0, 7.3, 0);
-//		mueble.prismaJ(6, 14, 10, textRopero.GLindex, textCajon3.GLindex);//cajon3
-//		glPopMatrix();
-//
-//	glTranslatef(22, 4.2, 0);
-//	glRotated(abrirPuertaR, 0, 1, 0);
-//	glTranslatef(-7, 0, 0);
-//	mueble.prismaJ(33, 13.5, 1, textPuertaRopero.GLindex, textRopero.GLindex);//puerta
-//	glPopMatrix();
-//
-//}
 
 
 void mueblecama() {
@@ -954,8 +848,8 @@ void InitGL(GLvoid)     // Inicializamos parametros
 
 	glShadeModel(GL_SMOOTH);
 
-	glLightfv(GL_LIGHT1, GL_POSITION, Position);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, Diffuse);
+	//glLightfv(GL_LIGHT1, GL_POSITION, Position);
+	//glLightfv(GL_LIGHT1, GL_DIFFUSE, Diffuse);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
@@ -978,7 +872,7 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	char textt_9[] = {"casa/01.tga"};
 	char textt_10[] = {"casa/tele.tga"};
 	char textt_11[] = {"city/pavimento.tga"};
-	char textt_12[] = {"city/pasto01.tga"};
+	char textt_12[] = {"texturas/Grass_tile_A_diffuse.tga"};
 	char textt_13[] = {"city/casa01.tga"};
 	char textt_14[] = {"casa/feebles.tga"};
 	char textt_15[] = {"casa/mueblenegrocosas.tga"};
@@ -1257,21 +1151,6 @@ void InitGL(GLvoid)     // Inicializamos parametros
 
 }
 
-void pintaTexto(float x, float y, float z, void *font, char *string)
-{
-
-	char *c;     //Almacena los caracteres a escribir
-	glRasterPos3f(x, y, z);	//Posicion apartir del centro de la ventana
-							//glWindowPos2i(150,100);
-	for (c = string; *c != '\0'; c++) //Condicion de fin de cadena
-	{
-		glutBitmapCharacter(font, *c); //imprime
-	}
-}
-
-
-
-
 
 void display(void)   // Creamos la funcion donde se dibuja
 {
@@ -1288,408 +1167,27 @@ void display(void)   // Creamos la funcion donde se dibuja
 		objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
 		objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
 
-	//apagar y prender luz xD
-	/*glDisable(GL_LIGHTING);
-	glColor3f(0.1, 0.1, 0.1);*/
-
 	glTranslatef(0, -10, -50); //desplazar camara
-
-							   ////crt
-							   //glPushMatrix();
-							   //glTranslatef(-32+20, 11, -10);
-							   //glScalef(0.02, 0.023, 0.02);
-							   //crt.GLrender(NULL, _SHADED, 1.0);
-							   //
-							   //glPopMatrix();
-
-							   //wii
-							   /*glPushMatrix();
-							   glTranslatef(-36+20, 8.8, -8.5);
-							   glScalef(0.01, 0.01, 0.01);
-							   glRotated(270, 0, 1, 0);
-							   wii.GLrender(NULL, _SHADED, 1.0);
-							   glPopMatrix();*/
-
 
 
 	glPushMatrix(); //Creamos cielo
 	glDisable(GL_LIGHTING);
 	glTranslatef(0, 60, 0);
 	fig1.skybox(130.0, 130.0, 130.0, text1.GLindex);
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
+
+
+
 	glPopMatrix();
-
-
-
-	glPushMatrix(); ///////////con esto movi y escalé el cuarto
-	glScalef(.26, .145, .15);
-	glTranslatef(-25, 0, -113);
-
-
 	glPushMatrix();
-	glTranslatef(-12, 0, 7);
-	glRotated(-45, 0, 1, 0);
-
-	glScalef(0.06, 0.06, .06);
-	silla.GLrender(NULL, _SHADED, 1.0);
-
-	glPopMatrix();
-
-
-	//pato
-	glPushMatrix();
-	glTranslatef(MovPato1, MovPato2, MovPato3);
-	glTranslatef(2, 0, 11);
-	glScalef(0.008, 0.008, 0.008);
-	glRotated(rotacion, 0, 1, 0);
-	carrito.GLrender(NULL, _SHADED, 1.0);
-
-	glTranslatef(0, 130, -10);
-	ojos.GLrender(NULL, _SHADED, 1.0);
-
-	if (MovPato3 == 0 && MovPato2 == 2.5) {
-		inundacion = false;
-		g_fanimacion = true;
-	}
-	//glTranslatef(0, movKit2, movKit);
-
-	if (MovPato3 == -16) {
-		g_fanimacion = false;
-		g_fanimacion2 = true;
-	}
-	if (MovPato1 == 15) {
-		g_fanimacion2 = false;
-		g_fanimacion3 = true;
-	}
-	if (MovPato1 == 15 && MovPato3 == -2) {
-		g_fanimacion3 = false;
-		g_fanimacion4 = true;
-		printf("activacion falsa %f %f %f", MovPato1, MovPato2, MovPato3);
-	}
-	if (MovPato3 == -2 && MovPato1 == 0) {
-		g_fanimacion4 = false;
-		g_fanimacion = true;
-		rotacion = 180;
-	}
-
-
-	glPopMatrix();
-
-
-	//sillon
-	//glPushMatrix();
-	////glRotated(0, 0, 1, 0);
-	//glTranslatef(-18.5+20, 0, -9);
-	//glScalef(.8, 1.8, 1.5);
-	//sofa2.GLrender(NULL, _SHADED, 1.0);
-	//glDisable(GL_COLOR_MATERIAL);
-	//glColor3f(1, 1, 1);
-	////glBindTexture(GL_TEXTURE_2D, 0);
-	//glPopMatrix();
-
-
-	//
-	///////////////////////////////////////  ALCOBA3
-
-	//¨****casa*****
-	glPushMatrix();
-	glScalef(1.0, 1, 1.0);
-	glTranslatef(0, 12, 0);
-	glRotatef(180, 0, 1, 0);
-	glDisable(GL_LIGHTING);
-	glScalef(0.3, 0.3, 0.3);
-
-
-
-	cuarto();
-
-	////psoter1
-	//glPushMatrix();
-	//glTranslatef(19.5, -25,-45);   //zyx
-	//glRotatef(90, 0, 1, 0);
-	//poster1();
-	//glPopMatrix();
-
-	//glPushMatrix();//poster3
-	//glTranslatef(19.5, -32, 6);
-	//glRotatef(90, 0, 1, 0);
-	//poster3();
-	//glPopMatrix();
-
-	//dibujo kh
-	//glPushMatrix();
-	//glTranslatef(25, -21, -.5); //xyz
-	//glRotatef(180, 0, 1, 0);
-	////poster4();
-	//glPopMatrix();
-
-	/*conejo();
-	posterganon();
-	shenlong();
-	poster7();
-	poster8();*/
-	//juegos();
-	//muebletele();
-	//Cama();
-	//mueblerevistas();
-
-	//revistas();
-
-	//tele();
-	//ropero();
-	/*mueblecama();
-	mueblenegro();*/
-
-	glEnable(GL_LIGHTING);
-	glPopMatrix();
-
-	if (abrirPuerta == 90) {
-		puertaabierta = false;
-	}
-
-	if (abrirPuerta == 0) {
-		puertacerrada = false;
-	}
-
-	if (cortinaizq == 20) {
-		cortinaabierta = false;
-	}
-
-	if (cortinaizq == 0) {
-		cortinacerrada = false;
-	}
-
-
-
-	glPushMatrix();
-
-
-
-	GLfloat vertice[8][3] = {
-		{ 0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 0 V0
-	{ -0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 1 V1
-	{ -0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 2 V2
-	{ 0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 3 V3
-	{ 0.5 ,0.5, 0.5 },    //Coordenadas Vértice 4 V4
-	{ 0.5 ,0.5, -0.5 },    //Coordenadas Vértice 5 V5
-	{ -0.5 ,0.5, -0.5 },    //Coordenadas Vértice 6 V6
-	{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
-	};
-	//TELE
-	glPushMatrix();
-	glRotated(90, 0, 1, 0);//TRASLADAR TELEVISION
-						   //glTranslatef(1,-1.1,-8);
-	glScalef(.6, .6, .6);
-	glTranslatef(-2, 3.7, -19);
-
-	glPushMatrix();
-	glTranslatef(-32 + 20, 11, -10);
-	glScalef(0.02, 0.023, 0.02);
-	crt.GLrender(NULL, _SHADED, 1.0);
-	glPopMatrix();
-
-	if (prendertele) {
-		glTranslatef(20, 0, 0);
-		glPushMatrix(); //ruido
-						//glRotated(90,1,0,0);
-		glTranslated(-32, 11.3, -10.3);//x z y
-		glScalef(4.3, 3.4, 4);
-		glDisable(GL_LIGHTING);
-
-		if (prenderwii) {
-			glBindTexture(GL_TEXTURE_2D, textJuego.GLindex);
-			glBegin(GL_POLYGON);	//Front
-									//glColor3f(0.0,0.0,1.0);
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0.0f - (offset * 2), 0.0f); glVertex3fv(vertice[0]);
-			glTexCoord2f(0.0f - (offset * 2), 1.0f); glVertex3fv(vertice[4]);
-			glTexCoord2f(1.0f - (offset * 2), 1.0f); glVertex3fv(vertice[7]);
-			glTexCoord2f(1.0f - (offset * 2), 0.0f); glVertex3fv(vertice[1]);
-			glEnd();
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glEnable(GL_LIGHTING);
-		}
-		else
-		{
-			glBindTexture(GL_TEXTURE_2D, text3.GLindex);
-			glBegin(GL_POLYGON);	//Front
-									//glColor3f(0.0,0.0,1.0);
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
-			glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[4]);
-			glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[7]);
-			glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
-			glEnd();
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glEnable(GL_LIGHTING);
-		}
-
-		glPopMatrix();
-	}
-
-
-	glColor3f(1.0, 1.0, 1.0);
-	glPopMatrix();
-	glPopMatrix();
-
-
-
-	//STARMAN
-	if (ventana2 >= 27) {//VENTANAS ABIERTAS
-						 //if (ventana3 >= -28) {//CERRADAS
-						 //cancion =true;
-
-		PosAlien = 3;
-		glTranslatef(20, 0, 0);
-
-		glPushMatrix();
-		glRotated(180, 0, 1, 0);
-		glDisable(GL_LIGHTING);
-		glTranslatef(37, 10, PosAlien - 5); //POSICION ALIEN 3
-		glEnable(GL_ALPHA_TEST); //para la transparencia
-		glAlphaFunc(GL_GREATER, .1f);
-		glRotated(270, 0, 1, 0);
-		cubo.prismaJ(20, 8, .5, textTransparente.GLindex, textAlien.GLindex);
-		glDisable(GL_ALPHA_TEST);
-		glEnable(GL_LIGHTING);
-		//printf("se prendio la musica?");
-
-		/////
-
-		glPushMatrix(); //FONDOPELEA
-						//glRotated(90,1,0,0);
-		glTranslated(0, 0, -21);//x z y 
-		glScalef(40, 40, 40);
-		glDisable(GL_LIGHTING);
-
-
-		glBindTexture(GL_TEXTURE_2D, textPelea.GLindex);//TEXTURAS DE PELEA
-
-														//glBindTexture(GL_TEXTURE_2D, texture[filter]);   // choose the texture to use.
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f - offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f - offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-
-		glPushMatrix();
-		glTranslatef(0, 0, .9);
-		glRotated(90, 0, 0, 1);
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f - offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f - offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-
-		glPopMatrix();
-
-		glPushMatrix();
-		glTranslatef(0, .84, 1);
-		glRotated(90, 1, 0, 0);
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f - offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f - offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-
-		glPopMatrix();
-
-		glPushMatrix();
-		glTranslatef(0, 0.26, 1);
-		glRotated(90, 1, 0, 0);
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-
-		glPopMatrix();
-		//glBindTexture(GL_TEXTURE_2D, 0);
-		//glPopMatrix();
-
-		////
-		glTranslatef(-.2, 0, 1);
-		glRotated(90, 0, 1, 0);
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-		//glBindTexture(GL_TEXTURE_2D, 0);
-		//glPopMatrix();
-
-		glTranslatef(0, 0, -.6);
-		//glRotated(180, 0, 1, 0);
-		glBegin(GL_POLYGON);	//Front
-								//glColor3f(0.0,0.0,1.0);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
-		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
-		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
-		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
-		glEnd();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glPopMatrix();
-
-
-
-		glEnable(GL_LIGHTING);
-
-		glPopMatrix();
-		//}
-	}
-	else //VENTANAS CERRADAS
-	{
-		glRotated(180, 0, 1, 0);
-		glTranslatef(20, 0, 0);
-
-		PosAlien = -30;
-		//cancion = false;
-		/*printf("prendida");
-		PlaySound(TEXT("casa/starman.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);///cancion de los cojones*/
-		glDisable(GL_LIGHTING);
-		glPushMatrix();
-		glRotated(270, 0, 1, 0);
-		glTranslatef(0, 10, PosAlien);   //POSICION ALIENA -30
-		glEnable(GL_ALPHA_TEST); //para la transparencia
-		glAlphaFunc(GL_GREATER, .1f);
-		cubo.prismaJ(20, 8, .5, textTransparente.GLindex, textAlien.GLindex);
-		glDisable(GL_ALPHA_TEST);
-
-		glEnable(GL_LIGHTING);
-
-		glPopMatrix();
-		////////////////////////////////////////////////////
-
-	}
-
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
+	
 
 	glTranslatef(0, 0, 0);
-	figuras.prisma(0.1, 100, 100, text3.GLindex);
+	figuras.prisma_pasto(0.1, 100, 100, text5.GLindex);
 	glPopMatrix();
 	glEnable(GL_LIGHTING);
+
+	
 
 	glPushMatrix(); // Arquitectura de la casa
 					//glScalef(3, 3, 3);
@@ -1856,14 +1354,322 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPopMatrix();
 
+	
+
+
+	glPushMatrix(); ///////////con esto movi y escalé el cuarto
+	glScalef(.26, .145, .15);
+	glTranslatef(-25, 0, -113);
+
+
+	glPushMatrix();
+	glTranslatef(-12, 0, 7);
+	glRotated(-45, 0, 1, 0);
+
+	glScalef(0.06, 0.06, .06);
+	silla.GLrender(NULL, _SHADED, 1.0);
+
+	glPopMatrix();
+
+
+	//pato
+	glPushMatrix();
+	glTranslatef(MovPato1, MovPato2, MovPato3);
+	glTranslatef(2, 0, 11);
+	glScalef(0.008, 0.008, 0.008);
+	glRotated(rotacion, 0, 1, 0);
+	carrito.GLrender(NULL, _SHADED, 1.0);
+
+	glTranslatef(0, 130, -10);
+	ojos.GLrender(NULL, _SHADED, 1.0);
+
+	if (MovPato3 == 0 && MovPato2 == 2.5) {
+		inundacion = false;
+		g_fanimacion = true;
+	}
+	//glTranslatef(0, movKit2, movKit);
+
+	if (MovPato3 == -16) {
+		g_fanimacion = false;
+		g_fanimacion2 = true;
+	}
+	if (MovPato1 == 15) {
+		g_fanimacion2 = false;
+		g_fanimacion3 = true;
+	}
+	if (MovPato1 == 15 && MovPato3 == -2) {
+		g_fanimacion3 = false;
+		g_fanimacion4 = true;
+		printf("activacion falsa %f %f %f", MovPato1, MovPato2, MovPato3);
+	}
+	if (MovPato3 == -2 && MovPato1 == 0) {
+		g_fanimacion4 = false;
+		g_fanimacion = true;
+		rotacion = 180;
+	}
+
+
+	glPopMatrix();
+
+
+
+	//
+	///////////////////////////////////////  ALCOBA3
+
+	//¨****casa*****
+	glPushMatrix();
+	glScalef(1.0, 1, 1.0);
+	glTranslatef(0, 12, 0);
+	glRotatef(180, 0, 1, 0);
+	glDisable(GL_LIGHTING);
+	glScalef(0.3, 0.3, 0.3);
+
+
+
+	cuarto();
+
+
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	if (abrirPuerta == 90) {
+		puertaabierta = false;
+	}
+
+	if (abrirPuerta == 0) {
+		puertacerrada = false;
+	}
+
+	if (cortinaizq == 20) {
+		cortinaabierta = false;
+	}
+
+	if (cortinaizq == 0) {
+		cortinacerrada = false;
+	}
+
+
+
+	glPushMatrix();
+
+
+
+	GLfloat vertice[8][3] = {
+		{ 0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 0 V0
+	{ -0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 1 V1
+	{ -0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 2 V2
+	{ 0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 3 V3
+	{ 0.5 ,0.5, 0.5 },    //Coordenadas Vértice 4 V4
+	{ 0.5 ,0.5, -0.5 },    //Coordenadas Vértice 5 V5
+	{ -0.5 ,0.5, -0.5 },    //Coordenadas Vértice 6 V6
+	{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
+	};
+	//TELE
+	glPushMatrix();
+	glRotated(90, 0, 1, 0);//TRASLADAR TELEVISION
+						   //glTranslatef(1,-1.1,-8);
+	glScalef(.6, .6, .6);
+	glTranslatef(-2, 3.7, -19);
+
+	glPushMatrix();
+	glTranslatef(-32 + 20, 11, -10);
+	glScalef(0.02, 0.023, 0.02);
+	crt.GLrender(NULL, _SHADED, 1.0);
+	glPopMatrix();
+
+	if (prendertele) {
+		glTranslatef(20, 0, 0);
+		glPushMatrix(); //ruido
+						//glRotated(90,1,0,0);
+		glTranslated(-32, 11.3, -10.3);//x z y
+		glScalef(4.3, 3.4, 4);
+		glDisable(GL_LIGHTING);
+
+		if (prenderwii) {
+			glBindTexture(GL_TEXTURE_2D, textJuego.GLindex);
+			glBegin(GL_POLYGON);	//Front
+									//glColor3f(0.0,0.0,1.0);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0.0f - (offset * 2), 0.0f); glVertex3fv(vertice[0]);
+			glTexCoord2f(0.0f - (offset * 2), 1.0f); glVertex3fv(vertice[4]);
+			glTexCoord2f(1.0f - (offset * 2), 1.0f); glVertex3fv(vertice[7]);
+			glTexCoord2f(1.0f - (offset * 2), 0.0f); glVertex3fv(vertice[1]);
+			glEnd();
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glEnable(GL_LIGHTING);
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, text3.GLindex);
+			glBegin(GL_POLYGON);	//Front
+									//glColor3f(0.0,0.0,1.0);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
+			glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[4]);
+			glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[7]);
+			glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
+			glEnd();
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glEnable(GL_LIGHTING);
+		}
+
+		glPopMatrix();
+	}
+
+
+	glColor3f(1.0, 1.0, 1.0);
+	glPopMatrix();
+	glPopMatrix();
+
+
+
+	//STARMAN
+	if (ventana2 >= 27) {//VENTANAS ABIERTAS
+						 //if (ventana3 >= -28) {//CERRADAS
+						 //cancion =true;
+
+		PosAlien = 3;
+		glTranslatef(20, 0, 0);
+
+		glPushMatrix();
+		glRotated(180, 0, 1, 0);
+		glDisable(GL_LIGHTING);
+		glTranslatef(37, 10, PosAlien - 5); //POSICION ALIEN 3
+		glEnable(GL_ALPHA_TEST); //para la transparencia
+		glAlphaFunc(GL_GREATER, .1f);
+		glRotated(270, 0, 1, 0);
+		cubo.prismaJ(20, 8, .5, textTransparente.GLindex, textAlien.GLindex);
+		glDisable(GL_ALPHA_TEST);
+		glEnable(GL_LIGHTING);
+
+		/////
+
+		glPushMatrix(); //FONDOPELEA
+						//glRotated(90,1,0,0);
+		glTranslated(0, 0, -21);//x z y 
+		glScalef(40, 40, 40);
+		glDisable(GL_LIGHTING);
+
+
+		glBindTexture(GL_TEXTURE_2D, textPelea.GLindex);//TEXTURAS DE PELEA
+
+														//glBindTexture(GL_TEXTURE_2D, texture[filter]);   // choose the texture to use.
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f - offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f - offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+
+		glPushMatrix();
+		glTranslatef(0, 0, .9);
+		glRotated(90, 0, 0, 1);
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f - offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f - offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(0, .84, 1);
+		glRotated(90, 1, 0, 0);
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f - offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f - offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(0, 0.26, 1);
+		glRotated(90, 1, 0, 0);
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+
+		glPopMatrix();
+		//glBindTexture(GL_TEXTURE_2D, 0);
+		//glPopMatrix();
+
+		////
+		glTranslatef(-.2, 0, 1);
+		glRotated(90, 0, 1, 0);
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+		//glBindTexture(GL_TEXTURE_2D, 0);
+		//glPopMatrix();
+
+		glTranslatef(0, 0, -.6);
+		//glRotated(180, 0, 1, 0);
+		glBegin(GL_POLYGON);	//Front
+								//glColor3f(0.0,0.0,1.0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f + offset, 0.0f); glVertex3fv(vertice[0]);
+		glTexCoord2f(0.0f, 1.0f + offset); glVertex3fv(vertice[4]);
+		glTexCoord2f(1.0f, 1.0f + offset); glVertex3fv(vertice[7]);
+		glTexCoord2f(1.0f + offset, 0.0f); glVertex3fv(vertice[1]);
+		glEnd();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glPopMatrix();
+
+
+
+		glEnable(GL_LIGHTING);
+
+		glPopMatrix();
+		//}
+	}
+	else //VENTANAS CERRADAS
+	{
+		glRotated(180, 0, 1, 0);
+		glTranslatef(20, 0, 0);
+
+		PosAlien = -30;
+		//cancion = false;
+		/*printf("prendida");
+		PlaySound(TEXT("casa/starman.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);///cancion de los cojones*/
+		glDisable(GL_LIGHTING);
+		glPushMatrix();
+		glRotated(270, 0, 1, 0);
+		glTranslatef(0, 10, PosAlien);   //POSICION ALIENA -30
+		glEnable(GL_ALPHA_TEST); //para la transparencia
+		glAlphaFunc(GL_GREATER, .1f);
+		cubo.prismaJ(20, 8, .5, textTransparente.GLindex, textAlien.GLindex);
+		glDisable(GL_ALPHA_TEST);
+
+		glEnable(GL_LIGHTING);
+
+		glPopMatrix();
+		////////////////////////////////////////////////////
+
+	}
+	glPopMatrix();
 	glPopMatrix();
 	glutSwapBuffers();
 
 }
-
-
-
-
 
 
 void animacion()
