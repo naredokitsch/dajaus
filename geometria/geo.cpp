@@ -1,9 +1,9 @@
 
 
 // DINING ROOM
-#include "BigTable.cpp"
-//#include "flowers.cpp"
-#include "chair.cpp"
+/*#include "BigTable.cpp"
+#include "flowers.cpp"
+#include "chair.cpp"*/
 
 
 //SALA
@@ -15,9 +15,9 @@
 
 
 // MUEBLES DE BANIO
-/*#include "toilet.cpp"
+#include "toilet.cpp"
 #include "sink.cpp"
-#include "shower.cpp"*/
+#include "shower.cpp"
 
 
 // MUEBLES DE RECAMARA
@@ -41,7 +41,7 @@
 //#include "umbrella.cpp"
 
 //ANIMACIONES
-#include "ironman.cpp"
+/*#include "ironman.cpp"
 #include "fan.cpp"
 #include "falcon.cpp"
-#include "tv.cpp"
+#include "tv.cpp"*/

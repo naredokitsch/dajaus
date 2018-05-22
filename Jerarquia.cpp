@@ -27,8 +27,11 @@ GLfloat Specular[] = { 1.0, 1.0, 1.0, 1.0 };				// Specular Light Values
 GLfloat Position[]= { 0.0f, 7.0f, -5.0f, 0.0f };			// Light Position
 GLfloat Position2[]= { 0.0f, 0.0f, -5.0f, 1.0f };			// Light Position
 
-CTexture ironman_body_texture;
+CTexture cedro;
+
+/*CTexture ironman_body_texture;
 CTexture ironman_head_texture;
+
 
 void getFramesValues();
 
@@ -72,7 +75,7 @@ void pong_interpolation ( void ) {
 	pong_KeyFrame[pong_playIndex].ball_X_INC = (pong_KeyFrame[pong_playIndex + 1].ball_X - pong_KeyFrame[pong_playIndex].ball_X) / pong_max_steps;	
 	pong_KeyFrame[pong_playIndex].ball_Y_INC = (pong_KeyFrame[pong_playIndex + 1].ball_Y - pong_KeyFrame[pong_playIndex].ball_Y) / pong_max_steps;	
 
-}
+}*/
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -94,19 +97,23 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	glEnable(GL_AUTO_NORMAL);
 	glEnable(GL_NORMALIZE);
 
-	ironman_body_texture.LoadTGA(ironman_body_);
+	/*ironman_body_texture.LoadTGA(ironman_body_);
 	ironman_body_texture.BuildGLTexture();
 	ironman_body_texture.ReleaseImage();
 
 	ironman_head_texture.LoadTGA(ironman_head_);
 	ironman_head_texture.BuildGLTexture();
-	ironman_head_texture.ReleaseImage();
+	ironman_head_texture.ReleaseImage();*/
+
+	cedro.LoadTGA(cedro_);
+	cedro.BuildGLTexture();
+	cedro.ReleaseImage();
 
 	objCamera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
 
-	getFramesValues();
+	//getFramesValues();
 }
-
+/*
 void ventiladores () {
 
 	fan_rot += 15;
@@ -343,10 +350,10 @@ void dibuja_ironman () {
 			
 			glPopMatrix();
 		glPopMatrix();
-}
+}*/
 
 
-void television() {
+/*void television() {
 
 
 	if( pong_play == false && pong_FrameIndex > 0 ) {
@@ -409,9 +416,9 @@ void television() {
 		glColor3f(1,1,1);
 
 	glPopMatrix();
-}
+}*/
 
-void millenary_falcon() {
+/*void millenary_falcon() {
 
 	if( falcon_play == false && falcon_FrameIndex > 0 ) {
 	falcon_reset();
@@ -432,9 +439,102 @@ void millenary_falcon() {
 		mueble falcon(coord_falcon, quads_falcon,trng_falcon, n_vertex_falcon);
 		falcon.solid();
 	glPopMatrix();	
+}*/
+
+/*void livingroom() {
+
+	mueble centerTable( coord_centerTable, quads_centerTable, trng_centerTable, n_vertex_centerTable);
+	mueble armchair( coord_armchair, quads_armchair, trng_armchair, n_vertex_armchair);
+
+	glPushMatrix();
+		//glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+		centerTable.solid();
+		glPushMatrix();
+			glScalef(0.02,0.02,0.02);
+			//armchair.solid();
+		glPopMatrix();
+	glPopMatrix();
+}*/
+
+
+/*void diningroom() {
+	mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable );
+	mueble florero( coord_flowers, quads_flowers, trng_flowers, n_vertex_flowers );
+	mueble chair1( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair2( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair3( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair4( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair5( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	mueble chair6( coord_chair, quads_chair, trng_chair, n_vertex_chair );
+	glPushMatrix();
+
+		glScalef(0.6, 0.6, 0.6);
+		glTranslatef(11,0,7);
+
+
+		glPushMatrix();									// MESA COMEDOR
+			glScalef(0.004,0.004,0.004);
+			glTranslatef(700.0049 , 0,-300);
+			glBindTexture(GL_TEXTURE_2D, cedro.GLindex);
+				BigTable.texturized();
+		glPopMatrix();
+
+		glPushMatrix();									// SILLAS COMEDOR
+				chair1.solid();
+			glTranslatef(0, 0, -2.4);	
+				chair2.solid();
+			glTranslatef(5.5, 0, 0);
+			glRotatef(180, 0, 1, 0 );
+				chair3.solid();
+			glTranslatef(0, 0, -2.4);
+				chair4.solid();
+			glTranslatef(2.7, 0, -2.8);
+			glRotatef(-90, 0, 1, 0 );
+				chair5.solid();
+			glTranslatef(8, 0, 0);
+			glRotatef(180, 0, 1, 0 );
+				chair6.solid();
+		glPopMatrix();
+
+		glColor3f(1,0,0);
+		glPushMatrix();									//FLORERO COMEDOR
+			glScalef(0.02,0.02,0.02);
+			glTranslatef(140, 115,-60);
+			florero.solid();
+		glPopMatrix();
+
+		glColor3f(1,1,1);
+
+
+	glPopMatrix();
 }
+*/
 
+void bagno1 (){
 
+	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
+	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
+	mueble shower( coord_shower, quads_shower, trng_shower, n_vertex_shower );
+	glPushMatrix();
+
+		glScalef(0.04, 0.04, 0.04);
+		glTranslatef( -195 , 0 , -155 ) ;
+
+		glPushMatrix();
+			glTranslatef(-40,20,0);
+			sink.solid();
+		glPopMatrix();
+
+		glRotatef(-90, 0, 1, 0);
+
+		toilet.solid();
+
+		glTranslatef(0,0,-15);
+
+		shower.solid();
+
+	glPopMatrix();
+}
 
 void display ( void )   // Creamos la funcion donde se dibuja
 {
@@ -453,15 +553,16 @@ void display ( void )   // Creamos la funcion donde se dibuja
 		glEnable(GL_TEXTURE_2D);
 
 
-		dibuja_ironman();
+		//dibuja_ironman();
+		bagno1();
 		
 		glDisable(GL_TEXTURE_2D);
 
-		ventiladores();
+		//ventiladores();
 
-		millenary_falcon();
+		//millenary_falcon();
 
-		television();
+		//television();
 
 
 		glPushMatrix();		
@@ -656,7 +757,7 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 void animacion()
 {
-	if(falcon_play)
+	/*if(falcon_play)
 	{		
 
 		if(	falcon_curr_steps >= falcon_max_steps) { //end of animation between frames? 	
@@ -703,7 +804,7 @@ void animacion()
 
 			pong_curr_steps++;
 		}
-	}
+	}*/
 
 	glutPostRedisplay();
 }
@@ -825,20 +926,6 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
 		break;
   }
   glutPostRedisplay();
-}
-
-void diningroom () {
-
-	mueble BigTable( coord_BigTable, quads_BigTable, trng_BigTable, n_vertex_BigTable, t_vertex_BigTable);
-	mueble chair( coord_chair, quads_chair, trng_chair, n_vertex_chair);
-	glPushMatrix();
-	//chair.solid();
-
-	//glScalef(0.004,0.004,0.004);
-	glTranslatef(500.0049 , 0,-300);
-	BigTable.solid();
-	glPopMatrix();
-
 }
 
 
