@@ -529,9 +529,42 @@ void bagno1 (){
 
 		toilet.solid();
 
-		glTranslatef(0,0,-15);
+		glTranslatef(0,20,-30);
 
 		shower.solid();
+
+	glPopMatrix();
+}
+
+void bagno2 (){
+
+	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
+	mueble sink( coord_sink, quads_sink, trng_sink, n_vertex_sink );
+	mueble shower( coord_shower, quads_shower, trng_shower, n_vertex_shower );
+	glPushMatrix();
+
+		glScalef(0.04, 0.04, 0.04);
+		glTranslatef( -195 , 0 , -175 ) ;
+
+		glPushMatrix();
+			glRotatef(180, 0, 1, 0);
+			glTranslatef(40,20,0);
+			sink.solid();
+		glPopMatrix();
+
+		glRotatef(-90, 0, 1, 0);
+
+		glPushMatrix();
+			glRotatef(180, 0, 1, 0);
+			toilet.solid();
+		glPopMatrix();
+
+		glTranslatef(0,20,-30);
+
+		glPushMatrix();
+			glRotatef(180, 0 , 1 , 0);
+			shower.solid();
+		glPopMatrix();
 
 	glPopMatrix();
 }
@@ -554,7 +587,12 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 
 		//dibuja_ironman();
+
+		//diningroom();
+
 		bagno1();
+
+		bagno2();
 		
 		glDisable(GL_TEXTURE_2D);
 
