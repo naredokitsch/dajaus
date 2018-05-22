@@ -6,7 +6,7 @@
 //*************											******//
 //************************************************************//
 //************************************************************//
-
+#define _CRT_SECURE_NO_DEPRECATE
 #include "texture.cpp"
 #include "figuras.cpp"
 #include "Camera.cpp"
@@ -76,7 +76,16 @@ void pong_interpolation ( void ) {
 	pong_KeyFrame[pong_playIndex].ball_Y_INC = (pong_KeyFrame[pong_playIndex + 1].ball_Y - pong_KeyFrame[pong_playIndex].ball_Y) / pong_max_steps;	
 
 }*/
-			
+	
+CTexture piso_Madera;
+CTexture text_muro2;
+CTexture text_muro1;	//Flecha
+CTexture text_piso_est;	//Flecha
+CTexture text_cielo;	//Pavimento
+CTexture text_Pasto;	//Pasto01
+
+
+
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);				// Negro de fondo	
@@ -96,6 +105,39 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	glEnable(GL_AUTO_NORMAL);
 	glEnable(GL_NORMALIZE);
+
+	char textt_1[] = { "texturas/Grass_tile_A_diffuse.tga" };
+	char textt_2[] = { "texturas/01.bmp" };
+	char textt_3[] = { "texturas/Stone_wall_tile_B_diffuse.tga" };
+	char textt_5[] = { "texturas/wall.tga" };
+	char textt_4[] = { "texturas/granite_01_dif.tga" };
+	char textt_6[] = { "texturas/Wooden_desks.tga" };
+
+
+	text_Pasto.LoadTGA(textt_1);
+	text_Pasto.BuildGLTexture();
+	text_Pasto.ReleaseImage();
+
+	text_cielo.LoadBMP(textt_2);
+	text_cielo.BuildGLTexture();
+	text_cielo.ReleaseImage();
+	
+	text_muro1.LoadTGA(textt_3);
+	text_muro1.BuildGLTexture();
+	text_muro1.ReleaseImage();
+	
+	text_piso_est.LoadTGA(textt_4);
+	text_piso_est.BuildGLTexture();
+	text_piso_est.ReleaseImage();
+
+	text_muro2.LoadTGA(textt_5);
+	text_muro2.BuildGLTexture();
+	text_muro2.ReleaseImage();
+
+	
+	piso_Madera.LoadTGA(textt_6);
+	piso_Madera.BuildGLTexture();
+	piso_Madera.ReleaseImage();
 
 	/*ironman_body_texture.LoadTGA(ironman_body_);
 	ironman_body_texture.BuildGLTexture();
@@ -510,6 +552,10 @@ void dibuja_ironman () {
 }
 */
 
+void sala() {
+
+}
+
 void bagno1 (){
 
 	mueble toilet( coord_toilet, quads_toilet, trng_toilet, n_vertex_toilet );
@@ -566,10 +612,11 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 
 		glPushMatrix();		
-			/*glPushMatrix(); //Creamos cielo
+			glPushMatrix(); //Creamos cielo
 				glDisable(GL_LIGHTING);
+				glEnable(GL_TEXTURE_2D);
 				glTranslatef(0,60,0);
-				sky.skybox(130.0, 130.0, 130.0,text1.GLindex);
+				sky.skybox(130.0, 130.0, 130.0, text_cielo.GLindex);
 				
 				glColor3f(1.0,1.0,1.0);
 			glPopMatrix();
@@ -577,22 +624,22 @@ void display ( void )   // Creamos la funcion donde se dibuja
 			// Creamos la plataforma con el pasto
 			glPushMatrix();
 				glTranslatef(0, 0, 0);
-				figuras.prisma(0.1,100,100,textPasto.GLindex);
+				figuras.prisma_pasto(0.1,100,100,text_Pasto.GLindex);
 			glPopMatrix();
-			glEnable(GL_LIGHTING);*/
+			glEnable(GL_LIGHTING);
 
 			glPushMatrix(); // Arquitectura de la casa
 			glTranslatef(5, 1.75, 0);
 				glPushMatrix(); // Cocina, Sala Comedor
 					glPushMatrix();
 						glTranslatef(-2.3, -1.6, 7);
-						figuras.prisma(0.001,17.5,14,0);//Suelo 
+						figuras.prisma_muro(0.001,17.5,14, piso_Madera.GLindex);//Suelo 
 					glPopMatrix();
 					glPushMatrix();
 						glTranslatef(-8, -1.6, 15.2);
-						figuras.prisma(0.001, 6, 2.7, 0);//Suelo 2
+						figuras.prisma(0.001, 6, 2.7, piso_Madera.GLindex);//Suelo 2
 					glPopMatrix();
-					figuras.prisma(3.5, 13, 0.1, 0); // Muro superior
+					figuras.prisma(3.5, 13, 0.1, text_muro1.GLindex); // Muro superior
 					glPushMatrix(); // Ventana Superior Izquierda
 						glTranslatef(-3.25, 0, 0);
 						figuras.prisma(3.5, 6, 0.11, 1); //  superior izquierda
@@ -602,29 +649,29 @@ void display ( void )   // Creamos la funcion donde se dibuja
 						figuras.prisma(3.5, 6, 0.11, 1); //  superior Derecha
 					glPopMatrix();
 					glTranslatef(6.5, 0, 4.5);
-					figuras.prisma(3.5, 0.1, 9, 0); //muro derecho
+					figuras.prisma(3.5, 0.1, 9, text_muro1.GLindex); //muro derecho
 					glPushMatrix(); // Ventana Derecha
 						glTranslatef(0.0, 0, -1);
 						figuras.prisma(3.5, 0.11, 6, 1); // Ventana superior izquierda
 					glPopMatrix();
 					glTranslatef(0, 0, 8.5);
-					figuras.prisma(3.5, 0.1, 2, 0); //muro derecho 2
+					figuras.prisma(3.5, 0.1, 2, text_muro1.GLindex); //muro derecho 2
 
 					glTranslatef(-4, 0, 1);
-					figuras.prisma(3.5, 8, 0.1, 0); //muro inferior
+					figuras.prisma(3.5, 8, 0.1, text_muro1.GLindex); //muro inferior
 					glPushMatrix(); // Ventana Derecha
 						glTranslatef(-1, 0.875, 0);
 						figuras.prisma(1.75, 6, 0.11, 1); // Ventana superior izquierda
 					glPopMatrix();
 					glTranslatef(-4, 0, 3.5);
-					figuras.prisma(3.5, 0.1, 7, 0); //muro inferior2
+					figuras.prisma(3.5, 0.1, 7, text_muro1.GLindex); //muro inferior2
 					glTranslatef(-3.5, 0, -2.25);
-					figuras.prisma(3.5, 0.1, 2.5, 0); //muro inferior3
+					figuras.prisma(3.5, 0.1, 2.5, text_muro1.GLindex); //muro inferior3
 					glTranslatef(-3, 0, 1.25);
-					figuras.prisma(3.5, 6, 0.1, 0); //muro inferior4
+					figuras.prisma(3.5, 6, 0.1, text_muro1.GLindex); //muro inferior4
 
 					glPushMatrix();
-						glTranslatef(-2.5, 0.5, 0);
+						glTranslatef(-2.5, 0.5, text_muro1.GLindex);
 						figuras.prisma(1, 1, 0.11, 1);	// Ventana Horizontal banio
 						glTranslatef(-0.5, 0, -0.5);
 						figuras.prisma(1, 0.11, 1.0, 1);	// Ventana Vertical Banio
@@ -632,13 +679,13 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 					glPushMatrix();
 						glTranslatef(-1.5,0,-3);
-						figuras.prisma(3.5,3,0.1,0);	// Muro Horizontal banio
+						figuras.prisma(3.5,3,0.1, text_muro1.GLindex);	// Muro Horizontal banio
 						glTranslatef(1.5, 0, 0.5);
-						figuras.prisma(3.5, 0.1, 1.0, 0);	// Muro Vertical Banio
+						figuras.prisma(3.5, 0.1, 1.0, text_muro1.GLindex);	// Muro Vertical Banio
 					glPopMatrix();
 
 					glTranslatef(-3, 0, -8);
-					figuras.prisma(3.5, 0.1, 16, 0); //muro izquierdo
+					figuras.prisma_muro(3.5, 0.1, 16, text_muro1.GLindex); //muro izquierdo
 
 					
 				glPopMatrix();// Fin Cocina-Sala Comedor	
@@ -647,14 +694,14 @@ void display ( void )   // Creamos la funcion donde se dibuja
 					glTranslatef(-6.5, 0, -10);
 					glPushMatrix();// Inicia Piso Interno
 						glTranslatef(-5, -1.74, 0.4);
-						figuras.prisma(0.1,10,21.01 ,0);
+						figuras.prisma_pasto(0.1,10,21.01 , piso_Madera.GLindex);
 					glPopMatrix();//  Termina Piso Interno
 					glPushMatrix();// Inicia Piso Madera Derecha
 						glTranslatef(-10., -1.73, 3.5);
-						figuras.prisma(0.1, 3, 7.0, 0);
+						figuras.prisma(0.1, 3, 7.0, piso_Madera.GLindex);
 					glPopMatrix();//  Termina Piso Madera Derecha
 
-					figuras.prisma(3.5, 0.1, -20, 0); // Muro Derecha
+					figuras.prisma(3.5, 0.1, -20, text_muro1.GLindex); // Muro Derecha
 					glPushMatrix(); // Ventana Derecha
 						glTranslatef(0, 0, 3.5);
 						figuras.prisma(3.5, 0.11, 7, 1); //  Ventana Larga Derecha
@@ -670,35 +717,35 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 					glPopMatrix();
 					glTranslatef(-5, 0, -10);
-					figuras.prisma(3.5, -10, 0.1, 0); // Muro Superior
+					figuras.prisma(3.5, -10, 0.1, text_muro1.GLindex); // Muro Superior
 
 					glTranslatef(-5, 0, 5);
-					figuras.prisma(3.5, 0.1, 10, 0); // Muro Izquierda 1
+					figuras.prisma(3.5, 0.1, 10, text_muro1.GLindex); // Muro Izquierda 1
 					glTranslatef(0.7, 0, 5);
-					figuras.prisma(3.5, 1.5, 0.1, 0); // Muro Izquierda 2
+					figuras.prisma(3.5, 1.5, 0.1, text_muro1.GLindex); // Muro Izquierda 2
 					glTranslatef(0.7, 0, 3.5);
 					figuras.prisma(3.5, 0.1, 7, 1); // Muro Izquierda 3
 					// TODO Agregar Puiertas Vidrio
 					glTranslatef(-0.7, 0, 3.5);
-					figuras.prisma(3.5, 1.5, 0.1, 0); // Muro Izquierda 4
+					figuras.prisma(3.5, 1.5, 0.1, text_muro1.GLindex); // Muro Izquierda 4
 
 					glTranslatef(-0.7, 0, 1.9);
-					figuras.prisma(3.5, 0.1, 3.8, 0); // Muro Izquierda 5
+					figuras.prisma(3.5, 0.1, 3.8, text_muro1.GLindex); // Muro Izquierda 5
 
 					glTranslatef(2.75, 0, 1.9);
-					figuras.prisma(3.5, 5.5, 0.1, 0); // Muro Inferior 
+					figuras.prisma(3.5, 5.5, 0.1, text_muro1.GLindex); // Muro Inferior 
 
 					// Inicia Muros internos
 					glPushMatrix();
 						glTranslatef(2.75, 0, -1.9);
-						figuras.prisma(3.5, 0.1, 3.8, 0); // Muro Inferior
+						figuras.prisma(3.5, 0.1, 3.8, text_muro1.GLindex); // Muro Inferior
 
 						glTranslatef(0, 0, -5.5);
-						figuras.prisma(3.5, 0.1, 3.8, 0); // Muros Centro Vertical 1
+						figuras.prisma(3.5, 0.1, 3.8, text_muro1.GLindex); // Muros Centro Vertical 1
 
 						glPushMatrix();
 							glTranslatef(-2.7, 0, 0.0);
-							figuras.prisma(3.5, 0.1, 1.9, 0); // Muros Centro Vertical 2
+							figuras.prisma(3.5, 0.1, 1.9, text_muro1.GLindex); // Muros Centro Vertical 2
 						glPopMatrix();
 
 						glTranslatef(-2.0, 0, 0.0);
@@ -706,25 +753,25 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 						glPushMatrix();
 							glTranslatef(0.5, 0, 1.9);
-							figuras.prisma(3.5, 3, 0.1, 0); // Muros Centro Horizontal 1
+							figuras.prisma(3.5, 3, 0.1, text_muro1.GLindex); // Muros Centro Horizontal 1
 						glPopMatrix();
 
 						glPushMatrix();
 							glTranslatef(0.5, 0, -1.9);
-							figuras.prisma(3.5, 3, 0.1, 0); // Muros Centro Horizontal 2
+							figuras.prisma(3.5, 3, 0.1, text_muro1.GLindex); // Muros Centro Horizontal 2
 						glPopMatrix();
 
 						glTranslatef(2, 0, -5.5);
-						figuras.prisma(3.5, 0.1, 3.8, 0); // Muro Inferior
+						figuras.prisma(3.5, 0.1, 3.8, text_muro1.GLindex); // Muro Inferior
 
 						glTranslatef(-2.5, 0, -1.9);
-						figuras.prisma(3.5, 6, 0.1, 0); // Muro Inferior
+						figuras.prisma(3.5, 6, 0.1, text_muro1.GLindex); // Muro Inferior
 
 
 					glPopMatrix();
 					
 				glPopMatrix(); //	Fin Recamaras
-				/*
+				
 				glPushMatrix();	//	Inicio Zona Alberca
 					glTranslatef(3.5, -1.73, -8.5);
 					figuras.prisma(0.1, 20, 17, 0);
@@ -735,14 +782,16 @@ void display ( void )   // Creamos la funcion donde se dibuja
 				glPopMatrix();	//	Fin Zona Alberca
 				
 				glPushMatrix();	//	Inicio Estacionamiento
+				glDisable(GL_LIGHTING);
 					glTranslatef(-18, -1.74, 8.75);
-					figuras.prisma(0.1, 13.8, 15.9, 0);
+					figuras.prisma_pasto(0.1, 13.8, 15.9, text_piso_est.GLindex);
 					glTranslatef(3.1, 0, 10.8);
-					figuras.prisma(0.1, 20.0, 6, 0); // Ladrillo frente a entrada
+					figuras.prisma_pasto(0.1, 20.0, 6, text_piso_est.GLindex); // Ladrillo frente a entrada
 					glTranslatef(11.5, 0, -1.6);
 					figuras.prisma(0.1, 3.7, 9.2, 0); // Ladrillo frente a entrada 2
+					glEnable(GL_LIGHTING);
 				glPopMatrix();	//	Fin Estacionamiento
-				*/
+				
 			glPopMatrix();
 
 
