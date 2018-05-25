@@ -28,6 +28,7 @@ bool CTexture::LoadTGA(char *filename)								// Loads A TGA File Into Memory
 		else
 		{
 			fclose(file);									// If Anything Failed, Close The File
+			printf("Something Went Wrong!");
 			return false;									// Return False
 		}
 	}

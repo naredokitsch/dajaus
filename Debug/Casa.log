@@ -1,0 +1,54 @@
+﻿  Jerarquia.cpp
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(20): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(84): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(135): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(200): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(265): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(454): warning C4101: 'theta': variable local sin referencia
+c:\users\personal\source\repos\proyectofinal\dajaus\figuras.cpp(454): warning C4101: 'phi': variable local sin referencia
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bigtable.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bigtable.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bigtable.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\flowers.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\flowers.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\flowers.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\chair.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\chair.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\centertable.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\centertable.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\centertable.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\armchair.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\armchair.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\armchair.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\sofa.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\sofa.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\sofa.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\toilet.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\toilet.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\sink.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\sink.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\shower.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\shower.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bed1.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bed1.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\bed1.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\stove.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\stove.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\stove.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\barstool.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\barstool.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\barstool.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\ironman.cpp(8): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\ironman.cpp(17): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\ironman.cpp(26): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\fan.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\fan.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\fan.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\falcon.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\falcon.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\falcon.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\tv.cpp(1): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\tv.cpp(2): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\geometria\tv.cpp(3): warning C4838: la conversión de 'double' en 'float' requiere una conversión de restricción
+c:\users\personal\source\repos\proyectofinal\dajaus\jerarquia.cpp(1162): warning C4101: 'submenu': variable local sin referencia
+  Casa.vcxproj -> C:\Users\personal\source\repos\ProyectoFinal\dajaus\Debug\Casa.exe

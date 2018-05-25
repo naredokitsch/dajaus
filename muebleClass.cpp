@@ -1,9 +1,7 @@
 
 #include <iostream>
-#include "texture.cpp"
 
 using namespace std;
-
 
 class mueble {
 
@@ -14,8 +12,6 @@ class mueble {
 	int* q;	   //Regla de Union de para QUADS
 	int* t;	   //Regla de Union para TRIANGLES
 
-	CTexture textura; //Objeto de Textura
-
 	public:
 		mueble(float* coordenadas, int* quadrilateral, int* triangles, float* normals) {
 			c = coordenadas;
@@ -24,17 +20,12 @@ class mueble {
 			n = normals;
 		}
 
-		mueble(float* coordenadas, int* quadrilateral, int* triangles, float* normals, float* v_textura, char* texture_path) {
+		mueble(float* coordenadas, int* quadrilateral, int* triangles, float* normals, float* v_textura) {
 			c = coordenadas;
 			q = quadrilateral;
 			t = triangles;
 			n = normals;
 			x = v_textura;
-
-			textura.LoadTGA(texture_path);
-			textura.BuildGLTexture();
-			textura.ReleaseImage();
-
 		}
 
 		void cloudPoints () {
@@ -51,7 +42,6 @@ class mueble {
 			glColor3f(0,1,0);
 			if(q[0] > 0) {
 				for (i = 10 ; i <= q[0] ;  i+=12) {
-				//printf("i = %i\n",i);
 					glBegin(GL_LINE_LOOP);
 						glVertex3f(c[(q[i - 9] * 3) - 2] , c[(q[i - 9] * 3) - 1] , c[q[i - 9] * 3]);
 						glVertex3f(c[(q[i - 6] * 3) - 2] , c[(q[i - 6] * 3) - 1] , c[q[i - 6] * 3]);
@@ -77,9 +67,6 @@ class mueble {
 		}
 
 		void solid () {
-
-			//glDisable(GL_TEXTURE_2D);
-
 			int i = 0;
 			if(q[0] > 0) {
 				for (i = 10 ; i <= q[0] ;  i+=12) {
@@ -101,14 +88,11 @@ class mueble {
 					glEnd();
 				}
 			}
-
-			//glEnable(GL_TEXTURE_2D);
 		}
 
 
 		void texturized() {
 			int i = 0;
-			glBindTexture(GL_TEXTURE_2D, textura.GLindex);
 			if(q[0] > 0) {
 					glBegin(GL_QUADS);
 					for (i = 1 ; i <= q[0] ;  i+=3) {
@@ -125,6 +109,6 @@ class mueble {
 					glEnd();
 				
 			}
-}
+		}
 
 };
